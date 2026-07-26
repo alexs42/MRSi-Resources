@@ -1,0 +1,31 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+Copyright (c) 2026 Aleksandar Stanic-Kostic
+
+WHAT THIS COVERS
+    All prose, documentation and generated pages in this repository:
+    README.md, resources.md, system-prompt.md, index.html, explainer.html,
+    everything under run-output/, the three figures in figures/, and
+    media/demo_full.mp4.
+
+    The software is licensed separately under LICENSE (MIT).
+    Third-party material is addressed in NOTICE.md and is NOT covered here.
+
+WHAT YOU MAY DO
+    Share and adapt this material for any purpose, including commercially,
+    provided you give appropriate credit, link to the licence, and indicate
+    whether changes were made.
+
+    Suggested attribution:
+        Stanic-Kostic A. MRSi-Resources. 2026.
+        https://github.com/alexs42/MRSi-Resources
+        Licensed CC BY 4.0.
+
+FULL LICENCE TEXT
+    Human-readable summary:  https://creativecommons.org/licenses/by/4.0/
+    Legal code:              https://creativecommons.org/licenses/by/4.0/legalcode
+
+NO WARRANTY
+    This material is provided as-is, without warranties of any kind. See the
+    disclaimer in README.md: it is a demonstration of method, it has not been
+    reviewed for accuracy by a human expert, and it is not medical advice.

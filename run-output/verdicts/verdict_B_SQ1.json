@@ -1,0 +1,122 @@
+[
+  {
+    "id": "SQ1-C1",
+    "verdict": "CONFIRMED",
+    "retrieved_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8095009/pdf/CD011184.pdf",
+    "retrieval_method": "curl (NCBI proof-of-work cookie) + pdftotext",
+    "quote_found": "There is probably little or no difference between the 'freeze all' strategy and the conventional IVF/ICSI strategy in cumulative live birth rate (OR 1.08, 95% CI 0.95 to 1.22; I² = 0%; 8 RCTs, 4712 women; moderate-quality evidence).",
+    "what_is_wrong": null,
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ1-C2",
+    "verdict": "CONFIRMED",
+    "retrieved_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8095009/pdf/CD011184.pdf",
+    "retrieval_method": "curl (NCBI proof-of-work cookie) + pdftotext",
+    "quote_found": "Based on this calculation the live birth rate after the first transfer is increased following the 'freeze all' strategy (OR 1.17, 95% CI 1.06 to 1.28; 13 RCTs, 7766 women) for all stages of transfer. Heterogeneity: Chi² = 46.47, df = 12 (P < 0.00001); I² = 74%. Live birth rate calculated after first transfer is added for illustrative purposes as this comparison is often reported in the literature. It possibly shows differences in outcome for a stimulated and an unstimulated uterus, although this does not take into account the number of embryos that were thawed for transfer. This outcome is less relevant for women undergoing treatment since at the same time of first transfer in a freeze-all strategy, they would already have received the second transfer (as long as there was a sufficient number of embryos) in a conventional strategy that includes fresh transfer. Here, one could consider the result of the first embryo transfer in the frozen group against the combined outcomes of the fresh transfer and the first frozen-thawed-transfer in the fresh group. Therefore cumulative live birth rate is the relevant outcome for women.",
+    "what_is_wrong": null,
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ1-C3",
+    "verdict": "CONFIRMED",
+    "retrieved_url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1513873",
+    "retrieval_method": "parallel-cli extract",
+    "quote_found": "The frequency of live births after frozen-embryo transfer was significantly higher than that after fresh-embryo transfer (49.3% vs. 42.0%), for a rate ratio of 1.17 (95% confidence interval [CI], 1.05 to 1.31; P=0.004).",
+    "what_is_wrong": null,
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ1-C4",
+    "verdict": "CONFIRMED",
+    "retrieved_url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1513873",
+    "retrieval_method": "parallel-cli extract",
+    "quote_found": "There was no significant between-group difference in the cumulative live-birth rate, including all frozen-embryo transfers performed within 12 months after the initial transfer (P=0.30) (Table S9 in the Supplementary Appendix).",
+    "what_is_wrong": null,
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ1-C5",
+    "verdict": "CONFIRMED",
+    "retrieved_url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1705334",
+    "retrieval_method": "parallel-cli extract",
+    "quote_found": "There was no significant difference in the rate of live birth between the frozen-embryo group and the fresh-embryo group (48.7% and 50.2%, respectively; relative risk, 0.97; 95% confidence interval [CI], 0.89 to 1.06; P=0.50) (Table 3).",
+    "what_is_wrong": null,
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ1-C6",
+    "verdict": "CONFIRMED",
+    "retrieved_url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1703768",
+    "retrieval_method": "parallel-cli extract",
+    "quote_found": "Live births occurred in 132 women (33.8%) in the frozen-embryo group and in 123 women (31.5%) in the fresh-embryo group, for a between-group difference of 2.3 percentage points (95% CI, –4.5 to 9.1; risk ratio, 1.07; 95% CI, 0.88 to 1.31; P=0.54).",
+    "what_is_wrong": null,
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ1-C7",
+    "verdict": "CONFIRMED",
+    "retrieved_url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1703768",
+    "retrieval_method": "parallel-cli extract",
+    "quote_found": "The cumulative 12-month rate of live birth in women who had completed 12 months of follow-up was 48.8% in the frozen-embryo group and 47.3% in the fresh-embryo group (risk ratio, 1.03; 95% CI, 0.89 to 1.19; P=0.72).",
+    "what_is_wrong": null,
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ1-C8",
+    "verdict": "CONFIRMED",
+    "retrieved_url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(18)32843-5/fulltext",
+    "retrieval_method": "parallel-cli extract",
+    "quote_found": "825 women were assigned to each group and included in analyses. Frozen single blastocyst transfer resulted in higher rates of singleton livebirth than did fresh single blastocyst transfer (416 [50%] vs 329 [40%]; relative risk [RR] 1·26, 95% CI 1·14–1·41, p<0·0001).",
+    "what_is_wrong": null,
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ1-C9",
+    "verdict": "CONFIRMED",
+    "retrieved_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7399608/fullTextXML",
+    "retrieval_method": "europepmc fullTextXML",
+    "quote_found": "No significant difference was found in the live birth rate between the freeze-all and fresh transfer group (61 of 223 (27.4%) and 66 of 230 (28.7%), respectively; risk ratio 0.98, 95% confidence interval 0.87 to 1.10, P=0.83; table 3).",
+    "what_is_wrong": null,
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ1-C10",
+    "verdict": "CONFIRMED",
+    "retrieved_url": "https://doi.org/10.1016/j.rbmo.2024.104449",
+    "retrieval_method": "parallel-cli extract",
+    "quote_found": "Combining all FET from the included oocyte retrievals, the cumulative live birth rate was 42.6% (95/223) in the freeze-all group versus 41.7% (96/230) in the fresh strategy group (risk ratio 1.0, 95% CI 0.87–1.19; P = 0.93).",
+    "what_is_wrong": null,
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ1-C11",
+    "verdict": "DISPUTED",
+    "retrieved_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9206534/fullTextXML",
+    "retrieval_method": "europepmc fullTextXML; parallel-cli extract for current-trial check",
+    "quote_found": "Couples undergoing their first, second or third cycle of IVF/ICSI treatment, with at least three good quality embryos on Day 3 where the female partner was ≥18 and <42 years of age were eligible.",
+    "what_is_wrong": "The live-birth counts and adjusted RR are present, but this was not an unselected IVF/ICSI population: randomisation occurred only after at least three good-quality Day-3 embryos were available. Of 1578 consented couples, 959 were not randomised, including 476 because three good-quality embryos were unavailable. The effect metadata also mislabels 0.65 to 1.06 as a 95% CI; Table II specifies a 99% CI for this secondary outcome. Finally, the 'only major trial published after the Cochrane search date' assertion is no longer true: a 2025 BMJ multicentre freeze-all-versus-fresh RCT randomised 838 women with low IVF prognosis (https://www.bmj.com/content/388/bmj-2024-081474).",
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ1-C12",
+    "verdict": "DISPUTED",
+    "retrieved_url": "https://www.fertstert.org/article/S0015-0282(24)00868-9/fulltext",
+    "retrieval_method": "parallel-cli search + parallel-cli extract",
+    "quote_found": "IPD from 12 trials involving 8,246 randomised participants were obtained. All 12 studies reported live births after the first transfer. IPD meta-analysis showed no evidence that a freeze-all embryo transfer strategy differed from a fresh embryo transfer on live birth rate following the first transfer (43.9% vs 41.1%, adjusted risk ratio (RR) 1.04, 95% confidence interval (CI) 0.92 to 1.18, I² 50%).",
+    "what_is_wrong": "The 2022 protocol and its planned first-transfer primary outcome are real, but the categorical statement that INFORM exists only as a protocol and has published no results is false. Fertility and Sterility published this INFORM primary-results abstract in October 2024. Human Reproduction also published an INFORM obstetric/neonatal IPD-results abstract in June 2025 (https://academic.oup.com/humrep/article/40/Supplement_1/deaf097.1086/8170259). I did not need to infer that a full-length results article exists: these published results abstracts alone refute 'no results have been published.'",
+    "tried": null,
+    "confidence": "high"
+  }
+]

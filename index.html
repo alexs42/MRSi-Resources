@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MRSi 2026 — Agents, models and resources</title>
+<meta name="description" content="Companion resources for 'Removing the Thorn From the Rose: How Best to Use LLMs' — MRSi 2026, Chicago.">
+<style>
+  :root{
+    --bg:#fbfaf7; --fg:#1c1a17; --muted:#5c574f; --rule:#ddd8cf;
+    --accent:#8B1A1A; --card:#fff; --link:#7a1616; --chip:#f1ede5;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#14130f; --fg:#eae6de; --muted:#a49d90; --rule:#302c25;
+           --accent:#e0685f; --card:#1c1a15; --link:#f0918a; --chip:#242019; }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    overflow-wrap:break-word;
+  }
+  .wrap{max-width:48rem;margin:0 auto;padding:1.4rem 1.15rem 4rem}
+  h1{font:700 1.55rem/1.2 Georgia,"Iowan Old Style",serif;margin:0 0 .35rem;letter-spacing:-.01em}
+  h2{font:700 1.2rem/1.25 Georgia,"Iowan Old Style",serif;margin:2.4rem 0 .2rem;
+     padding-top:1.1rem;border-top:1px solid var(--rule)}
+  h3{font:600 .82rem/1.3 system-ui,sans-serif;text-transform:uppercase;letter-spacing:.09em;
+     color:var(--muted);margin:1.5rem 0 .5rem}
+  p{margin:.6rem 0}
+  .kicker{font-size:.8rem;text-transform:uppercase;letter-spacing:.11em;color:var(--muted);margin:0 0 .5rem}
+  .meta{color:var(--muted);font-size:.9rem;margin:.15rem 0 0}
+  .lede{color:var(--muted);font-size:.97rem}
+
+  /* disclaimer */
+  .warn{
+    margin:1.5rem 0 .5rem;padding:1rem 1.1rem;background:var(--card);
+    border:2px solid var(--accent);border-left-width:9px;border-radius:3px;
+  }
+  .warn p:first-child{margin-top:0;font-weight:700;color:var(--accent);font-size:1.02rem}
+  .warn p:last-child{margin-bottom:0}
+  .warn p{font-size:.93rem;line-height:1.5}
+
+  /* link rows: big tap targets */
+  ul.links{list-style:none;margin:.5rem 0 0;padding:0}
+  ul.links li{border-bottom:1px solid var(--rule)}
+  ul.links li:last-child{border-bottom:0}
+  ul.links a{
+    display:block;padding:.72rem .2rem;color:var(--link);text-decoration:none;font-weight:600;
+  }
+  ul.links a:hover,ul.links a:focus{text-decoration:underline}
+  ul.links .note{display:block;font-weight:400;color:var(--muted);font-size:.87rem;margin-top:.12rem}
+
+  /* primary buttons */
+  .cta{display:block;margin:.6rem 0;padding:.95rem 1.1rem;background:var(--accent);color:#fff;
+       text-decoration:none;border-radius:4px;font-weight:700;font-size:1.02rem}
+  .cta .note{display:block;font-weight:400;font-size:.86rem;opacity:.9;margin-top:.15rem}
+  .cta.ghost{background:transparent;color:var(--link);border:2px solid var(--rule)}
+
+  table{border-collapse:collapse;width:100%;margin:.7rem 0;font-size:.9rem;display:block;overflow-x:auto}
+  th,td{text-align:left;padding:.45rem .6rem .45rem 0;border-bottom:1px solid var(--rule);vertical-align:top}
+  th{font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600}
+  code{background:var(--chip);padding:.12rem .34rem;border-radius:3px;font-size:.85em}
+  a{color:var(--link)}
+  footer{margin-top:3rem;padding-top:1.1rem;border-top:1px solid var(--rule);
+         color:var(--muted);font-size:.86rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="kicker">MRSi 2026 &middot; Drake Hotel, Chicago &middot; 28 July 2026</p>
+  <h1>Removing the Thorn From the Rose: How Best to Use LLMs</h1>
+  <p class="meta">Aleksandar Stanic-Kostic, MD, PhD &middot; University of Wisconsin&ndash;Madison</p>
+  <p class="lede">Everything from the talk: what to install, which models are worth knowing, where to
+  learn this properly &mdash; and the full audit trail of the agent run you just watched.</p>
+
+  <div class="warn">
+    <p>About the demo: this is a demonstration of method, not a clinical document.</p>
+    <p>The evidence explainer linked below was produced by a <strong>single unedited run of an AI
+    agent</strong> on 22 July 2026 and is published exactly as the run wrote it. It has
+    <strong>not been reviewed for accuracy by a human expert</strong>, and nothing was corrected,
+    re-worded or re-styled after the run finished. The checks it describes are checks the run ran on
+    itself. They are not peer review.</p>
+    <p><strong>It is not medical advice</strong>, not a guideline and not a systematic review. Do not
+    use it for patient care.</p>
+  </div>
+
+  <a class="cta ghost" href="https://github.com/alexs42/MRSi-Resources">Everything on GitHub
+    <span class="note">Full repository &mdash; resources, prompts, claims, verdicts, figures</span></a>
+
+  <h2>1 &middot; Coding agents</h2>
+  <p class="lede">An agent differs from a chat window in one respect that matters: it runs commands,
+  reads and writes files, and loops on the result. That is also why section&nbsp;6 is not optional.</p>
+
+  <h3>Commercial</h3>
+  <ul class="links">
+    <li><a href="https://code.claude.com/docs/en/setup">Claude Code<span class="note">code.claude.com &mdash; setup guide</span></a></li>
+    <li><a href="https://developers.openai.com/codex/cli/">Codex CLI &middot; OpenAI<span class="note">developers.openai.com/codex/cli</span></a></li>
+    <li><a href="https://antigravity.google/product/antigravity-cli">Antigravity CLI &middot; Google<span class="note">antigravity.google</span></a></li>
+    <li><a href="https://cursor.com/">Cursor<span class="note">cursor.com</span></a></li>
+    <li><a href="https://github.com/features/copilot">GitHub Copilot<span class="note">github.com/features/copilot</span></a></li>
+    <li><a href="https://code.visualstudio.com/">VS Code<span class="note">code.visualstudio.com</span></a></li>
+  </ul>
+
+  <h3>Open source</h3>
+  <ul class="links">
+    <li><a href="https://opencode.ai/">OpenCode<span class="note">opencode.ai</span></a></li>
+    <li><a href="https://kilo.ai/">Kilo Code<span class="note">kilo.ai</span></a></li>
+    <li><a href="https://pi.dev/">Pi<span class="note">pi.dev</span></a></li>
+  </ul>
+
+  <h3>Broader than code</h3>
+  <ul class="links">
+    <li><a href="https://github.com/NousResearch/hermes-agent">Hermes Agent &middot; Nous Research<span class="note">github.com/NousResearch/hermes-agent</span></a></li>
+    <li><a href="https://github.com/openclaw/openclaw">OpenClaw<span class="note">github.com/openclaw/openclaw</span></a></li>
+    <li><a href="https://github.com/NVIDIA/NemoClaw">NemoClaw &middot; NVIDIA<span class="note">github.com/NVIDIA/NemoClaw</span></a></li>
+  </ul>
+
+  <h2>2 &middot; Models behind them</h2>
+  <p class="lede">Versions move fast. The vendor and the family are the durable part; the flagship
+  column is a snapshot taken 26 July 2026.</p>
+
+  <h3>Closed weights, API only</h3>
+  <table>
+    <tr><th>Vendor</th><th>Family</th><th>Flagship</th></tr>
+    <tr><td><a href="https://openai.com">OpenAI</a></td><td>GPT-5.6</td><td>Sol, Terra, Luna</td></tr>
+    <tr><td><a href="https://www.anthropic.com">Anthropic</a></td><td>Claude 5</td><td>Opus 5, Fable 5</td></tr>
+    <tr><td><a href="https://deepmind.google/models/gemini/">Google</a></td><td>Gemini 3</td><td>3.1 Pro, 3.6 Flash</td></tr>
+  </table>
+
+  <h3>Open weights or open source</h3>
+  <p class="lede">You can download these, inspect them and run them on your own hardware. That
+  matters for anything touching patient data, and it is why &ldquo;can I even use this at work&rdquo;
+  has an answer other than no. Names below were confirmed against the Hugging Face registry on
+  26 July 2026 rather than quoted from memory.</p>
+  <table>
+    <tr><th>Vendor</th><th>Model</th><th>Name on Hugging Face</th></tr>
+    <tr><td><a href="https://thinkingmachines.ai">Thinking Machines</a></td><td>Inkling</td><td><code>thinkingmachines/Inkling</code></td></tr>
+    <tr><td>NVIDIA</td><td>Nemotron 3 Ultra</td><td><code>nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16</code></td></tr>
+    <tr><td>OpenAI</td><td>GPT-OSS 120B</td><td><code>openai/gpt-oss-120b</code></td></tr>
+    <tr><td><a href="https://www.llama.com">Meta</a></td><td>Llama 4</td><td><code>meta-llama/Llama-4-Maverick-17B-128E-Instruct</code></td></tr>
+    <tr><td><a href="https://mistral.ai">Mistral</a> (France)</td><td>Mistral Large 3</td><td><code>mistralai/Mistral-Large-3-675B-Instruct-2512</code></td></tr>
+    <tr><td><a href="https://moonshot.ai">Moonshot AI</a> (China)</td><td>Kimi K2.7</td><td><code>moonshotai/Kimi-K2.7-Code</code></td></tr>
+    <tr><td><a href="https://www.deepseek.com">DeepSeek</a> (China)</td><td>DeepSeek V4 Flash</td><td><code>deepseek-ai/DeepSeek-V4-Flash</code></td></tr>
+    <tr><td><a href="https://z.ai">Z.ai</a> (China)</td><td>GLM-5.2</td><td><code>zai-org/GLM-5.2</code></td></tr>
+    <tr><td>Alibaba (China)</td><td>Qwen 3.5</td><td><code>Qwen/Qwen3.5-35B-A3B</code></td></tr>
+  </table>
+
+  <h2>3 &middot; Getting and running open models</h2>
+  <ul class="links">
+    <li><a href="https://huggingface.co">Hugging Face<span class="note">Roughly 2.9 million models, plus datasets and demos</span></a></li>
+    <li><a href="https://lmstudio.ai">LM Studio<span class="note">Desktop app, no terminal &mdash; easiest first try</span></a></li>
+    <li><a href="https://anythingllm.com">AnythingLLM<span class="note">Desktop app with document chat built in</span></a></li>
+    <li><a href="https://ollama.com">Ollama<span class="note">One command per model &mdash; good default for a laptop</span></a></li>
+    <li><a href="https://docs.vllm.ai">vLLM<span class="note">Serving several users at once, GPU</span></a></li>
+    <li><a href="https://github.com/ggml-org/llama.cpp">llama.cpp<span class="note">The engine underneath much of the above</span></a></li>
+  </ul>
+
+  <h2>4 &middot; Learning how these actually work</h2>
+  <p class="lede">Grant Sanderson makes the best visual explanations of this material anywhere, and is
+  the reason a lot of people finally understood attention.</p>
+  <ul class="links">
+    <li><a href="https://youtu.be/wjZofJX0v4M">How transformers work<span class="note">3Blue1Brown &mdash; start here</span></a></li>
+    <li><a href="https://youtu.be/aircAruvnKk?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi">Neural networks, videos 1&ndash;10<span class="note">3Blue1Brown &mdash; the full series</span></a></li>
+    <li><a href="https://www.3blue1brown.com">3blue1brown.com<span class="note">Everything else he has made</span></a></li>
+  </ul>
+
+  <h2>5 &middot; Context engineering</h2>
+  <p class="lede">Getting the right material in front of the model, in the right order, at the right
+  moment. This is most of the difference between a useful answer and a plausible one.</p>
+  <ul class="links">
+    <li><a href="https://simonwillison.net/tags/context-engineering/">Simon Willison on context engineering<span class="note">simonwillison.net</span></a></li>
+    <li><a href="https://www.philschmid.de/context-engineering">Phil Schmid (Google DeepMind)<span class="note">philschmid.de</span></a></li>
+  </ul>
+
+  <h2>6 &middot; Read this before you point an agent at anything that matters</h2>
+  <ul class="links">
+    <li><a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">The Lethal Trifecta &middot; Simon Willison<span class="note">A must read</span></a></li>
+    <li><a href="https://simonwillison.net">simonwillison.net<span class="note">Worth following generally</span></a></li>
+  </ul>
+  <p>Access to private data, exposure to untrusted content, and the ability to communicate outward.
+  Any two are usually fine. All three together, and a document you did not write can instruct your
+  agent to send your data somewhere you did not choose. Everything in this repository was built by an
+  agent holding all three &mdash; which is exactly why it ran in a scratch directory with no patient
+  data anywhere near it.</p>
+
+  <h2>7 &middot; Prompting guides from the people who built the models</h2>
+  <ul class="links">
+    <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices">Anthropic &middot; prompting best practices<span class="note">platform.claude.com</span></a></li>
+    <li><a href="https://github.com/anthropics/claude-cookbooks">Anthropic cookbooks<span class="note">github.com/anthropics/claude-cookbooks</span></a></li>
+    <li><a href="https://developers.openai.com/cookbook/examples/chatgpt/chatgpt_prompt_guide/chatgpt_prompt_guide">OpenAI &middot; prompting guide<span class="note">developers.openai.com/cookbook</span></a></li>
+    <li><a href="https://github.com/google-gemini/cookbook">Google &middot; Gemini cookbook<span class="note">github.com/google-gemini/cookbook</span></a></li>
+    <li><a href="https://platform.openai.com/chat/edit">OpenAI prompt optimiser<span class="note">Needs an account before it will load</span></a></li>
+    <li><a href="https://platform.claude.com/dashboard">Anthropic dashboard<span class="note">Needs an account before it will load</span></a></li>
+  </ul>
+
+  <h2>8 &middot; A system prompt worth stealing</h2>
+  <p>The standing instruction I give a model before anything else. The lines that earn their place
+  are the ones giving the model permission to say no: <em>tell me if the request is illogical, wrong,
+  or there is no data after tool calls</em>, and <em>if there is no answer or the resource is not
+  available, say so, do not invent plausible answers.</em></p>
+  <p>A model with no licence to fail will produce something rather than nothing, and something rather
+  than nothing is how a fabricated citation ends up in your manuscript.</p>
+  <a class="cta ghost" href="system-prompt.md">Read the system prompt
+    <span class="note">Copy it, then cut whatever does not match how you work</span></a>
+
+  <h2>9 &middot; The demonstration</h2>
+  <p>An agent answering a real clinical question &mdash; fresh versus elective frozen embryo transfer
+  &mdash; under a method built so a clinician can check it rather than trust it. A plan committed
+  before any searching. A named primary source behind every number. Two frontier models from two
+  different vendors retrieving those sources separately and instructed to refute rather than agree.
+  An arithmetic rule, applied in code, deciding what survives.</p>
+
+  <a class="cta" href="explainer.html">Open the evidence explainer
+    <span class="note">The page the run produced &mdash; see the disclaimer above</span></a>
+  <a class="cta ghost" href="media/demo_full.mp4">Watch the run
+    <span class="note">4 min 17 s, sped up &middot; 26 MB &mdash; maybe wait for wifi</span></a>
+
+  <table>
+    <tr><th>Result</th><th></th></tr>
+    <tr><td>Claims extracted and adjudicated</td><td>57</td></tr>
+    <tr><td>Both verifiers returned the identical verdict</td><td>44 of 57 (77%)</td></tr>
+    <tr><td><code>[verified x2]</code></td><td>42</td></tr>
+    <tr><td><code>[disputed]</code> &mdash; disagreement quoted inline</td><td>12</td></tr>
+    <tr><td><code>[refuted x2]</code> &mdash; both rejected it, excluded</td><td>2</td></tr>
+    <tr><td><code>[unverified]</code> &mdash; source not retrieved, excluded</td><td>1</td></tr>
+    <tr><td>Wall clock</td><td>2 h 13 min</td></tr>
+  </table>
+
+  <p>The two models did not agree on everything. They returned different verdicts on <strong>13 of
+  57</strong> claims. Every disagreement is quoted in full rather than resolved silently, because the
+  disagreements are the part that carries information. Nothing was staged: no disagreement was
+  manufactured and no convergence suppressed. Four things went wrong during the run, including two
+  figures abandoned as AI images after both judges rejected them; all four are on the record in the
+  repository rather than tidied away.</p>
+
+  <a class="cta ghost" href="https://github.com/alexs42/MRSi-Resources">The full audit trail
+    <span class="note">Plan, claims, both verifiers&rsquo; raw verdicts, every prompt, the figure log</span></a>
+
+  <footer>
+    <p>Code <a href="https://github.com/alexs42/MRSi-Resources/blob/main/LICENSE">MIT</a>.
+    Prose and figures <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+    Quoted material from published papers, and the one thing changed after the run finished, are
+    addressed in <a href="https://github.com/alexs42/MRSi-Resources/blob/main/NOTICE.md">NOTICE.md</a>.</p>
+    <p>All links checked 26 July 2026.</p>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,152 @@
+[
+  {
+    "id": "SQ4-C1",
+    "verdict": "CONFIRMED",
+    "retrieved_url": "https://www.fertstert.org/article/S001502821931979X/pdf",
+    "retrieval_method": "parallel-cli extract (full Fertility and Sterility PDF)",
+    "quote_found": "“All patients with an ongoing pregnancy at 20 weeks' gestation continued to a live birth.” Table 3: “137 (50.0) ... 143 (45.7) ... .3177.”",
+    "what_is_wrong": null,
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ4-C2",
+    "verdict": "CONFIRMED",
+    "retrieved_url": "https://www.fertstert.org/article/S001502821931979X/pdf",
+    "retrieval_method": "parallel-cli extract (full Fertility and Sterility PDF)",
+    "quote_found": "“per intention to treat (ITT) at randomization (41.8% [138/330] vs. 43.5% [144/331]).”",
+    "what_is_wrong": null,
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ4-C3",
+    "verdict": "CONFIRMED",
+    "retrieved_url": "https://www.sciencedirect.com/science/article/pii/S001502821931979X",
+    "retrieval_method": "parallel-cli extract (publisher full text, cross-checked against the full Fertility and Sterility PDF)",
+    "quote_found": "“A post hoc subgroup analysis revealed a higher OPR per transfer in women aged 35–40 years after PGT-A (50.8% vs. 37.2%; P=.035) ... The OPRs were not significantly different ... 35–40 years (41.1% vs. 35.7%; P=.35) when analyzed per ITT.”",
+    "what_is_wrong": null,
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ4-C4",
+    "verdict": "CONFIRMED",
+    "retrieved_url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2103613",
+    "retrieval_method": "parallel-cli extract (NEJM full text)",
+    "quote_found": "“All embryos that were obtained were cryopreserved and single frozen-embryo transfers were performed each time in the two groups.” Table 3: “468 (77.2) ... 496 (81.8) ... −4.6 (−9.2 to −0.0) ... 0.94 (0.89 to 1.00).”",
+    "what_is_wrong": null,
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ4-C5",
+    "verdict": "CONFIRMED",
+    "retrieved_url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2103613",
+    "retrieval_method": "parallel-cli extract (NEJM full text)",
+    "quote_found": "“pregnancy outcomes after each of three transfers were all similar ... whereas the cumulative pregnancy outcome was lower with PGT-A.”",
+    "what_is_wrong": null,
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ4-C6",
+    "verdict": "CONFIRMED",
+    "retrieved_url": "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD005291.pub3/full",
+    "retrieval_method": "parallel-cli extract (Cochrane full text), cross-checked against PMC full-text HTML via curl",
+    "quote_found": "“No studies reported on cLBR after blastocyst stage biopsy.” The review also reports “138 events” versus “144 events,” “OR 0.93, 95% CI 0.69 to 1.27,” and that “a freeze-all strategy was used (Munné 2019).”",
+    "what_is_wrong": null,
+    "tried": null,
+    "confidence": "medium"
+  },
+  {
+    "id": "SQ4-C7",
+    "verdict": "UNRETRIEVABLE",
+    "retrieved_url": "https://journals.lww.com/greenjournal/fulltext/2022/11000/preimplantation_genetic_testing_for_aneuploidy.10.aspx",
+    "retrieval_method": "parallel-cli extract; curl; PubMed E-utilities; OpenAlex; Semantic Scholar; Unpaywall",
+    "quote_found": null,
+    "what_is_wrong": null,
+    "tried": "parallel-cli extract on the exact LWW full-text URL returned only the abstract/paywall; curl to that URL returned HTTP 403. parallel-cli extract on the Ovid PDF URL returned only the abstract. curl to, and parallel-cli extract from, the LWW download-PDF endpoint (_layouts/15/oaks.journals/downloadpdf.aspx?an=00006250-202211000-00010) returned HTTP 403/abstract-only content. A first guessed LWW issue URL ending .6.aspx resolved to an unrelated article. PubMed E-utilities supplied the abstract only. Parallel searches for the DOI/title plus filetype:pdf found no full article. OpenAlex and Semantic Scholar reported no open full-text PDF; Unpaywall yielded no usable open full text. The full article, tables, and forest plots could not be obtained.",
+    "confidence": "high"
+  },
+  {
+    "id": "SQ4-C8",
+    "verdict": "CONFIRMED",
+    "retrieved_url": "https://www.fertstert.org/article/S0015-0282(16)63094-7/pdf",
+    "retrieval_method": "parallel-cli extract (full Fertility and Sterility PDF)",
+    "quote_found": "Table 2 reports “Live birth 35/88 (39.8) 56/91 (61.5) <.01.” The text reports: “Odds of a live birth was 2.1 (95% confidence interval 0.95–4.68) with a frozen ET compared with a fresh ET.”",
+    "what_is_wrong": null,
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ4-C9",
+    "verdict": "DISPUTED",
+    "retrieved_url": "https://academic.oup.com/humrep/article/34/3/491/5303709",
+    "retrieval_method": "parallel-cli extract (Oxford Academic full text)",
+    "quote_found": "“The main outcome of the current meta-analysis was live birth per intention to treat (ITT).”",
+    "what_is_wrong": "The pooled RR, CI, heterogeneity, trial counts, and author-defined responder classification are reported, but the claim's per-transfer timing is wrong. The endpoint was live birth per randomized participant under ITT, not live birth conditional on an embryo transfer. Separately, the paper is internally inconsistent: it reports n=3,398 for the three high-responder live-birth studies despite stating that all four high-responder RCTs together contained only 2,010 patients; the claim does not resolve that source inconsistency.",
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ4-C10",
+    "verdict": "DISPUTED",
+    "retrieved_url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1513873",
+    "retrieval_method": "parallel-cli extract (NEJM full text)",
+    "quote_found": "“We performed intention-to-treat analyses to compare the frequency of live births in the two study groups.”",
+    "what_is_wrong": "The 49.3% versus 42.0%, RR 1.17 (95% CI 1.05–1.31), P=0.004 result and the PCOS population are correct, but the claim labels the result per-transfer. It was an ITT comparison among 1,508 randomized women of live birth during/after the first transfer, not a rate conditional on actually receiving a transfer. The article reports 170 women dropped out or deviated from protocol, yet retained the randomized-group ITT comparison.",
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ4-C11",
+    "verdict": "CONFIRMED",
+    "retrieved_url": "https://academic.oup.com/humrep/article/35/12/2808/5910340",
+    "retrieval_method": "parallel-cli extract (Oxford Academic full text)",
+    "quote_found": "“The intention to treat clinical pregnancy and live birth rates ... did not vary significantly ... 41/104 (39.4%) versus 42/101 (41.6%) ... However, moderate-to-severe OHSS occurred solely in the group that received low-dose hCG (9/105, 8.6% ... vs 0/104 ...; P < 0.01).”",
+    "what_is_wrong": null,
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ4-C12",
+    "verdict": "CONFIRMED",
+    "retrieved_url": "https://www.fertstert.org/article/S0015-0282(24)00241-3/pdf",
+    "retrieval_method": "parallel-cli extract (full Fertility and Sterility PDF)",
+    "quote_found": "“At present, however, the routine use of blastocyst biopsy with aneuploidy testing in all infertile patients undergoing IVF treatment cannot be recommended.”",
+    "what_is_wrong": null,
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ4-C13",
+    "verdict": "CONFIRMED",
+    "retrieved_url": "https://www.fertstert.org/article/S0015-0282(24)00241-3/fulltext",
+    "retrieval_method": "parallel-cli extract (Fertility and Sterility full text)",
+    "quote_found": "“overall pregnancy outcomes via frozen embryo transfer were similar between PGT-A and conventional in vitro fertilization.” The opinion also states “increased risk of maternal hypertensive disorders of pregnancy and having a large-for-gestational-age infant.”",
+    "what_is_wrong": null,
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ4-C14",
+    "verdict": "CONFIRMED",
+    "retrieved_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10628516/",
+    "retrieval_method": "PMC full-text HTML via curl and pandoc",
+    "quote_found": "“Elective freeze-all is currently not recommended for routine clinical use.”",
+    "what_is_wrong": null,
+    "tried": null,
+    "confidence": "high"
+  },
+  {
+    "id": "SQ4-C15",
+    "verdict": "DISPUTED",
+    "retrieved_url": "https://academic.oup.com/humrep/article-pdf/38/11/2062/52726911/dead184.pdf",
+    "retrieval_method": "parallel-cli extract (Oxford Academic full PDF)",
+    "quote_found": "“Because of the introduction of blastocyst biopsy in conjunction with shallow sequencing, freeze-all of biopsied embryos is mostly applied in these cycles.”",
+    "what_is_wrong": "The recommendation against routine PGT-A use is present, and the document links these cycles to freeze-all and its risks. However, the claim's characterization of cryopreservation as obligatory is not supported: the source says it is “mostly applied,” not required in every PGT-A cycle.",
+    "tried": null,
+    "confidence": "high"
+  }
+]

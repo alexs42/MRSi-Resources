@@ -1,0 +1,273 @@
+You are an ADVERSARIAL VERIFIER in a formal evidence review on FRESH versus ELECTIVE FROZEN
+("freeze-all") embryo transfer in autologous IVF/ICSI. You are the second of two independent
+verifiers. The other verifier is a different model with a different retrieval path. The entire value
+of this exercise depends on your INDEPENDENCE.
+
+## YOUR JOB IS TO REFUTE, NOT TO AGREE
+For each claim below, your default posture is scepticism. Actively try to show that the number is
+WRONG, or that it is right only in a DIFFERENT POPULATION than the claim states, or that it is a
+per-transfer number being passed off as cumulative (or vice versa), or that the quoted sentence does
+not appear in the source. Agreeing is only acceptable after you have genuinely tried to break it.
+
+## HARD INDEPENDENCE REQUIREMENT
+You MUST retrieve each source YOURSELF. Do NOT trust the excerpt, quote, or numbers handed to you.
+They are the CLAIM under test, not evidence.
+FORBIDDEN: do NOT read any cached file in ./figs_source/ or any claims_SQ*.json or claims.json in
+this directory. Those are the other agent's working artefacts. Using them destroys the independence
+this task exists to establish. Retrieve from the web.
+
+## TOOLS AVAILABLE TO YOU
+- Network access is enabled.
+- `parallel-cli` is the most reliable route for paywalled publishers. Authenticate first:
+      export $(grep -E '^PARALLEL_API_KEY' <your .env file> | xargs)
+      parallel-cli auth
+  Then:  parallel-cli extract "<url>" --json     and    parallel-cli search "<query>" --json
+  (run `parallel-cli extract --help` to confirm exact flags before relying on them)
+- curl, python3 are available. Europe PMC REST API is open and needs no key:
+      https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:<PMID>&resultType=core&format=json
+      https://www.ebi.ac.uk/europepmc/webservices/rest/<SOURCE>/<PMCID>/fullTextXML
+- KNOWN OBSTACLE: nejm.org, thelancet.com and bmj.com return HTTP 403 to plain curl. parallel-cli
+  extract has been observed to succeed on NEJM. Cochrane full text is at
+  https://www.cochranelibrary.com/cdsr/doi/<DOI>/full and the PDF may be obtainable.
+- If after genuine effort you cannot obtain the primary source, the correct answer is UNRETRIEVABLE.
+  Do NOT guess, and do NOT fall back on your training-data memory of these trials. A memory-based
+  CONFIRMED is the single worst outcome of this exercise.
+
+## VERDICTS - exactly one per claim
+- "CONFIRMED"     : the number appears as stated, in the stated population, with the stated timing
+                    (per-transfer vs cumulative). You must supply the verbatim sentence YOU read.
+- "DISPUTED"      : it does not. State precisely what is wrong and quote what the source actually says.
+- "UNRETRIEVABLE" : you could not obtain the full text. List exactly what you tried.
+
+## OUTPUT - THIS IS THE ONLY THING THAT MATTERS
+Write a JSON array to ./verdict_B_SQ1.json with one object per claim id:
+{
+  "id": "<claim id>",
+  "verdict": "CONFIRMED" | "DISPUTED" | "UNRETRIEVABLE",
+  "retrieved_url": "<the exact URL you actually opened, or null>",
+  "retrieval_method": "<parallel-cli extract | europepmc fullTextXML | curl | ...>",
+  "quote_found": "<the verbatim sentence YOU read that settles the claim, or null>",
+  "what_is_wrong": "<for DISPUTED: precisely what differs, with the source's actual wording/number>",
+  "tried": "<for UNRETRIEVABLE: every route attempted>",
+  "confidence": "high" | "medium" | "low"
+}
+Write the file. Then print the same JSON to stdout. Do not print anything else of substance.
+
+## CLAIMS UNDER TEST for SQ1 - LIVE BIRTH (per-transfer vs cumulative) in unselected IVF/ICSI
+
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ1-C1
+CLAIM (under test, do not assume true):
+  In unselected women undergoing IVF/ICSI, a freeze-all strategy produced no detectable difference in CUMULATIVE live birth per woman randomised (all transfers arising from one oocyte retrieval) compared with a conventional strategy including fresh transfer: OR 1.08 (95% CI 0.95 to 1.22), 8 RCTs, 4712 women, I2 = 0%, moderate-quality (GRADE) evidence.
+Asserted design      : meta-analysis of RCTs
+Asserted population  : Women undergoing IVF or ICSI treatment, unselected (review inclusion: RCTs comparing a 'freeze all' strategy with a conventional IVF/ICSI strategy including a fresh embryo transfer); constituent trials span PCOS, ovulatory, high-responder and unselected populations
+Asserted outcome     : cumulative live birth   |  timing: cumulative
+Asserted effect      : OR = 1.08   95% CI = [0.95, 1.22]
+Asserted arm counts  : frozen/A = {'events': 1463, 'n': 2342} ; fresh/B = {'events': 1440, 'n': 2370}
+Asserted abs. risk d : REPORTED BY THE REVIEW (Summary of findings 1): 579 per 1000 with fresh-and-frozen (conventional) versus 589 per 1000 (95% CI 567 to 627) with frozen transfer only, i.e. +1.0 percentage point (95% CI -1.2 to +4.8 percentage points). COMPUTED BY ME from the Analysis 1.1 arm counts: 1463/2342 (62.5%) minus 1440/2370 (60.8%) = +1.7 percentage points.
+Asserted heterogen.  : I2 = 0% (Chi2 = 4.83, df = 7, P = 0.68); random-effects model gave an identical estimate; test for subgroup differences Chi2 = 0.07, df = 1 (P = 0.78), I2 = 0%
+DOI                  : 10.1002/14651858.CD011184.pub3
+PMID                 : 33539543
+Claimed location     : Results, section 1.1 'Effectiveness: cumulative live birth rate per woman' (PDF p.19); Analysis 1.1; Figure 4 (PDF p.20); Summary of findings 1; Data and analyses Comparison 1
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "There is probably little or no difference between the 'freeze all' strategy and the conventional IVF/ICSI strategy in cumulative live birth rate (OR 1.08, 95% CI 0.95 to 1.22; I2 = 0%; 8 RCTs, 4712 women; moderate-quality evidence)."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ1-C2
+CLAIM (under test, do not assume true):
+  In the same Cochrane review, live birth after the FIRST embryo transfer per randomised woman favoured freeze-all - OR 1.17 (95% CI 1.06 to 1.28), 13 RCTs, 7766 women - but with substantial unexplained heterogeneity (I2 = 74%), and the review explicitly designates this an illustrative secondary analysis rather than the decision-relevant outcome.
+Asserted design      : meta-analysis of RCTs
+Asserted population  : Women undergoing IVF or ICSI treatment across 13 RCTs: the 8 trials pooled for cumulative live birth plus 5 additional RCTs (Aflatoonian 2018, Aghahosseini 2017, Coates 2017, Shi 2018, Stormlund 2020) that reported live birth only after the first transfer
+Asserted outcome     : live birth per transfer (first transfer)   |  timing: per-transfer
+Asserted effect      : OR = 1.17   95% CI = [1.06, 1.28]
+Asserted arm counts  : frozen/A = {'events': 1716, 'n': 3876} ; fresh/B = {'events': 1579, 'n': 3890}
+Asserted abs. risk d : NOT reported by the review for this outcome. COMPUTED BY ME from the Analysis 3.1 arm counts: 1716/3876 (44.3%) minus 1579/3890 (40.6%) = +3.7 percentage points.
+Asserted heterogen.  : I2 = 74% (Chi2 = 46.47, df = 12, P < 0.00001); test for overall effect Z = 3.27 (P = 0.001)
+DOI                  : 10.1002/14651858.CD011184.pub3
+PMID                 : 33539543
+Claimed location     : Analysis 3.1 (Comparison 3: Additional analysis, live birth rate after first transfer per randomised woman) and Table 1 'Live birth rate after first transfer' with footnote a, PDF p.77
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "Live birth rate calculated after first transfer is added for illustrative purposes as this comparison is often reported in the literature. It possibly shows differences in outcome for a stimulated and an unstimulated uterus, although this does not take into account the number of embryos that were thawed for transfer. This outcome is less relevant for women undergoing treatment since at the same time of first transfer in a freeze-all strategy, they would already have received the second transfer (as long as there was a sufficient number of embryos) in a conventional strategy that includes fresh transfer. Here, one could consider the result of the first embryo transfer in the frozen group against the combined outcomes of the fresh transfer and the first frozen-thawed-transfer in the fresh group. Therefore cumulative live birth rate is the relevant outcome for women."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ1-C3
+CLAIM (under test, do not assume true):
+  In 1508 infertile women with polycystic ovary syndrome undergoing their first IVF cycle in China, frozen-embryo transfer produced a higher live-birth rate after the FIRST embryo transfer than fresh-embryo transfer: 49.3% versus 42.0%, rate ratio 1.17 (95% CI 1.05 to 1.31), P=0.004.
+Asserted design      : multicentre RCT
+Asserted population  : 1508 infertile women with the polycystic ovary syndrome undergoing their first IVF cycle, aged 20 to 34 years and weighing at least 40 kg, enrolled at 14 reproductive medical centres in China (June 2013 to May 2014)
+Asserted outcome     : live birth per transfer (first transfer)   |  timing: per-transfer
+Asserted effect      : RR = 1.17   95% CI = [1.05, 1.31]
+Asserted arm counts  : frozen/A = {'events': 368, 'n': 746} ; fresh/B = {'events': 320, 'n': 762}
+Asserted abs. risk d : NOT reported as an absolute difference with CI in the NEJM Results text I retrieved. COMPUTED BY ME: 49.3% minus 42.0% = +7.3 percentage points. Arm counts (368/746 = 49.3%, 320/762 = 42.0%) are taken from Cochrane Analysis 3.1 and reproduce the NEJM percentages exactly; I flag them as review-sourced cell counts, not read off the NEJM tables.
+Asserted heterogen.  : None
+DOI                  : 10.1056/NEJMoa1513873
+PMID                 : 27509101
+Claimed location     : Results, subsection 'Live Birth and Secondary Outcomes'; Table 3
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "The frequency of live births after frozen-embryo transfer was significantly higher than that after fresh-embryo transfer (49.3% vs. 42.0%), for a rate ratio of 1.17 (95% confidence interval [CI], 1.05 to 1.31; P=0.004)."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ1-C4
+CLAIM (under test, do not assume true):
+  In the same PCOS trial (Chen 2016), the CUMULATIVE live-birth rate including all frozen-embryo transfers performed within 12 months after the initial transfer did NOT differ significantly between the frozen-embryo and fresh-embryo strategies (P=0.30), so the trial's per-first-transfer advantage did not persist once subsequent transfers in the fresh arm were counted.
+Asserted design      : multicentre RCT
+Asserted population  : Same 1508 infertile women with polycystic ovary syndrome undergoing their first IVF cycle at 14 Chinese centres
+Asserted outcome     : cumulative live birth   |  timing: cumulative
+Asserted effect      : RR = None   95% CI = None
+Asserted arm counts  : frozen/A = {'events': 465, 'n': 746} ; fresh/B = {'events': 455, 'n': 762}
+Asserted abs. risk d : Not reported in the NEJM main text, which gives only P=0.30 and refers to Supplementary Appendix Table S9 (which I did not retrieve). COMPUTED BY ME from the Cochrane Analysis 1.1 arm counts for Chen 2016: 465/746 (62.3%) minus 455/762 (59.7%) = +2.6 percentage points, OR 1.12 (95% CI 0.91 to 1.37) as pooled by Cochrane. These cell counts are review-sourced, obtained by Cochrane from the trial; the P=0.30 is the trial's own.
+Asserted heterogen.  : None
+DOI                  : 10.1056/NEJMoa1513873
+PMID                 : 27509101
+Claimed location     : Results, subsection 'Live Birth and Secondary Outcomes', final paragraph; supported in Discussion
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "There was no significant between-group difference in the cumulative live-birth rate, including all frozen-embryo transfers performed within 12 months after the initial transfer (P=0.30) (Table S9 in the Supplementary Appendix )."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ1-C5
+CLAIM (under test, do not assume true):
+  In 2157 OVULATORY infertile women undergoing a first IVF cycle in China, live birth after the FIRST embryo transfer did not differ between elective frozen and fresh transfer: 525/1077 (48.7%) versus 542/1080 (50.2%), absolute difference -1.5 percentage points (95% CI -5.7 to 2.8), rate ratio 0.97 (95% CI 0.89 to 1.06), P=0.50.
+Asserted design      : multicentre RCT
+Asserted population  : 2157 ovulatory women with infertility undergoing their first in vitro fertilization cycle (per Cochrane's description: young women with regular menses whose IVF indication was tubal factor, male factor, or both); multicentre, China; enrolment March 2015 to November 2015
+Asserted outcome     : live birth per transfer (first transfer)   |  timing: per-transfer
+Asserted effect      : RR = 0.97   95% CI = [0.89, 1.06]
+Asserted arm counts  : frozen/A = {'events': 525, 'n': 1077} ; fresh/B = {'events': 542, 'n': 1080}
+Asserted abs. risk d : REPORTED BY THE PAPER in Table 3: -1.5 percentage points (95% CI -5.7 to 2.8) for frozen versus fresh.
+Asserted heterogen.  : None
+DOI                  : 10.1056/NEJMoa1705334
+PMID                 : 29320646
+Claimed location     : Results, subsection 'Live Birth and Secondary Outcomes'; Table 3 row 'Primary outcome: live birth - no. (%) | 525 (48.7) | 542 (50.2) | -1.5 (-5.7 to 2.8) | 0.97 (0.89 to 1.06) | 0.50'
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "There was no significant difference in the rate of live birth between the frozen-embryo group and the fresh-embryo group (48.7% and 50.2%, respectively; relative risk, 0.97; 95% confidence interval [CI], 0.89 to 1.06; P=0.50) ( Table 3 )."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ1-C6
+CLAIM (under test, do not assume true):
+  In 782 infertile women WITHOUT polycystic ovary syndrome at a single centre in Vietnam, live birth after the first embryo transfer was 132/391 (33.8%) with frozen versus 123/391 (31.5%) with fresh transfer, a difference of 2.3 percentage points (95% CI -4.5 to 9.1), risk ratio 1.07 (95% CI 0.88 to 1.31), P=0.54 - no significant difference.
+Asserted design      : single-centre RCT
+Asserted population  : 782 infertile women without the polycystic ovary syndrome undergoing a first or second IVF cycle; single centre (My Duc Hospital, Vietnam); universal ICSI
+Asserted outcome     : live birth per transfer (first transfer)   |  timing: per-transfer
+Asserted effect      : RR = 1.07   95% CI = [0.88, 1.31]
+Asserted arm counts  : frozen/A = {'events': 132, 'n': 391} ; fresh/B = {'events': 123, 'n': 391}
+Asserted abs. risk d : REPORTED BY THE PAPER: 2.3 percentage points (95% CI -4.5 to 9.1) for frozen versus fresh.
+Asserted heterogen.  : None
+DOI                  : 10.1056/NEJMoa1703768
+PMID                 : 29320655
+Claimed location     : Results, subsection 'Secondary Outcomes'; Table 2 row 'Live birth - no. (%)'
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "Live births occurred in 132 women (33.8%) in the frozen-embryo group and in 123 women (31.5%) in the fresh-embryo group, for a between-group difference of 2.3 percentage points (95% CI, -4.5 to 9.1; risk ratio, 1.07; 95% CI, 0.88 to 1.31; P=0.54)."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ1-C7
+CLAIM (under test, do not assume true):
+  In the same Vietnamese trial, the CUMULATIVE 12-month live-birth rate among women who had completed 12 months of follow-up was 48.8% with the frozen strategy versus 47.3% with the fresh strategy, risk ratio 1.03 (95% CI 0.89 to 1.19), P=0.72 - no significant difference once all transfers from the retrieval were counted.
+Asserted design      : single-centre RCT
+Asserted population  : Same 782 infertile women without polycystic ovary syndrome, restricted to those who had completed 12 months of follow-up
+Asserted outcome     : cumulative live birth   |  timing: cumulative
+Asserted effect      : RR = 1.03   95% CI = [0.89, 1.19]
+Asserted arm counts  : frozen/A = {'events': 191, 'n': 391} ; fresh/B = {'events': 185, 'n': 391}
+Asserted abs. risk d : NOT reported as an absolute difference with CI. COMPUTED BY ME: 48.8% minus 47.3% = +1.5 percentage points. Arm counts 191/391 and 185/391 are Cochrane Analysis 1.1 cells for Vuong 2018 and reproduce the trial's own 48.8% and 47.3% exactly.
+Asserted heterogen.  : None
+DOI                  : 10.1056/NEJMoa1703768
+PMID                 : 29320655
+Claimed location     : Results, subsection 'Outcomes at 12 Months'
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "The cumulative 12-month rate of live birth in women who had completed 12 months of follow-up was 48.8% in the frozen-embryo group and 47.3% in the fresh-embryo group (risk ratio, 1.03; 95% CI, 0.89 to 1.19; P=0.72)."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ1-C8
+CLAIM (under test, do not assume true):
+  In 1650 OVULATORY women with good prognosis undergoing a first IVF cycle at 21 Chinese centres, elective frozen SINGLE BLASTOCYST transfer gave a higher SINGLETON livebirth rate after the first transfer than fresh single blastocyst transfer: 416/825 (50%) versus 329/825 (40%), relative risk 1.26 (95% CI 1.14 to 1.41), p<0.0001.
+Asserted design      : multicentre RCT
+Asserted population  : 1650 women with regular menstrual cycles undergoing their first cycle of in-vitro fertilisation, enrolled Aug 1 2016 to June 3 2017 at 21 academic fertility centres in China; described by the authors as ovulatory women with good prognosis
+Asserted outcome     : singleton live birth per transfer (first transfer)   |  timing: per-transfer
+Asserted effect      : RR = 1.26   95% CI = [1.14, 1.41]
+Asserted arm counts  : frozen/A = {'events': 416, 'n': 825} ; fresh/B = {'events': 329, 'n': 825}
+Asserted abs. risk d : NOT reported as an absolute difference with CI in the text available to me. COMPUTED BY ME from the reported counts: 416/825 (50.4%) minus 329/825 (39.9%) = +10.5 percentage points.
+Asserted heterogen.  : None
+DOI                  : 10.1016/S0140-6736(18)32843-5
+PMID                 : 30827784
+Claimed location     : Summary, Findings (publisher page); corresponds to the trial's primary outcome
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "825 women were assigned to each group and included in analyses. Frozen single blastocyst transfer resulted in higher rates of singleton livebirth than did fresh single blastocyst transfer (416 [50%] vs 329 [40%]; relative risk [RR] 1.26, 95% CI 1.14-1.41, p<0.0001)."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ1-C9
+CLAIM (under test, do not assume true):
+  In 460 women aged 18-39 with regular menstrual cycles at eight public hospitals in Denmark, Sweden and Spain, a freeze-all strategy with GnRH-agonist trigger and single frozen blastocyst transfer gave no difference in live birth after the first transfer versus fresh single blastocyst transfer: 61/223 (27.4%) versus 66/230 (28.7%), risk ratio 0.98 (95% CI 0.87 to 1.10), P=0.83.
+Asserted design      : multicentre RCT
+Asserted population  : 460 women aged 18-39 years with regular menstrual cycles starting their first, second, or third treatment cycle of IVF or ICSI; outpatient fertility clinics at eight public hospitals in Denmark, Sweden and Spain; enrolled 5 May 2016 to 7 September 2018
+Asserted outcome     : live birth per transfer (first transfer)   |  timing: per-woman-randomised
+Asserted effect      : RR = 0.98   95% CI = [0.87, 1.1]
+Asserted arm counts  : frozen/A = {'events': 61, 'n': 223} ; fresh/B = {'events': 66, 'n': 230}
+Asserted abs. risk d : NOT reported for live birth (the paper reports it for the primary outcome, ongoing pregnancy: -1.8, 95% CI -10.5 to 7.0). COMPUTED BY ME for live birth: 27.4% minus 28.7% = -1.3 percentage points.
+Asserted heterogen.  : None
+DOI                  : 10.1136/bmj.m2519
+PMID                 : 32759285
+Claimed location     : Results; table 3 (Reproductive outcomes for women in freeze-all and fresh transfer groups, intention-to-treat)
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "No significant difference was found in the live birth rate between the freeze-all and fresh transfer group (61 of 223 (27.4%) and 66 of 230 (28.7%), respectively; risk ratio 0.98, 95% confidence interval 0.87 to 1.10, P=0.83; table 3 )."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ1-C10
+CLAIM (under test, do not assume true):
+  In the same Danish/Swedish/Spanish trial followed for a minimum of two years, the CUMULATIVE live birth rate combining all frozen transfers from the same oocyte retrieval was 95/223 (42.6%) with freeze-all versus 96/230 (41.7%) with the fresh strategy, risk ratio 1.0 (95% CI 0.87 to 1.19), P=0.93, while median time to first pregnancy was 106.0 days versus 29.0 days.
+Asserted design      : multicentre RCT (prespecified secondary outcome reported in a separate paper)
+Asserted population  : Same 460 women aged 18-39 with regular menstrual cycles randomised 1:1 in the multicentre trial; minimum follow-up two years from the start of ovarian stimulation
+Asserted outcome     : cumulative live birth   |  timing: cumulative
+Asserted effect      : RR = 1.0   95% CI = [0.87, 1.19]
+Asserted arm counts  : frozen/A = {'events': 95, 'n': 223} ; fresh/B = {'events': 96, 'n': 230}
+Asserted abs. risk d : NOT reported as an absolute difference with CI. COMPUTED BY ME: 42.6% minus 41.7% = +0.9 percentage points.
+Asserted heterogen.  : None
+DOI                  : 10.1016/j.rbmo.2024.104449
+PMID                 : 40350355
+Claimed location     : Abstract, Results (publisher page, Reproductive BioMedicine Online)
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "Combining all FET from the included oocyte retrievals, the cumulative live birth rate was 42.6% (95/223) in the freeze-all group versus 41.7% (96/230) in the fresh strategy group (risk ratio 1.0, 95% CI 0.87-1.19; P = 0.93)."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ1-C11
+CLAIM (under test, do not assume true):
+  In the E-Freeze pragmatic multicentre UK trial of 619 couples across 18 clinics - an unselected IVF/ICSI population and the only major trial published after the Cochrane search date - elective freeze did not improve live birth after the first embryo transfer and the point estimate favoured fresh: 87/307 (28.3%) versus 106/309 (34.3%), adjusted risk ratio 0.83 (99% CI 0.65 to 1.06).
+Asserted design      : multicentre RCT
+Asserted population  : 619 couples undergoing their first, second or third cycle of IVF/ICSI treatment with at least three good quality embryos on Day 3, female partner aged 18 to under 42 years, across 18 UK clinics 2016-2019; couples using donor gametes, undergoing preimplantation genetic testing, or already planning to freeze all embryos were excluded
+Asserted outcome     : live birth per transfer (first transfer)   |  timing: per-transfer
+Asserted effect      : RR = 0.83   95% CI = [0.65, 1.06]
+Asserted arm counts  : frozen/A = {'events': 87, 'n': 307} ; fresh/B = {'events': 106, 'n': 309}
+Asserted abs. risk d : REPORTED BY THE PAPER in the economic analysis: live birth rate difference -0.06 (95% CI -0.127 to 0.020), i.e. -6.0 percentage points, lower in the elective freeze arm. Consistent with my own computation from the Table II counts: 28.3% minus 34.3% = -6.0 percentage points.
+Asserted heterogen.  : None
+DOI                  : 10.1093/humrep/deab279
+PMID                 : 34999830
+Claimed location     : Results; Table II 'Primary and secondary outcomes of the E-Freeze trial', row 'Live birth episode | 87 (28.3%) | 106 (34.3%) | 0.83 (0.61 to 1.13) | 0.83 (0.65 to 1.06) | 0.054'
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "The live birth rate {28.3% versus 34.3%; RR, 99% CI: 0.83 (0.65 to 1.06)} and clinical pregnancy rates {33.9% versus 40.1%; RR, 99% CI: 0.85 (0.65 to 1.11)} were lower in the elective freeze arm, but there is no statistically significant difference ( Table II )."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ1-C12
+CLAIM (under test, do not assume true):
+  As of this search there is NO published individual-participant-data meta-analysis of freeze-all versus fresh transfer: the INFORM IPD meta-analysis exists only as a protocol (BMJ Open 2022, PROSPERO CRD42021296566), with live birth resulting from the first embryo transfer as its planned primary outcome.
+Asserted design      : IPD meta-analysis (protocol only - no results published)
+Asserted population  : Planned: couples undergoing IVF in RCTs comparing a freeze-all embryo transfer strategy and a fresh embryo transfer strategy
+Asserted outcome     : live birth per transfer (first transfer) - planned, not yet reported   |  timing: per-transfer
+Asserted effect      : RR = None   95% CI = None
+Asserted arm counts  : frozen/A = None ; fresh/B = None
+Asserted abs. risk d : Not applicable - no results have been published.
+Asserted heterogen.  : None
+DOI                  : 10.1136/bmjopen-2022-062578
+PMID                 : 35851030
+Claimed location     : Abstract, Introduction and Methods-and-analysis sections of the protocol
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "Existing randomised controlled trials (RCTs) comparing a freeze-all embryo transfer strategy and a fresh embryo transfer strategy have shown conflicting results. A freeze-all or a fresh transfer policy may be preferable for some couples undergoing in-vitro fertilisation (IVF), but it is unclear which couples would benefit most from each policy, how and under which protocols. Therefore, we plan a systematic review and individual participant data meta-analysis of RCTs comparing a freeze-all and a fresh transfer policy."
+---------------------------------------------------------------------------

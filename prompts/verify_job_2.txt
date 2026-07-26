@@ -1,0 +1,345 @@
+You are an ADVERSARIAL VERIFIER in a formal evidence review on FRESH versus ELECTIVE FROZEN
+("freeze-all") embryo transfer in autologous IVF/ICSI. You are the second of two independent
+verifiers. The other verifier is a different model with a different retrieval path. The entire value
+of this exercise depends on your INDEPENDENCE.
+
+## YOUR JOB IS TO REFUTE, NOT TO AGREE
+For each claim below, your default posture is scepticism. Actively try to show that the number is
+WRONG, or that it is right only in a DIFFERENT POPULATION than the claim states, or that it is a
+per-transfer number being passed off as cumulative (or vice versa), or that the quoted sentence does
+not appear in the source. Agreeing is only acceptable after you have genuinely tried to break it.
+
+## HARD INDEPENDENCE REQUIREMENT
+You MUST retrieve each source YOURSELF. Do NOT trust the excerpt, quote, or numbers handed to you.
+They are the CLAIM under test, not evidence.
+FORBIDDEN: do NOT read any cached file in ./figs_source/ or any claims_SQ*.json or claims.json in
+this directory. Those are the other agent's working artefacts. Using them destroys the independence
+this task exists to establish. Retrieve from the web.
+
+## TOOLS AVAILABLE TO YOU
+- Network access is enabled.
+- `parallel-cli` is the most reliable route for paywalled publishers. Authenticate first:
+      export $(grep -E '^PARALLEL_API_KEY' <your .env file> | xargs)
+      parallel-cli auth
+  Then:  parallel-cli extract "<url>" --json     and    parallel-cli search "<query>" --json
+  (run `parallel-cli extract --help` to confirm exact flags before relying on them)
+- curl, python3 are available. Europe PMC REST API is open and needs no key:
+      https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:<PMID>&resultType=core&format=json
+      https://www.ebi.ac.uk/europepmc/webservices/rest/<SOURCE>/<PMCID>/fullTextXML
+- KNOWN OBSTACLE: nejm.org, thelancet.com and bmj.com return HTTP 403 to plain curl. parallel-cli
+  extract has been observed to succeed on NEJM. Cochrane full text is at
+  https://www.cochranelibrary.com/cdsr/doi/<DOI>/full and the PDF may be obtainable.
+- If after genuine effort you cannot obtain the primary source, the correct answer is UNRETRIEVABLE.
+  Do NOT guess, and do NOT fall back on your training-data memory of these trials. A memory-based
+  CONFIRMED is the single worst outcome of this exercise.
+
+## VERDICTS - exactly one per claim
+- "CONFIRMED"     : the number appears as stated, in the stated population, with the stated timing
+                    (per-transfer vs cumulative). You must supply the verbatim sentence YOU read.
+- "DISPUTED"      : it does not. State precisely what is wrong and quote what the source actually says.
+- "UNRETRIEVABLE" : you could not obtain the full text. List exactly what you tried.
+
+## OUTPUT - THIS IS THE ONLY THING THAT MATTERS
+Write a JSON array to ./verdict_B_SQ2.json with one object per claim id:
+{
+  "id": "<claim id>",
+  "verdict": "CONFIRMED" | "DISPUTED" | "UNRETRIEVABLE",
+  "retrieved_url": "<the exact URL you actually opened, or null>",
+  "retrieval_method": "<parallel-cli extract | europepmc fullTextXML | curl | ...>",
+  "quote_found": "<the verbatim sentence YOU read that settles the claim, or null>",
+  "what_is_wrong": "<for DISPUTED: precisely what differs, with the source's actual wording/number>",
+  "tried": "<for UNRETRIEVABLE: every route attempted>",
+  "confidence": "high" | "medium" | "low"
+}
+Write the file. Then print the same JSON to stdout. Do not print anything else of substance.
+
+## CLAIMS UNDER TEST for SQ2 - OHSS AND OBSTETRIC/PERINATAL SAFETY
+
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ2-C1
+CLAIM (under test, do not assume true):
+  In a Cochrane meta-analysis of 6 RCTs (4478 women) comparing a 'freeze all' strategy with conventional IVF/ICSI including fresh transfer, elective freeze-all reduced ovarian hyperstimulation syndrome per randomised woman (17/2226 vs 83/2252; Peto OR 0.26, 95% CI 0.17 to 0.39, I2 = 0%), an absolute reduction of 2.92 percentage points (3.69% to 0.76%).
+Asserted design      : meta-analysis of RCTs
+Asserted population  : Women undergoing autologous IVF/ICSI randomised to freeze-all versus conventional fresh-transfer strategy; pooled trials span PCOS (Chen 2016), ovulatory good-prognosis (Wei 2019), non-PCOS (Vuong 2018), high responders (Santos-Ribeiro 2020), women at high OHSS risk (Ferraretti 1999) and unselected (Wong 2021)
+Asserted outcome     : OHSS any   |  timing: per-woman-randomised
+Asserted effect      : OR = 0.26   95% CI = [0.17, 0.39]
+Asserted arm counts  : frozen/A = {'events': 17, 'n': 2226} ; fresh/B = {'events': 83, 'n': 2252}
+Asserted abs. risk d : COMPUTED BY ME from the forest-plot arm counts: 17/2226 = 0.76% vs 83/2252 = 3.69%, ARD = -2.92 percentage points, NNT = 34. The review's own Summary of Findings expresses this as 33 per 1000 with conventional IVF versus 9 per 1000 (6 to 13) with freeze-all, i.e. ARD approximately -2.4 percentage points; the review's plain-language statement is 'if the OHSS rate is 3% following a conventional IVF/ICSI strategy, the rate following a freeze all strategy would be 1%'.
+Asserted heterogen.  : I2 = 0%; Chi2 = 4.85, df = 5 (P = 0.43)
+DOI                  : 10.1002/14651858.CD011184.pub3
+PMID                 : 33539543
+Claimed location     : Abstract, Main results; and Results section 1.2 'Safety: ovarian hyperstimulation syndrome (OHSS) per woman'; Analysis 1.2; Figure 5 (PDF page 24, printed page 21)
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "Women might develop less OHSS after the 'freeze all' strategy compared to the conventional IVF/ICSI strategy (OR 0.26, 95% CI 0.17 to 0.39; I2 = 0%; 6 RCTs, 4478 women; low-quality evidence). These data suggest that for an OHSS rate of 3% following the conventional strategy, the rate following the 'freeze all' strategy would be 1%."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ2-C2
+CLAIM (under test, do not assume true):
+  In Chen 2016 (multicentre RCT, 1508 infertile women with PCOS undergoing a first IVF cycle with up to two day-3 cleavage-stage embryos transferred), elective freeze-all reduced moderate or severe OHSS compared with fresh transfer (1.3% vs 7.1%; rate ratio 0.19, 95% CI 0.10 to 0.37; P<0.001).
+Asserted design      : multicentre RCT
+Asserted population  : 1508 infertile women with polycystic ovary syndrome undergoing their first IVF cycle, China, multicentre
+Asserted outcome     : moderate-severe OHSS   |  timing: per-woman-randomised
+Asserted effect      : RR = 0.19   95% CI = [0.1, 0.37]
+Asserted arm counts  : frozen/A = {'events': 10, 'n': 746} ; fresh/B = {'events': 54, 'n': 762}
+Asserted abs. risk d : -5.8 percentage points (7.1% fresh minus 1.3% frozen), taken from the percentages reported in the trial. Using the arm counts as entered in Cochrane Analysis 1.2 (10/746 = 1.34% vs 54/762 = 7.09%) I COMPUTED ARD = -5.75 percentage points, NNT = 17. The trial itself does not print a risk difference.
+Asserted heterogen.  : None
+DOI                  : 10.1056/NEJMoa1513873
+PMID                 : 27509101
+Claimed location     : Results, 'Live Birth and Secondary Outcomes'; Table 4
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "The incidence of moderate or severe ovarian hyperstimulation syndrome was significantly lower in the frozen-embryo group than in the fresh-embryo group (1.3% vs. 7.1%), for a rate ratio of 0.19 (95% CI, 0.10 to 0.37; P<0.001) (Table 4)."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ2-C3
+CLAIM (under test, do not assume true):
+  In Shi 2018 (multicentre RCT, 2157 ovulatory infertile women, day-3 double embryo transfer) in which women judged at high risk of OHSS were EXCLUDED at randomisation, elective freeze-all still reduced moderate or severe OHSS versus fresh transfer (7/1077 [0.6%] vs 22/1080 [2.0%]; RR 0.32, 95% CI 0.14 to 0.74; P=0.005; trial-reported risk difference -1.4 percentage points, 95% CI -2.4 to -0.4).
+Asserted design      : multicentre RCT
+Asserted population  : 2157 ovulatory infertile women undergoing IVF; randomisation occurred on the day of oocyte retrieval and only women with five or more oocytes retrieved were randomised; women at high risk of OHSS were excluded at that point
+Asserted outcome     : moderate-severe OHSS   |  timing: per-woman-randomised
+Asserted effect      : RR = 0.32   95% CI = [0.14, 0.74]
+Asserted arm counts  : frozen/A = {'events': 7, 'n': 1077} ; fresh/B = {'events': 22, 'n': 1080}
+Asserted abs. risk d : REPORTED BY THE TRIAL as -1.4 percentage points (95% CI -2.4 to -0.4). I independently COMPUTED the same value from the arm counts: 7/1077 = 0.65% vs 22/1080 = 2.04%, ARD = -1.39 percentage points, NNT = 72.
+Asserted heterogen.  : None
+DOI                  : 10.1056/NEJMoa1705334
+PMID                 : 29320646
+Claimed location     : Abstract, Results; and outcome table row reading '7/1077 (0.6) | 22/1080 (2.0) | -1.4 (-2.4 to -0.4) | 0.32 (0.14 to 0.74) | 0.005'
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "Frozen-embryo transfer resulted in a significantly lower risk of the ovarian hyperstimulation syndrome than fresh-embryo transfer (0.6% vs. 2.0%; relative risk, 0.32; 95% CI, 0.14 to 0.74; P=0.005)."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ2-C4
+CLAIM (under test, do not assume true):
+  In Santos-Ribeiro 2020 (single-centre RCT, 209 high responders with >=18 follicles >=11 mm in a GnRH antagonist cycle in whom BOTH arms received a GnRH agonist trigger), moderate-to-severe OHSS occurred only in the fresh-transfer arm, which received 1500 IU hCG as intensified luteal phase support (9/105, 8.6% vs 0/104; P<0.01).
+Asserted design      : single-centre RCT
+Asserted population  : Women with an excessive response to ovarian stimulation (>=18 follicles measuring >=11 mm) undergoing IVF/ICSI in a GnRH antagonist suppressed cycle between 2014 and 2017, i.e. women at high risk of OHSS
+Asserted outcome     : moderate-severe OHSS   |  timing: per-woman-randomised
+Asserted effect      : None = None   95% CI = None
+Asserted arm counts  : frozen/A = {'events': 0, 'n': 104} ; fresh/B = {'events': 9, 'n': 105}
+Asserted abs. risk d : COMPUTED BY ME from the arm counts: 0/104 = 0% vs 9/105 = 8.57%, ARD = -8.57 percentage points, NNT = 12. The trial reports the arm proportions with exact CIs (8.6%, 95% CI 3.2% to 13.9% vs 0%, 95% CI 0 to 3.7) but does not print a risk difference or a ratio measure.
+Asserted heterogen.  : None
+DOI                  : 10.1093/humrep/deaa226
+PMID                 : 32964939
+Claimed location     : Abstract, MAIN RESULTS AND THE ROLE OF CHANCE; Materials and methods, 'Study design', 'Difference between the fresh and vitrified-warmed embryo transfer study arms', 'Outcome measures'
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "However, moderate-to-severe OHSS occurred solely in the group that received low-dose hCG (9/105, 8.6%, 95% CI 3.2% to 13.9% vs 0/104, 95% CI 0 to 3.7, P < 0.01)."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ2-C5
+CLAIM (under test, do not assume true):
+  In E-Freeze 2022 (pragmatic multicentre RCT, 18 UK clinics, 619 couples randomised, over 80% single embryo transfer, hCG trigger in both arms because randomisation occurred on day 3 after fertilisation), OHSS was 11/307 (3.6%) after elective freeze versus 25/309 (8.1%) after fresh transfer (RR 0.44, 99% CI 0.15 to 1.30; p=0.051), a non-significant difference, with 6 cases (1.9%) of severe OHSS occurring only in the fresh arm.
+Asserted design      : multicentre RCT
+Asserted population  : Couples undergoing their first, second or third cycle of IVF/ICSI treatment in 18 UK clinics 2016-2019; exclusion criteria included 'a clinical indication for an elective freeze such as OHSS or fertility preservation'
+Asserted outcome     : OHSS any   |  timing: per-woman-randomised
+Asserted effect      : RR = 0.44   95% CI = [0.15, 1.3]
+Asserted arm counts  : frozen/A = {'events': 11, 'n': 307} ; fresh/B = {'events': 25, 'n': 309}
+Asserted abs. risk d : COMPUTED BY ME from the arm counts: 11/307 = 3.58% vs 25/309 = 8.09%, ARD = -4.51 percentage points, NNT = 22. The trial does not print a risk difference. Note the CI reported is a 99% CI because all secondary outcomes in this trial used 99% CIs to control multiplicity; the corresponding 95% CI given in the outcome table is 0.18 to 1.10.
+Asserted heterogen.  : None
+DOI                  : 10.1093/humrep/deab279
+PMID                 : 34999830
+Claimed location     : Results; Table II
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "The risk of OHSS was 3.6% (11/307) in the elective freeze arm compared to 8.1% (25/309) in the fresh embryo transfer arm (RR 0.44, 99% CI: 0.15 to 1.30) (Table II). The severity of ovarian hyperstimulation was only mild to moderate in the elective freeze group, whereas there were 6 cases (1.9%) of severe OHSS in the fresh embryo transfer group."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ2-C6
+CLAIM (under test, do not assume true):
+  In Stormlund 2020 (multicentre RCT, 460 women with regular menstrual cycles, single blastocyst transfer) OHSS was essentially eliminated in both arms - 0/223 versus 1/230 (0.4%) hospital admissions for OHSS and 0 versus 0 ascites punctures - but this comparison is CONFOUNDED because the freeze-all arm received a GnRH agonist trigger while the fresh arm received hCG, and 24/230 (10.4%) of the fresh arm were additionally rescued into freeze-all for OHSS risk.
+Asserted design      : multicentre RCT
+Asserted population  : 460 women aged 18-39 years with regular menstrual cycles starting their first, second, or third treatment cycle of IVF or ICSI, Denmark/Sweden/Spain
+Asserted outcome     : OHSS any   |  timing: per-woman-randomised
+Asserted effect      : None = None   95% CI = None
+Asserted arm counts  : frozen/A = {'events': 0, 'n': 223} ; fresh/B = {'events': 1, 'n': 230}
+Asserted abs. risk d : COMPUTED BY ME from the table counts: 0/223 = 0% vs 1/230 = 0.43%, ARD = -0.43 percentage points. The trial prints no effect estimate for OHSS because there were too few events; it reports only the raw counts.
+Asserted heterogen.  : None
+DOI                  : 10.1136/bmj.m2519
+PMID                 : 32759285
+Claimed location     : Discussion; and Table 2 rows 'Clinical signs of OHSS: Ascites puncture 0 | 0' and 'Hospital admission owing to OHSS 0 | 1 (0.4)', and 'Fresh transfer group converted to eFET: Risk of OHSS - | 24/230 (10.4)'
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "By applying this policy, only one woman in the fresh transfer group was admitted to hospital with ovarian hyperstimulation syndrome, but without the need for ascites or pleural drainage. Therefore, ovarian hyperstimulation syndrome was practically eliminated in both groups with the strict criteria of our study design."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ2-C7
+CLAIM (under test, do not assume true):
+  In a Cochrane meta-analysis of 3 RCTs (3940 women; Chen 2016, Vuong 2018, Wei 2019), hypertensive disorders of pregnancy after the first embryo transfer were more frequent following a freeze-all strategy than conventional fresh transfer (63/1962 vs 29/1978; Peto OR 2.15, 95% CI 1.42 to 3.25; I2 = 29%), an absolute increase of 1.74 percentage points.
+Asserted design      : meta-analysis of RCTs
+Asserted population  : Women undergoing autologous IVF/ICSI randomised to freeze-all versus fresh transfer; the three pooled trials are PCOS (Chen 2016), non-PCOS (Vuong 2018) and ovulatory good-prognosis (Wei 2019)
+Asserted outcome     : hypertensive disorders of pregnancy   |  timing: per-woman-randomised
+Asserted effect      : OR = 2.15   95% CI = [1.42, 3.25]
+Asserted arm counts  : frozen/A = {'events': 63, 'n': 1962} ; fresh/B = {'events': 29, 'n': 1978}
+Asserted abs. risk d : COMPUTED BY ME from the forest-plot arm counts: 63/1962 = 3.21% vs 29/1978 = 1.47%, ARD = +1.74 percentage points, number needed to harm = 57. The review's Summary of Findings expresses the same comparison as 15 per 1000 with fresh versus 31 per 1000 with freeze-all.
+Asserted heterogen.  : I2 = 29%; Chi2 = 2.84, df = 2 (P = 0.24)
+DOI                  : 10.1002/14651858.CD011184.pub3
+PMID                 : 33539543
+Claimed location     : Results section 1.9 'Hypertensive disorders of pregnancy'; Analysis 1.9; Figure 6 (PDF page 25, printed page 22)
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "The risk of hypertensive disorders might be increased following the 'freeze all' strategy (Peto OR 2.15, 95% CI 1.42 to 3.25; I2 = 29%; 3 RCTs, 3940 women; low-quality evidence; Analysis 1.9; Figure 6)."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ2-C8
+CLAIM (under test, do not assume true):
+  In Chen 2016 (1508 women with PCOS), preeclampsia was more frequent after frozen-embryo transfer than fresh-embryo transfer (4.4% vs 1.4%; rate ratio 3.12, 95% CI 1.26 to 7.73; P=0.009), although no patient in either group had severe preeclampsia.
+Asserted design      : multicentre RCT
+Asserted population  : Infertile women with polycystic ovary syndrome undergoing their first IVF cycle, China, multicentre
+Asserted outcome     : pre-eclampsia   |  timing: per-pregnancy
+Asserted effect      : RR = 3.12   95% CI = [1.26, 7.73]
+Asserted arm counts  : frozen/A = None ; fresh/B = None
+Asserted abs. risk d : +3.0 percentage points (4.4% frozen minus 1.4% fresh), taken directly from the percentages the trial reports. I could NOT recover the arm-level numerators and denominators for preeclampsia from the retrieved text - the trial reports percentages only in the sentence available to me, and Table 4 counts were not returned. The related but broader outcome 'hypertensive disorders of pregnancy' for this trial is entered in Cochrane Analysis 1.9 as 29/746 vs 11/762 (3.89% vs 1.44%, ARD +2.44 points), which I did read on the Figure 6 forest plot.
+Asserted heterogen.  : None
+DOI                  : 10.1056/NEJMoa1513873
+PMID                 : 27509101
+Claimed location     : Results, 'Live Birth and Secondary Outcomes'; Table 4
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "However, the incidence of preeclampsia was significantly higher with frozen-embryo transfer (4.4% vs. 1.4%), for a rate ratio of 3.12 (95% CI, 1.26 to 7.73; P=0.009), although no patient in either group had severe preeclampsia."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ2-C9
+CLAIM (under test, do not assume true):
+  In Wei 2019 (multicentre RCT, 1650 ovulatory women with good prognosis, SINGLE blastocyst transfer), frozen single blastocyst transfer was associated with a higher risk of pre-eclampsia than fresh single blastocyst transfer (16/512 [3.1%] vs 4/401 [1.0%]; RR 3.13, 95% CI 1.06 to 9.30; p=0.029), while moderate or severe OHSS did not differ significantly (4/825 [0.5%] vs 9/825 [1.1%]; p=0.16).
+Asserted design      : multicentre RCT
+Asserted population  : 1650 ovulatory women with good prognosis undergoing IVF with single blastocyst transfer, China, multicentre
+Asserted outcome     : pre-eclampsia   |  timing: per-pregnancy
+Asserted effect      : RR = 3.13   95% CI = [1.06, 9.3]
+Asserted arm counts  : frozen/A = {'events': 16, 'n': 512} ; fresh/B = {'events': 4, 'n': 401}
+Asserted abs. risk d : COMPUTED BY ME from the arm counts: 16/512 = 3.13% vs 4/401 = 1.00%, ARD = +2.13 percentage points, number needed to harm = 47. The trial does not print a risk difference. Note the denominators (512, 401) are pregnancies, not randomised women, so this is a per-pregnancy rather than per-woman-randomised comparison. For the SAME trial, the OHSS denominators ARE the randomised totals (825 and 825).
+Asserted heterogen.  : None
+DOI                  : 10.1016/S0140-6736(18)32843-5
+PMID                 : 30827784
+Claimed location     : Summary, Findings; Interpretation
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "The risks of moderate or severe ovarian hyperstimulation syndrome (four of 825 [0.5%] in frozen single blastocyst transfer vs nine of 825 [1.1%] in fresh single blastocyst transfer; p=0.16), pregnancy loss (134 of 583 [23.0%] vs 124 of 481 [25.8%]; p=0.29), other obstetric complications, and neonatal morbidity were similar between the two groups. Frozen single blastocyst transfer was associated with a higher risk of pre-eclampsia (16 of 512 [3.1%] vs four of 401 [1.0%]; RR 3.13, 95% CI 1.06-9.30, p=0.029)."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ2-C10
+CLAIM (under test, do not assume true):
+  In Shi 2018 (2157 ovulatory women, the largest single freeze-all versus fresh RCT), preeclampsia among clinical pregnancies did NOT differ significantly between frozen and fresh transfer (26/586 [4.4%] vs 20/615 [3.3%]; RR 1.36, 95% CI 0.77 to 2.42; P=0.28), nor did gestational hypertension (5/586 [0.9%] vs 7/615 [1.1%]; RR 0.75, 95% CI 0.24 to 2.35; P=0.62) or preterm delivery (91/586 [15.5%] vs 80/615 [13.0%]; RR 1.19, 95% CI 0.90 to 1.58; P=0.21).
+Asserted design      : multicentre RCT
+Asserted population  : 2157 ovulatory infertile women undergoing IVF with day-3 double embryo transfer; women at high risk of OHSS excluded at randomisation
+Asserted outcome     : pre-eclampsia   |  timing: per-pregnancy
+Asserted effect      : RR = 1.36   95% CI = [0.77, 2.42]
+Asserted arm counts  : frozen/A = {'events': 26, 'n': 586} ; fresh/B = {'events': 20, 'n': 615}
+Asserted abs. risk d : REPORTED BY THE TRIAL as +1.1 percentage points (95% CI -1.0 to 3.4). I independently COMPUTED the same value: 26/586 = 4.44% vs 20/615 = 3.25%, ARD = +1.18 percentage points. The confidence interval crosses zero.
+Asserted heterogen.  : None
+DOI                  : 10.1056/NEJMoa1705334
+PMID                 : 29320646
+Claimed location     : Outcome table, 'Maternal, Fetal, and Neonatal Adverse Events' (rendered as a markdown table row in the extracted full text)
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "|Preeclampsia among clinical pregnancies |26/586 (4.4) |20/615 (3.3) |1.1 (-1.0 to 3.4) |1.36 (0.77 to 2.42) |0.28 | |Gestational hypertension among clinical pregnancies |5/586 (0.9) |7/615 (1.1) |-0.2 (-1.4 to 0.8) |0.75 (0.24 to 2.35) |0.62 | |Preterm delivery among clinical pregnancies |91/586 (15.5) |80/615 (13.0) |2.5 (-1.4 to 6.5) |1.19 (0.90 to 1.58) |0.21 |"
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ2-C11
+CLAIM (under test, do not assume true):
+  In a Cochrane meta-analysis of 3 RCTs (3940 women; Vuong 2018, Wei 2019, Zhang 2018), large-for-gestational-age babies after the first embryo transfer were more frequent following a freeze-all strategy than conventional fresh transfer (157/1962 vs 83/1978; Peto OR 1.96, 95% CI 1.51 to 2.55; I2 = 0%), an absolute increase of 3.81 percentage points.
+Asserted design      : meta-analysis of RCTs
+Asserted population  : Women undergoing autologous IVF/ICSI randomised to freeze-all versus fresh transfer; pooled trials are non-PCOS (Vuong 2018), ovulatory good-prognosis (Wei 2019) and PCOS (Zhang 2018, the obstetric follow-up of Chen 2016)
+Asserted outcome     : LGA   |  timing: per-woman-randomised
+Asserted effect      : OR = 1.96   95% CI = [1.51, 2.55]
+Asserted arm counts  : frozen/A = {'events': 157, 'n': 1962} ; fresh/B = {'events': 83, 'n': 1978}
+Asserted abs. risk d : COMPUTED BY ME from the forest-plot arm counts: 157/1962 = 8.00% vs 83/1978 = 4.20%, ARD = +3.81 percentage points, number needed to harm = 26. The review's Summary of Findings expresses the same comparison as 42 per 1000 with fresh versus 79 per 1000 with freeze-all.
+Asserted heterogen.  : I2 = 0%; Chi2 = 0.42, df = 2 (P = 0.81)
+DOI                  : 10.1002/14651858.CD011184.pub3
+PMID                 : 33539543
+Claimed location     : Results section 1.13 'Large for gestational age (birth weight above 90th percentile)'; Analysis 1.13; Figure 7 (PDF page 26, printed page 23)
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "Based on these studies the risk of having a large-for-gestational-age baby might be increased following the 'freeze all' strategy (Peto OR 1.96, 95% CI 1.51 to 2.55; I2 = 0%; 3 RCTs, 3940 women; low-quality evidence; Analysis 1.13; Figure 7)."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ2-C12
+CLAIM (under test, do not assume true):
+  In the Cochrane review, the cumulative risk of a small-for-gestational-age baby was LOWER after freeze-all in the single trial reporting it (Vuong 2018, 6/391 vs 18/391; Peto OR 0.36, 95% CI 0.16 to 0.80), but after the first embryo transfer the pooled estimate across 3 RCTs (3940 women) was not significant and heterogeneous (134/1962 vs 162/1978; Peto OR 0.82, 95% CI 0.65 to 1.05; I2 = 64%).
+Asserted design      : meta-analysis of RCTs
+Asserted population  : Cumulative estimate: 782 non-PCOS women undergoing IVF/ICSI (Vuong 2018, single-centre). After-first-transfer estimate: 3940 women across Vuong 2018, Wei 2019 and Zhang 2018 (PCOS follow-up of Chen 2016).
+Asserted outcome     : SGA   |  timing: cumulative
+Asserted effect      : OR = 0.36   95% CI = [0.16, 0.8]
+Asserted arm counts  : frozen/A = {'events': 6, 'n': 391} ; fresh/B = {'events': 18, 'n': 391}
+Asserted abs. risk d : COMPUTED BY ME from the forest-plot arm counts for the cumulative estimate: 6/391 = 1.53% vs 18/391 = 4.60%, ARD = -3.07 percentage points, NNT = 33. The review's Summary of Findings expresses the same comparison as 46 per 1000 with fresh versus 17 per 1000 with freeze-all. For the after-first-transfer estimate I COMPUTED 134/1962 = 6.83% vs 162/1978 = 8.19%, ARD = -1.36 percentage points, CI includes no effect.
+Asserted heterogen.  : Cumulative: not applicable (single trial). After first embryo transfer: I2 = 64%; Chi2 = 5.63, df = 2 (P = 0.06). Overall across subgroups I2 = 68%, and the test for subgroup differences is borderline (Chi2 = 3.72, df = 1, P = 0.05, I2 = 73.1%).
+DOI                  : 10.1002/14651858.CD011184.pub3
+PMID                 : 33539543
+Claimed location     : Results section 1.14 'Small for gestational age (birth weight below 10th percentile)'; Analysis 1.14; Figure 8 (printed page 23, forest plot text read from the PDF text layer)
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "The results of this solitary study suggest that the cumulative risk of having a small-for-gestational-age baby might be lower following the 'freeze all' strategy (Peto OR 0.36, 95% CI 0.16 to 0.80; 1 RCT, 782; low-quality evidence; Analysis 1.14; Figure 8). ... We are uncertain whether the two strategies differ in the risk of having a small-for-gestational-age baby after the first embryo transfer (Peto OR 0.82, 95% CI 0.65 to 1.05; I2 = 64%; 3 RCTs, 3940 women; very low-quality evidence; Analysis 1.14; Figure 8)."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ2-C13
+CLAIM (under test, do not assume true):
+  In a Cochrane meta-analysis of 5 RCTs (1607 singletons), singleton birth weight was higher after a freeze-all strategy than after conventional fresh transfer (mean difference +127.44 g, 95% CI 77.08 to 177.80; I2 = 0%), whereas among multiples the difference was not significant (MD +49.46 g, 95% CI -21.15 to 120.08; I2 = 17%; 4 RCTs, 804 children).
+Asserted design      : meta-analysis of RCTs
+Asserted population  : Singletons born to women undergoing autologous IVF/ICSI randomised to freeze-all versus fresh transfer; pooled trials are Chen 2016 (PCOS), Shapiro 2016, Vuong 2018, Wei 2019 and Wong 2021
+Asserted outcome     : macrosomia   |  timing: per-livebirth
+Asserted effect      : None = 127.44   95% CI = [77.08, 177.8]
+Asserted arm counts  : frozen/A = {'events': None, 'n': 867} ; fresh/B = {'events': None, 'n': 740}
+Asserted abs. risk d : The effect measure IS an absolute difference: singleton babies conceived through a freeze-all strategy weighed on average 127.44 g more at birth (95% CI 77.08 to 177.80 g). No conversion needed. Arm sizes are 867 singletons in the freeze-all arm versus 740 in the conventional arm, read from the Figure 9 subtotal row.
+Asserted heterogen.  : Singletons: I2 = 0%; Chi2 = 1.25, df = 4 (P = 0.87). Multiples: I2 = 17%; Chi2 = 3.63, df = 3 (P = 0.30). Test for subgroup differences Chi2 = 3.10, df = 1 (P = 0.08), I2 = 67.8%.
+DOI                  : 10.1002/14651858.CD011184.pub3
+PMID                 : 33539543
+Claimed location     : Results section 1.16 'Birth weight'; Analysis 1.16; Figure 9 (printed page 24, forest plot read from the PDF text layer)
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "The risk for having a higher birth weight of singleton babies born is probably increased following the 'freeze all' strategy (MD 127 g, 95% CI 77.1 to 177.8; I2 = 0%; 5 RCTs, 1607 singletons; moderate-quality evidence)."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ2-C14
+CLAIM (under test, do not assume true):
+  In the Cochrane review, cumulative preterm delivery (<37 weeks) was lower after freeze-all in 2 RCTs (986 women; Peto OR 0.62, 95% CI 0.39 to 0.99; I2 = 0%), but after the first embryo transfer there was no difference across 3 RCTs (3940 women; Peto OR 1.15, 95% CI 0.89 to 1.50; I2 = 0%).
+Asserted design      : meta-analysis of RCTs
+Asserted population  : Cumulative estimate: Vuong 2018 (non-PCOS) and Wong 2021, 986 women. After-first-transfer estimate: Chen 2016 (PCOS), Vuong 2018 and Wei 2019, 3940 women.
+Asserted outcome     : preterm birth   |  timing: cumulative
+Asserted effect      : OR = 0.62   95% CI = [0.39, 0.99]
+Asserted arm counts  : frozen/A = None ; fresh/B = None
+Asserted abs. risk d : NOT COMPUTABLE from what I read - the review's narrative for Analysis 1.10 gives only the pooled Peto ORs and I did not open the Analysis 1.10 forest plot to recover arm-level event counts. The cumulative estimate barely reaches significance (upper CI bound 0.99) and the after-first-transfer estimate is null, so the direction of any absolute effect is uncertain.
+Asserted heterogen.  : Cumulative: I2 = 0%. After first embryo transfer: I2 = 0%.
+DOI                  : 10.1002/14651858.CD011184.pub3
+PMID                 : 33539543
+Claimed location     : Results section 1.10 'Preterm delivery (less than 37 weeks of gestational age)'; Analysis 1.10 (printed page 22, read from the PDF text layer and visible on the rendered page image SQ2_zaat_p25-25.png)
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "We are uncertain whether the two strategies differ in cumulative rates of preterm delivery (Peto OR 0.62, 95% CI 0.39 to 0.99; I2 = 0%; 2 RCTs, 986 women; low-quality evidence; Analysis 1.10). ... We are uncertain whether the two strategies differ in preterm delivery after the first embryo transfer (Peto OR 1.15, 95% CI 0.89 to 1.50; I2 = 0%; 3 RCTs, 3940 women; low-quality evidence; Analysis 1.10)."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ2-C15
+CLAIM (under test, do not assume true):
+  In Stormlund 2020 (460 women, single blastocyst transfer, freeze-all arm using a MODIFIED NATURAL endometrial preparation cycle in all but two women), there was no difference in pre-eclampsia (4/57 [7.0%] vs 4/55 [7.3%]; P=1.00) or pregnancy-induced hypertension (2/57 [3.5%] vs 2/55 [3.6%]; P=1.00) between the freeze-all and fresh transfer arms.
+Asserted design      : multicentre RCT
+Asserted population  : 460 women aged 18-39 with regular menstrual cycles starting their first, second or third IVF/ICSI cycle; outcomes reported for pregnancies continuing beyond 22 weeks
+Asserted outcome     : pre-eclampsia   |  timing: per-pregnancy
+Asserted effect      : None = None   95% CI = None
+Asserted arm counts  : frozen/A = {'events': 4, 'n': 57} ; fresh/B = {'events': 4, 'n': 55}
+Asserted abs. risk d : COMPUTED BY ME from the table counts: 4/57 = 7.02% vs 4/55 = 7.27%, ARD = -0.26 percentage points. The trial reports only P values (P=1.00), no effect estimate or CI, because the event numbers are tiny.
+Asserted heterogen.  : None
+DOI                  : 10.1136/bmj.m2519
+PMID                 : 32759285
+Claimed location     : Table 3 (maternal complications); and Discussion
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "Maternal complications: Pregnancy induced hypertension 2/57 (3.5) 2/55 (3.6) 1.00 Pre-eclampsia 4/57 (7.0) 4/55 (7.3) 1.00"
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ2-C16
+CLAIM (under test, do not assume true):
+  In a Nordic population-based registry cohort with within-sibship analysis (Medical Birth Registries of Denmark 1994-2014, Norway and Sweden 1988-2015), hypertensive disorders of pregnancy were more frequent after frozen embryo transfer than after natural conception both at population level (7.4% vs 4.3%; aOR 1.74, 95% CI 1.61 to 1.89) and within sibships (aOR 2.02, 95% CI 1.72 to 2.39), whereas fresh embryo transfer carried no excess risk versus natural conception (population aOR 1.02, 95% CI 0.98 to 1.07; within-sibship aOR 0.99, 95% CI 0.89 to 1.09).
+Asserted design      : registry
+Asserted population  : Population-based cohort of births in Denmark (1994-2014), Norway and Sweden (1988-2015) comparing frozen-ET and fresh-ET pregnancies with naturally conceived pregnancies, with a within-sibship comparison in which mothers contribute more than one birth
+Asserted outcome     : hypertensive disorders of pregnancy   |  timing: per-pregnancy
+Asserted effect      : aOR = 2.02   95% CI = [1.72, 2.39]
+Asserted arm counts  : frozen/A = None ; fresh/B = None
+Asserted abs. risk d : +3.1 percentage points for frozen-ET versus natural conception at population level (7.4% minus 4.3%), taken directly from the percentages reported in the abstract. The within-sibship analysis is reported as an adjusted odds ratio only, with no accompanying absolute risks, so no absolute difference can be stated for that comparison. Note this study's reference group is NATURAL CONCEPTION, not fresh transfer, so its numbers are not directly interchangeable with the trial-based estimates in SQ2-C7.
+Asserted heterogen.  : None
+DOI                  : 10.1161/HYPERTENSIONAHA.122.19689
+PMID                 : 36154568
+Claimed location     : Abstract, Results; and 'Novelty and Relevance / What Is Relevant?'
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "Risk of hypertensive disorders in pregnancy was higher after frozen-ET compared to natural conception, both at population-level (7.4% versus 4.3%, aOR, 1.74 [95% CI, 1.61-1.89]) and within sibships (aOR, 2.02 [95% CI, 1.72-2.39]). For fresh-ET, risk was similar to natural conception, both at population-level (aOR, 1.02 [95% CI, 0.98-1.07]) and within sibships (aOR, 0.99 [95% CI, 0.89-1.09])."
+---------------------------------------------------------------------------

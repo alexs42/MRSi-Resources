@@ -1,0 +1,327 @@
+You are an ADVERSARIAL VERIFIER in a formal evidence review on FRESH versus ELECTIVE FROZEN
+("freeze-all") embryo transfer in autologous IVF/ICSI. You are the second of two independent
+verifiers. The other verifier is a different model with a different retrieval path. The entire value
+of this exercise depends on your INDEPENDENCE.
+
+## YOUR JOB IS TO REFUTE, NOT TO AGREE
+For each claim below, your default posture is scepticism. Actively try to show that the number is
+WRONG, or that it is right only in a DIFFERENT POPULATION than the claim states, or that it is a
+per-transfer number being passed off as cumulative (or vice versa), or that the quoted sentence does
+not appear in the source. Agreeing is only acceptable after you have genuinely tried to break it.
+
+## HARD INDEPENDENCE REQUIREMENT
+You MUST retrieve each source YOURSELF. Do NOT trust the excerpt, quote, or numbers handed to you.
+They are the CLAIM under test, not evidence.
+FORBIDDEN: do NOT read any cached file in ./figs_source/ or any claims_SQ*.json or claims.json in
+this directory. Those are the other agent's working artefacts. Using them destroys the independence
+this task exists to establish. Retrieve from the web.
+
+## TOOLS AVAILABLE TO YOU
+- Network access is enabled.
+- `parallel-cli` is the most reliable route for paywalled publishers. Authenticate first:
+      export $(grep -E '^PARALLEL_API_KEY' <your .env file> | xargs)
+      parallel-cli auth
+  Then:  parallel-cli extract "<url>" --json     and    parallel-cli search "<query>" --json
+  (run `parallel-cli extract --help` to confirm exact flags before relying on them)
+- curl, python3 are available. Europe PMC REST API is open and needs no key:
+      https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:<PMID>&resultType=core&format=json
+      https://www.ebi.ac.uk/europepmc/webservices/rest/<SOURCE>/<PMCID>/fullTextXML
+- KNOWN OBSTACLE: nejm.org, thelancet.com and bmj.com return HTTP 403 to plain curl. parallel-cli
+  extract has been observed to succeed on NEJM. Cochrane full text is at
+  https://www.cochranelibrary.com/cdsr/doi/<DOI>/full and the PDF may be obtainable.
+- If after genuine effort you cannot obtain the primary source, the correct answer is UNRETRIEVABLE.
+  Do NOT guess, and do NOT fall back on your training-data memory of these trials. A memory-based
+  CONFIRMED is the single worst outcome of this exercise.
+
+## VERDICTS - exactly one per claim
+- "CONFIRMED"     : the number appears as stated, in the stated population, with the stated timing
+                    (per-transfer vs cumulative). You must supply the verbatim sentence YOU read.
+- "DISPUTED"      : it does not. State precisely what is wrong and quote what the source actually says.
+- "UNRETRIEVABLE" : you could not obtain the full text. List exactly what you tried.
+
+## OUTPUT - THIS IS THE ONLY THING THAT MATTERS
+Write a JSON array to ./verdict_B_SQ4.json with one object per claim id:
+{
+  "id": "<claim id>",
+  "verdict": "CONFIRMED" | "DISPUTED" | "UNRETRIEVABLE",
+  "retrieved_url": "<the exact URL you actually opened, or null>",
+  "retrieval_method": "<parallel-cli extract | europepmc fullTextXML | curl | ...>",
+  "quote_found": "<the verbatim sentence YOU read that settles the claim, or null>",
+  "what_is_wrong": "<for DISPUTED: precisely what differs, with the source's actual wording/number>",
+  "tried": "<for UNRETRIEVABLE: every route attempted>",
+  "confidence": "high" | "medium" | "low"
+}
+Write the file. Then print the same JSON to stdout. Do not print anything else of substance.
+
+## CLAIMS UNDER TEST for SQ4 - PGT-A, HIGH RESPONDERS, and SOCIETY POSITIONS
+
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ4-C1
+CLAIM (under test, do not assume true):
+  In the STAR multicentre RCT, ongoing pregnancy at 20 weeks (which equalled live birth in this cohort) per embryo transfer was 137/274 (50.0%) with PGT-A versus 143/313 (45.7%) with morphology alone (P=.3177), a comparison in which BOTH arms received a single vitrified-warmed blastocyst so that cryopreservation was held constant and only biopsy plus euploid selection differed.
+Asserted design      : multicentre RCT
+Asserted population  : Women aged 25-40 years undergoing autologous IVF with at least two blastocysts of sufficient quality for biopsy and vitrification by day 6
+Asserted outcome     : live birth per transfer   |  timing: per-transfer
+Asserted effect      : RD = 4.3   95% CI = None
+Asserted arm counts  : frozen/A = {'label': 'PGT-A', 'events': 137, 'n': 274} ; fresh/B = {'label': 'morphology alone (untested)', 'events': 143, 'n': 313}
+Asserted abs. risk d : +4.3 percentage points (50.00% vs 45.69%) favouring PGT-A; COMPUTED BY ME from the arm counts reported in Table 3 (the paper reports only the percentages and P=.3177, not a risk difference).
+Asserted heterogen.  : None
+DOI                  : 10.1016/j.fertnstert.2019.07.1346
+PMID                 : 31551155
+Claimed location     : Results, Table 3 (clinical outcomes for transferred embryos); denominators 274 vs 313
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "All patients with an ongoing pregnancy at 20 weeks' gestation continued to a live birth. Thus, the OPR at 20 weeks also reflects the live birth rate in this study cohort."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ4-C2
+CLAIM (under test, do not assume true):
+  In the STAR trial, ongoing pregnancy/live birth analysed per intention to treat at randomisation was 138/330 (41.8%) with PGT-A versus 144/331 (43.5%) with morphology alone, i.e. no benefit once women who never reached transfer are counted; this is live birth after a single frozen transfer per woman randomised and is NOT a cumulative live birth rate.
+Asserted design      : multicentre RCT
+Asserted population  : Women aged 25-40 years undergoing autologous IVF with at least two biopsiable blastocysts
+Asserted outcome     : live birth after first (single) transfer per woman randomised   |  timing: per-woman-randomised
+Asserted effect      : RD = -1.7   95% CI = None
+Asserted arm counts  : frozen/A = {'label': 'PGT-A', 'events': 138, 'n': 330} ; fresh/B = {'label': 'morphology alone (untested)', 'events': 144, 'n': 331}
+Asserted abs. risk d : -1.7 percentage points (41.82% vs 43.50%), i.e. numerically favouring the untested arm; COMPUTED BY ME from the arm counts. The paper reports the percentages only.
+Asserted heterogen.  : None
+DOI                  : 10.1016/j.fertnstert.2019.07.1346
+PMID                 : 31551155
+Claimed location     : Abstract, Result(s); corresponding Results text and Table 3
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "The OPR was equivalent between the two arms, with no significant difference per embryo transfer (50% [137/274] vs. 46% [143/313]) or per intention to treat (ITT) at randomization (41.8% [138/330] vs. 43.5% [144/331])."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ4-C3
+CLAIM (under test, do not assume true):
+  In a POST HOC subgroup analysis of the STAR trial, PGT-A raised ongoing pregnancy/live birth per embryo transfer in women aged 35-40 years (62/122, 50.8% versus 54/145, 37.2%; P=.035) but not in women aged 25-34 years (75/152, 49.3% versus 89/168, 53.0%; P=.58), and the 35-40 year advantage did NOT persist when analysed per intention to treat (41.1% versus 35.7%; P=.35).
+Asserted design      : post hoc subgroup analysis within a multicentre RCT
+Asserted population  : Subgroup of STAR: women aged 35-40 years with at least two biopsiable blastocysts (compared with women aged 25-34 years)
+Asserted outcome     : live birth per transfer (and per woman randomised) by maternal age band   |  timing: per-transfer
+Asserted effect      : RD = 13.6   95% CI = None
+Asserted arm counts  : frozen/A = {'label': 'PGT-A, age 35-40', 'events': 62, 'n': 122} ; fresh/B = {'label': 'morphology alone, age 35-40', 'events': 54, 'n': 145}
+Asserted abs. risk d : +13.6 percentage points per transfer (50.82% vs 37.24%) in the 35-40 band; COMPUTED BY ME from arm counts. The Discussion states the improvement as '14%'. In the 25-34 band the difference is -3.6 percentage points (49.34% vs 52.98%), also COMPUTED BY ME.
+Asserted heterogen.  : None
+DOI                  : 10.1016/j.fertnstert.2019.07.1346
+PMID                 : 31551155
+Claimed location     : Results, post hoc age subgroup paragraph; Table 3 age-stratified columns
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "A post hoc subgroup analysis revealed a higher OPR per transfer in women aged 35-40 years after PGT-A (50.8% vs. 37.2%; P=.035), but not in women aged 25-34 years (49.3% vs. 53.0%; P=.58). The OPRs were not significantly different between arms for women aged 25-34 years (42.5% vs. 50.3%; P=.17) or 35-40 years (41.1% vs. 35.7%; P=.35) when analyzed per ITT."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ4-C4
+CLAIM (under test, do not assume true):
+  In the Yan 2021 multicentre RCT, the cumulative live birth rate after up to three single frozen-embryo transfers within one year was 468/606 (77.2%) with PGT-A versus 496/606 (81.8%) with conventional IVF (absolute difference -4.6 percentage points, 95% CI -9.2 to -0.0; rate ratio 0.94, 95% CI 0.89 to 1.00), with all embryos cryopreserved in BOTH arms.
+Asserted design      : multicentre RCT (noninferiority)
+Asserted population  : Subfertile women aged 20-37 years, first IVF cycle, good prognosis, with three or more good-quality blastocysts (Gardner score 4BC or better)
+Asserted outcome     : cumulative live birth   |  timing: cumulative
+Asserted effect      : RR = 0.94   95% CI = [0.89, 1.0]
+Asserted arm counts  : frozen/A = {'label': 'PGT-A', 'events': 468, 'n': 606} ; fresh/B = {'label': 'conventional IVF (untested)', 'events': 496, 'n': 606}
+Asserted abs. risk d : -4.6 percentage points (95% CI -9.2 to -0.0) AS REPORTED by the authors; my computation from the arm counts reproduces -4.6 pp (77.23% vs 81.85%).
+Asserted heterogen.  : None
+DOI                  : 10.1056/NEJMoa2103613
+PMID                 : 34818479
+Claimed location     : Methods, Procedures; and Results, Primary and Secondary Outcomes, Table 3
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "All embryos that were obtained were cryopreserved and single frozen-embryo transfers were performed each time in the two groups."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ4-C5
+CLAIM (under test, do not assume true):
+  Yan 2021 found no significant difference between PGT-A and conventional IVF in ongoing pregnancy or live birth after the FIRST frozen-embryo transfer, and no difference at any of the three transfers analysed separately, while the CUMULATIVE outcome was lower with PGT-A - demonstrating that per-transfer and cumulative endpoints diverge in direction within a single trial.
+Asserted design      : multicentre RCT (tertiary/post hoc analyses)
+Asserted population  : Subfertile women aged 20-37 years with three or more good-quality blastocysts
+Asserted outcome     : live birth per transfer versus cumulative live birth (divergence)   |  timing: per-transfer
+Asserted effect      : None = None   95% CI = None
+Asserted arm counts  : frozen/A = None ; fresh/B = None
+Asserted abs. risk d : NOT OBTAINED. The numerators and denominators for live birth after the first transfer live in supplementary Tables S2-S5, which I could not retrieve (see retrieval_path). The main text reports the direction only. I have deliberately recorded no numbers rather than reconstruct them.
+Asserted heterogen.  : None
+DOI                  : 10.1056/NEJMoa2103613
+PMID                 : 34818479
+Claimed location     : Discussion, paragraph comparing with prior trials
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "We likewise found no significant differences between groups in the rates of ongoing pregnancy and live birth after the first frozen-embryo transfer. We also noted that the pregnancy outcomes after each of three transfers were all similar between the two groups when analyzed separately, whereas the cumulative pregnancy outcome was lower with PGT-A. These findings support the importance of the cumulative live-birth rate as the primary end point in clinical trials."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ4-C6
+CLAIM (under test, do not assume true):
+  The 2020 Cochrane review of PGT-A found that NO randomised trial reported cumulative live birth rate after blastocyst-stage biopsy, the only blastocyst-stage trial (Munne 2019/STAR) contributing solely to live birth after the first embryo transfer (138/330 vs 144/331; OR 0.93, 95% CI 0.69 to 1.27), and the review's own forest plot footnote records that this trial used freeze-all in both study arms.
+Asserted design      : meta-analysis of RCTs (Cochrane systematic review)
+Asserted population  : Women undergoing IVF/ICSI with versus without PGT-A; genome-wide analysis comparison, blastocyst-stage biopsy subgroup
+Asserted outcome     : cumulative live birth and live birth after first embryo transfer, per woman randomised   |  timing: cumulative
+Asserted effect      : OR = 0.93   95% CI = [0.69, 1.27]
+Asserted arm counts  : frozen/A = {'label': 'PGT-A (blastocyst biopsy)', 'events': 138, 'n': 330} ; fresh/B = {'label': 'no PGT-A', 'events': 144, 'n': 331}
+Asserted abs. risk d : -1.7 percentage points (41.82% vs 43.50%); COMPUTED BY ME from the forest-plot cell counts I read in Analysis 1.2.2. Cochrane reports the odds ratio only.
+Asserted heterogen.  : Not applicable (single trial in the blastocyst subgroup). Test for subgroup differences between polar body and blastocyst subgroups: Chi2 = 0.31, df = 1 (P = 0.58), I2 = 0%.
+DOI                  : 10.1002/14651858.CD005291.pub3
+PMID                 : 32898291
+Claimed location     : Plain language summary / Summary of main results, 'Blastocyst stage biopsy'; forest plots Analysis 1.1 and Analysis 1.2 on PDF page 62 (review page 58)
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "No studies reported on cLBR after blastocyst stage biopsy. It is uncertain if the addition of PGT-A with biopsy in the blastocyst stage improves LBR after the first embryo transfer or reduces the miscarriage rate."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ4-C7
+CLAIM (under test, do not assume true):
+  In a 2022 systematic review and meta-analysis of nine RCTs of comprehensive-chromosome-screening PGT-A (3,334 participants), PGT-A was not associated with an increased live-birth rate overall (RR 1.13, 95% CI 0.96-1.34, I2=79%), but raised live birth in women of advanced maternal age (RR 1.34, 95% CI 1.02-1.77, I2=50%) and not in women of non-advanced age (RR 0.94, 95% CI 0.89-0.99, I2=0%).
+Asserted design      : meta-analysis of RCTs
+Asserted population  : Women undergoing IVF with or without PGT-A using comprehensive chromosome screening; subgrouped by advanced versus non-advanced maternal age (threshold NOT verifiable from the accessible text)
+Asserted outcome     : live birth   |  timing: n/a
+Asserted effect      : RR = 1.13   95% CI = [0.96, 1.34]
+Asserted arm counts  : frozen/A = None ; fresh/B = None
+Asserted abs. risk d : NOT REPORTED in the accessible abstract, and I could not compute one because pooled event counts sit behind the paywall.
+Asserted heterogen.  : Overall I2 = 79%; advanced maternal age I2 = 50%; non-advanced maternal age I2 = 0%
+DOI                  : 10.1097/AOG.0000000000004962
+PMID                 : 36201787
+Claimed location     : Abstract, Results
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "Overall, PGT-A was not associated with an increased live-birth rate (RR 1.13, 95% CI 0.96-1.34, I2=79%). However, PGT-A raised the live-birth rate in women of advanced maternal age (RR 1.34, 95% CI 1.02-1.77, I2=50%) but not in women of nonadvanced age (RR 0.94, 95% CI 0.89-0.99, I2=0%)."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ4-C8
+CLAIM (under test, do not assume true):
+  The Coates 2017 RCT randomised 179 patients who were ALL undergoing PGT-A/NGS to freeze-all versus fresh day-6 euploid transfer, thereby holding biopsy constant and varying only the freezing, and found live birth by intention to treat of 56/91 (61.5%) with freeze-all versus 35/88 (39.8%) with fresh transfer (P<.01), although the adjusted odds ratio was not significant (OR 2.1, 95% CI 0.95-4.68).
+Asserted design      : single-centre RCT
+Asserted population  : Patients undergoing IVF with preimplantation genetic screening (NGS), mean age approximately 36.6-36.7 years, range 25-42; single private assisted reproduction centre
+Asserted outcome     : live birth per woman randomised (primary transfer cycle)   |  timing: per-woman-randomised
+Asserted effect      : OR = 2.1   95% CI = [0.95, 4.68]
+Asserted arm counts  : frozen/A = {'label': 'freeze-all (frozen euploid transfer)', 'events': 56, 'n': 91} ; fresh/B = {'label': 'fresh day-6 euploid transfer', 'events': 35, 'n': 88}
+Asserted abs. risk d : +21.8 percentage points favouring freeze-all on ITT (61.54% vs 39.77%); COMPUTED BY ME from the Table 2 arm counts. In the per-protocol analysis the difference is +18.4 percentage points (47/61 = 77.05% vs 27/46 = 58.70%), also COMPUTED BY ME from Table 3 counts.
+Asserted heterogen.  : None
+DOI                  : 10.1016/j.fertnstert.2016.12.022
+PMID                 : 28139240
+Claimed location     : Abstract Conclusion(s); Results, 'Outcome of Patients in the Intention to Treat Analysis' (Table 2) and 'Outcome of Patients Receiving the Intended Transfer Protocol' (Table 3)
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "Freezing all embryos allows for inclusion of all blastocysts in the cohort of embryos available for transfer, which also results in a higher proportion of patients reaching ET."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ4-C9
+CLAIM (under test, do not assume true):
+  In the Bosdou 2019 meta-analysis of eight RCTs (5,265 patients) comparing the first frozen transfer in a freeze-only strategy with fresh transfer, live birth was significantly more likely with the frozen strategy in HIGH responders (RR 1.18, 95% CI 1.06-1.31, I2=0%, three studies) but not in NORMAL responders (RR 1.13, 95% CI 0.90-1.41, I2=77%, three studies), with responder status assigned according to each individual trial's own definition rather than a single oocyte-yield threshold.
+Asserted design      : meta-analysis of RCTs
+Asserted population  : Women undergoing IVF/ICSI, stratified into high responders (4 RCTs, n=2010) and normal responders (4 RCTs, n=3255); no eligible RCTs existed in poor responders
+Asserted outcome     : live birth after the first embryo transfer   |  timing: per-transfer
+Asserted effect      : RR = 1.18   95% CI = [1.06, 1.31]
+Asserted arm counts  : frozen/A = {'label': 'first frozen ET (freeze-only strategy), high responders', 'events': None, 'n': None} ; fresh/B = {'label': 'fresh ET, high responders', 'events': None, 'n': None}
+Asserted abs. risk d : NOT REPORTED as a single figure. The authors instead present the risk difference and number-needed-to-treat as functions of baseline live birth rate in Figure 3A (high responders) and Figure 3B (normal responders); I did not obtain those figure images (see notes), so I record no absolute difference.
+Asserted heterogen.  : High responders I2 = 0% (fixed effects); normal responders I2 = 77% (random effects)
+DOI                  : 10.1093/humrep/dey388
+PMID                 : 30689865
+Claimed location     : Materials and Methods, Data extraction (quoted sentence); Results, Meta-analysis, Primary outcome, Live birth; Figure 2 (forest plot)
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "The study was categorised as having been performed in normal, high or poor responders based on the definition given by the authors of each eligible RCT."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ4-C10
+CLAIM (under test, do not assume true):
+  The high-responder freeze-all signal in Bosdou 2019 is driven almost entirely by Chen 2016, an RCT restricted to 1,508 women with polycystic ovary syndrome in which frozen transfer gave live birth after the first transfer in 49.3% versus 42.0% with fresh transfer (rate ratio 1.17, 95% CI 1.05-1.31, P=0.004) - a rate ratio essentially identical to the pooled high-responder estimate.
+Asserted design      : multicentre RCT
+Asserted population  : Infertile women with polycystic ovary syndrome undergoing their first IVF cycle (NOT defined by an oocyte-yield threshold)
+Asserted outcome     : live birth after the first embryo transfer   |  timing: per-transfer
+Asserted effect      : RR = 1.17   95% CI = [1.05, 1.31]
+Asserted arm counts  : frozen/A = {'label': 'frozen-embryo transfer', 'events': None, 'n': None} ; fresh/B = {'label': 'fresh-embryo transfer', 'events': None, 'n': None}
+Asserted abs. risk d : +7.3 percentage points (49.3% vs 42.0%); COMPUTED BY ME from the two percentages reported in the abstract. Arm event counts are not given in the abstract I opened, so I record percentages only.
+Asserted heterogen.  : None
+DOI                  : 10.1056/NEJMoa1513873
+PMID                 : 27509101
+Claimed location     : Abstract, Results
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "Frozen-embryo transfer resulted in a higher frequency of live birth after the first transfer than did fresh-embryo transfer (49.3% vs. 42.0%), for a rate ratio of 1.17 (95% confidence interval [CI], 1.05 to 1.31; P=0.004)."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ4-C11
+CLAIM (under test, do not assume true):
+  In a randomised trial confined to predicted high responders defined by an explicit threshold of at least 18 follicles measuring at least 11 mm, freeze-all did not significantly improve pregnancy outcomes compared with fresh transfer supported by low-dose hCG (live birth 42/101, 41.6% versus 41/104, 39.4%), while moderate-to-severe ovarian hyperstimulation syndrome occurred only in the fresh-transfer arm (9/105, 8.6% versus 0/104).
+Asserted design      : RCT
+Asserted population  : Women with an excessive response to ovarian stimulation, defined as at least 18 follicles measuring at least 11 mm, undergoing IVF/ICSI in a GnRH-antagonist cycle with GnRH agonist triggering
+Asserted outcome     : live birth after the first embryo transfer (intention to treat) and moderate-to-severe OHSS   |  timing: per-transfer
+Asserted effect      : RD = 2.2   95% CI = None
+Asserted arm counts  : frozen/A = {'label': 'freeze-all', 'events': 42, 'n': 101} ; fresh/B = {'label': 'fresh transfer with intensified luteal support (1500 IU hCG)', 'events': 41, 'n': 104}
+Asserted abs. risk d : +2.2 percentage points for live birth favouring freeze-all (41.58% vs 39.42%); COMPUTED BY ME from the reported arm counts. For clinical pregnancy the reported relative risk is 1.13 (95% CI 0.87-1.47; P = 0.41), and the arm counts are 57/104 (54.8%) freeze-all versus 51/105 (48.6%) fresh, a difference of +6.2 percentage points, also COMPUTED BY ME.
+Asserted heterogen.  : None
+DOI                  : 10.1093/humrep/deaa226
+PMID                 : 32964939
+Claimed location     : Abstract, Main results and the role of chance
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "The intention to treat clinical pregnancy and live birth rates (with the latter excluding four cases lost to follow-up: one in the fresh transfer and three in the freeze-all arms, respectively) after the first embryo transfer did not vary significantly among the fresh embryo transfer and freeze-all study arms: 51/105 (48.6%) versus 57/104 (54.8%) and 41/104 (39.4%) versus 42/101 (41.6%), respectively (relative risk for clinical pregnancy 1.13, 95% CI 0.87-1.47; P = 0.41)."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ4-C12
+CLAIM (under test, do not assume true):
+  The 2024 ASRM/SART Practice Committee opinion on PGT-A states that routine use of blastocyst biopsy with aneuploidy testing in all infertile patients undergoing IVF cannot be recommended.
+Asserted design      : committee opinion
+Asserted population  : All infertile patients undergoing IVF treatment
+Asserted outcome     : position statement   |  timing: n/a
+Asserted effect      : None = None   95% CI = None
+Asserted arm counts  : frozen/A = None ; fresh/B = None
+Asserted abs. risk d : Not applicable - this is a position statement, not an effect estimate.
+Asserted heterogen.  : None
+DOI                  : 10.1016/j.fertnstert.2024.04.013
+PMID                 : 38762806
+Claimed location     : Section 'Patient Priorities and Individual Consideration', final sentence, immediately preceding 'Acknowledgments'; Fertil Steril 2024;122(3):421-434, page 429
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "At present, however, the routine use of blastocyst biopsy with aneuploidy testing in all infertile patients undergoing IVF treatment cannot be recommended."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ4-C13
+CLAIM (under test, do not assume true):
+  The same 2024 ASRM/SART Practice Committee opinion records that potential risks of a freeze-all strategy include an increased risk of maternal hypertensive disorders of pregnancy and of a large-for-gestational-age infant, and frames the outcome of the pivotal PGT-A RCTs as pregnancy outcomes achieved via frozen embryo transfer.
+Asserted design      : committee opinion
+Asserted population  : Patients undergoing IVF with PGT-A in whom a freeze-all transfer strategy is contemplated
+Asserted outcome     : position statement   |  timing: n/a
+Asserted effect      : None = None   95% CI = None
+Asserted arm counts  : frozen/A = None ; fresh/B = None
+Asserted abs. risk d : Not applicable - position statement.
+Asserted heterogen.  : None
+DOI                  : 10.1016/j.fertnstert.2024.04.013
+PMID                 : 38762806
+Claimed location     : Section discussing fresh versus frozen euploid transfer strategy, immediately preceding the section 'Day of Embryo Biopsy'; Fertil Steril 2024;122(3):421-434
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "Potential risks of a ‘‘freeze-all’’ strategy include increased risk of maternal hypertensive disorders of pregnancy and having a large-for-gestational-age infant (47)."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ4-C14
+CLAIM (under test, do not assume true):
+  The 2023 ESHRE good practice recommendations on add-ons in reproductive medicine state that elective freeze-all is currently not recommended for routine clinical use, and that the freeze-all strategy should only be considered where there is a clear clinical indication such as higher OHSS risk, endometrial pathology, or PGT.
+Asserted design      : society guideline (good practice recommendations)
+Asserted population  : Patients undergoing IVF/ICSI outside the specific indications of OHSS prevention or PCOS, for whom freeze-all is applied irrespective of OHSS risk ('freeze-all for all')
+Asserted outcome     : position statement   |  timing: n/a
+Asserted effect      : None = None   95% CI = None
+Asserted arm counts  : frozen/A = None ; fresh/B = None
+Asserted abs. risk d : Not applicable - position statement.
+Asserted heterogen.  : None
+DOI                  : 10.1093/humrep/dead184
+PMID                 : 37747409
+Claimed location     : Section 'Elective freeze-all', subsection 'Recommendation' (final sentence, immediately preceding the section 'ICSI for non-male factor infertility'); Hum Reprod 2023;38(11):2062-2104
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "Elective freeze-all is currently not recommended for routine clinical use."
+---------------------------------------------------------------------------
+
+---------------------------------------------------------------------------
+CLAIM ID: SQ4-C15
+CLAIM (under test, do not assume true):
+  The same 2023 ESHRE good practice recommendations state that preimplantation genetic testing for aneuploidy is currently not recommended for routine clinical use, and separately record that because blastocyst biopsy is combined with shallow sequencing, freeze-all of biopsied embryos is mostly applied in these cycles - explicitly linking PGT-A to obligatory cryopreservation and its attendant risks.
+Asserted design      : society guideline (good practice recommendations)
+Asserted population  : Patients undergoing IVF/ICSI considering PGT-A as an add-on
+Asserted outcome     : position statement   |  timing: n/a
+Asserted effect      : None = None   95% CI = None
+Asserted arm counts  : frozen/A = None ; fresh/B = None
+Asserted abs. risk d : Not applicable - position statement.
+Asserted heterogen.  : None
+DOI                  : 10.1093/humrep/dead184
+PMID                 : 37747409
+Claimed location     : Section 'Preimplantation genetic testing for aneuploidy', subsection 'Recommendation' (final sentence, immediately preceding 'Non-invasive pre-implantation genetic testing'); Hum Reprod 2023;38(11):2062-2104
+ASSERTED QUOTE (DO NOT TRUST - confirm it exists verbatim in the source, or refute it):
+  "Pre-implantation genetic testing for aneuploidy is currently not recommended for routine clinical use."
+---------------------------------------------------------------------------
