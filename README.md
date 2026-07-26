@@ -80,6 +80,7 @@ staged: no disagreement was manufactured and no convergence was suppressed.
 | [`prompts/judge_job.txt`](prompts/judge_job.txt) | What the figure referee was told |
 | [`figures/`](figures/) | The three figures, plus SVG sources and build scripts for the two drawn deterministically |
 | [`media/demo_full.mp4`](media/demo_full.mp4) | 4 min 17 s of the recorded run, sped up (26 MB) |
+| [`media/demo_screencast.mp4`](media/demo_screencast.mp4) | The shorter 1 min 35 s cut, the one played during the talk (15 MB) |
 
 ### How it works
 
