@@ -60,20 +60,22 @@ You can download these, inspect them, and run them on your own hardware. That ma
 touching patient data, and it is the reason the "can I even use this at work" conversation has an
 answer other than no.
 
-| Origin | Vendor | Model | Verified name on Hugging Face |
+| Origin | Vendor | Model | Weights on Hugging Face |
 |---|---|---|---|
 | US | Thinking Machines Lab · https://thinkingmachines.ai | Inkling | `thinkingmachines/Inkling` |
 | US | NVIDIA | Nemotron 3 Ultra | `nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16` |
 | US | OpenAI | GPT-OSS 120B | `openai/gpt-oss-120b` |
 | US | Meta · https://www.llama.com | Llama 4 | `meta-llama/Llama-4-Maverick-17B-128E-Instruct` |
 | France | Mistral · https://mistral.ai | Mistral Large 3 | `mistralai/Mistral-Large-3-675B-Instruct-2512` |
-| China | Moonshot AI · https://moonshot.ai | Kimi K2.7 | `moonshotai/Kimi-K2.7-Code` |
+| China | Moonshot AI · https://moonshot.ai | **Kimi K3** | publication pending · `moonshotai/Kimi-K2.7-Code` available now |
 | China | DeepSeek · https://www.deepseek.com | DeepSeek V4 Flash | `deepseek-ai/DeepSeek-V4-Flash` |
-| China | Z.ai · https://z.ai | GLM-5.2 | `zai-org/GLM-5.2` |
+| China | Z.ai · https://z.ai | **GLM-5.3** | publication pending · `zai-org/GLM-5.2` available now |
 | China | Alibaba | Qwen 3.5 | `Qwen/Qwen3.5-35B-A3B` |
 
-Names in the right-hand column were confirmed against the Hugging Face registry on 2026-07-26
-rather than quoted from memory. Qwen 3.5 is Alibaba's last open release.
+The right-hand column is what you can actually download as of 2026-07-26, checked against the Hugging
+Face registry rather than quoted from memory. Kimi K3 and GLM-5.3 are announced with weights not yet
+published, so the last released version of each is given alongside. Qwen 3.5 is Alibaba's last open
+release.
 
 ---
 
