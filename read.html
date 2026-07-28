@@ -86,6 +86,39 @@
         font:italic 1.02rem/1.45 Georgia,serif}
   .cite{color:var(--muted);font-size:.82rem;margin-top:.9rem}
 
+  /* collapsible subsections — section 1 runs long, so its three parts fold.
+     Native <details>, no script: browsers expand these for find-in-page, which a
+     scripted accordion cannot do. Each summary carries the finding, so the closed
+     state is a table of contents rather than three blank doors. */
+  details.fold{border-bottom:1px solid var(--rule);scroll-margin-top:.6rem}
+  details.fold:first-of-type{border-top:1px solid var(--rule);margin-top:1.2rem}
+  details.fold>summary{
+    display:flex;flex-wrap:wrap;align-items:flex-start;column-gap:.9rem;
+    list-style:none;cursor:pointer;padding:.8rem .3rem;
+  }
+  details.fold>summary::-webkit-details-marker{display:none}
+  details.fold>summary::marker{content:""}
+  details.fold>summary h3{flex:1 1 auto;min-width:0;margin:0;color:var(--fg);font-size:.86rem}
+  details.fold>summary .note{flex:1 0 100%;order:1;display:block;
+    color:var(--muted);font-size:.87rem;line-height:1.45;margin-top:.2rem}
+  /* chevron drawn from two borders — no glyph, no icon font, no request */
+  details.fold>summary::after{
+    content:"";flex:0 0 auto;align-self:flex-start;margin-top:.34rem;
+    width:.46rem;height:.46rem;
+    border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);
+    transform:rotate(45deg);transition:transform .18s ease;
+  }
+  details.fold[open]>summary::after{transform:rotate(-135deg);margin-top:.5rem}
+  details.fold>summary:hover,details.fold[open]>summary{background:var(--chip)}
+  details.fold>summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+  .foldbody{padding:.1rem .3rem 1.4rem}
+  .foldbody>:first-child{margin-top:.6rem}
+  /* a collapsed page would print as three headings and nothing else */
+  @media print{
+    details.fold::details-content{content-visibility:visible!important;block-size:auto!important}
+    details.fold>summary::after{display:none}
+  }
+
   /* jump row — gets a phone to the list in one tap, above the disclaimer */
   nav.jump{display:flex;flex-wrap:wrap;gap:.4rem;margin:1.1rem 0 .2rem}
   nav.jump a{padding:.5rem .75rem;background:var(--chip);color:var(--link);
@@ -176,7 +209,12 @@
   citation; adoption figures are labelled as the vendor's own. Availability was checked on
   28 July 2026 and this field moves quickly.</p>
 
-  <h3>Evidence at the point of care</h3>
+  <details class="fold" id="clinic-evidence">
+  <summary><h3>Evidence at the point of care</h3><span class="note">OpenEvidence and UpToDate Expert
+  AI &mdash; what each is allowed to draw on, who pays for it, and the independent head-to-head that
+  put both behind the general-purpose models on benchmarks</span></summary>
+  <div class="foldbody">
+
   <ul class="links">
     <li><a href="https://www.openevidence.com">OpenEvidence<span class="note">Free to healthcare professionals and carries advertising; professional status may be verified &middot; the company reports content agreements with NEJM, JAMA, NCCN, Wiley and Cochrane, and announced a collaboration with ACOG in May 2026</span></a></li>
     <li><a href="https://www.wolterskluwer.com/en/solutions/uptodate/uptodate-expert-ai">UpToDate Expert AI<span class="note">Reached through an enterprise subscription or included in select personal ones, with availability varying by region &middot; Wolters Kluwer states that answers are drawn only from UpToDate content and linked back to the topic</span></a></li>
@@ -215,7 +253,15 @@
   outperform specialized clinical AI tools on medical benchmarks. <em>Nat Med</em> 2026.
   <a href="https://doi.org/10.1038/s41591-026-04431-5">doi:10.1038/s41591-026-04431-5</a></p>
 
-  <h3>Inside the EHR &mdash; what Epic ships</h3>
+  </div>
+  </details>
+
+  <details class="fold" id="clinic-epic">
+  <summary><h3>Inside the EHR &mdash; what Epic ships</h3><span class="note">Art, Emmie and Penny
+  &mdash; which of them a clinician can actually use today, and why Epic now sits on both sides of
+  the scribe question</span></summary>
+  <div class="foldbody">
+
   <p class="lede">Epic groups its clinician-facing AI under the name <strong>Art</strong>, with
   <strong>Emmie</strong> facing patients in MyChart and <strong>Penny</strong> working the revenue
   cycle.</p>
@@ -234,7 +280,15 @@
   measured. Curiosity is worth naming only so that it is not mistaken for something a clinician can
   use today, because the trade coverage reads as though it were.</p>
 
-  <h3>Ambient scribes</h3>
+  </div>
+  </details>
+
+  <details class="fold" id="clinic-scribes">
+  <summary><h3>Ambient scribes</h3><span class="note">Five platforms verified live, the red-line
+  question an open microphone raises, and the two studies that say what a model-written draft is
+  actually worth</span></summary>
+  <div class="foldbody">
+
   <p class="lede">Ambient documentation is the tool class most likely to arrive in your clinic next,
   and the one that captures the most, since the microphone is open for the length of the visit. That
   places it inside the red-line question at the top of this page.</p>
@@ -273,6 +327,9 @@
   vendor's website can tell you, because it depends on the agreement your organisation has executed
   and on local privacy review. That is a question for your compliance office, and it is worth asking
   before the microphone is switched on rather than after.</p>
+
+  </div>
+  </details>
 
   <div class="warn">
     <p>How this section was compiled, and what it is not.</p>
