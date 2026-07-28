@@ -37,6 +37,23 @@ None of the three figures contains a number, a percentage, a rate, a sample size
 values. That was a build-time rule, asserted in code and checked by two model judges. Numbers live
 in the tables, where each one carries a citation and a verdict.
 
+## Third-party images in the presentation
+
+Two slides of `presentation.html` carry images that are **not** mine and are **not** covered by the
+CC BY 4.0 grant in `LICENSE-CONTENT`:
+
+- **"LLMs have anterograde amnesia"** — the theatrical poster for *Memento*, a still frame from the
+  same film, and a stock photograph of a tattooed forearm.
+- **"Amplify, don't replace"** — a three-panel meme built from press photographs of two identifiable
+  people, watermarked `imgflip.com` and `CausalPython.io`.
+
+They are reproduced here as they appeared in the talk, for commentary. Each of those slides carries a
+visible credit line saying so. All rights in them remain with their respective holders. If you hold
+rights in any of them and want one removed, open an issue on this repository.
+
+Every other figure in the deck is the author's own, most of them generated or hand-built for this
+talk.
+
 ## The one thing changed after the run finished
 
 `run-output/explainer.html` is **byte-identical** to what the run wrote on 2026-07-22

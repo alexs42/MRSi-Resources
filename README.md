@@ -25,7 +25,7 @@ a phone.
 
 | | Go to | What it is |
 |---|---|---|
-| **1** | [Presentation (follow along)](https://alexs42.github.io/MRSi-Resources/presentation.html) | The slides go up here after the talk |
+| **1** | [Presentation (follow along)](https://alexs42.github.io/MRSi-Resources/presentation.html) | The whole talk as one web page, readable on a phone |
 | **2** | [READ THIS (Resources)](https://alexs42.github.io/MRSi-Resources/read.html) | The four rules, the red line on patient data, the tools you will meet in clinic, the models worth knowing |
 | **3** | [Agent Demo — Fresh-v-Frozen](https://alexs42.github.io/MRSi-Resources/explainer.html) | **Unreviewed agent output** — the warning above applies to this one |
 | **4** | [Citations](https://alexs42.github.io/MRSi-Resources/citations.html) | Every study behind the talk, with a link to the paper |
@@ -111,7 +111,7 @@ staged: no disagreement was manufactured and no convergence was suppressed.
 | [`index.html`](index.html) | The landing page — the four destinations above, and nothing else |
 | [`read.html`](read.html) | The resources page. The four rules, the red line, clinician tools, agents, models, running locally, security, prompting |
 | [`citations.html`](citations.html) | All forty-one references, with DOIs and the slide each came from |
-| [`presentation.html`](presentation.html) | Where the web version of the slides will be published |
+| [`presentation.html`](presentation.html) | The talk itself: 44 slides re-rendered as 62 web scenes, one self-contained file, no external requests. Arrow keys, swipe or the rail to navigate; tap a figure to enlarge it |
 | [`explainer.html`](explainer.html) | The deliverable. One self-contained scrolling page, no external requests, fonts and figures inlined. Opens in any browser including a phone. Carries a disclaimer banner — see [`NOTICE.md`](NOTICE.md) |
 | [`run-output/explainer.html`](run-output/explainer.html) | The same page, **byte-identical** to what the run wrote, banner and all changes absent |
 | [`run-output/plan.md`](run-output/plan.md) | The plan the model wrote **before** it was allowed to search |
