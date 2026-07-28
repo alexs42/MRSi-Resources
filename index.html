@@ -3,443 +3,173 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MRSi 2026 — Agents, models and resources</title>
-<meta name="description" content="Companion resources for 'Removing the Thorn From the Rose: How Best to Use LLMs' — MRSi 2026, Chicago.">
+<title>MRSi 2026 &middot; Removing the Thorn From the Rose</title>
+<meta name="description" content="Companion page for the MRSi 2026 invited talk by Aleksandar Stanic-Kostic: the presentation, the resources, the agent demo, and the citations.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbfaf7">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#14130f">
+<script>
+/* This page used to be the long resources page, and links to its sections are still
+   in circulation. Forward any of the eleven old anchors to where that content now lives,
+   before anything paints. */
+(function(){
+  var h = location.hash;
+  if (h && /^#(takeaways|clinic|agents|models|run|learn|context|security|prompting|sysprompt|demo)$/.test(h))
+    location.replace('read.html' + h);
+})();
+</script>
 <style>
   :root{
     --bg:#fbfaf7; --fg:#1c1a17; --muted:#5c574f; --rule:#ddd8cf;
     --accent:#8B1A1A; --card:#fff; --link:#7a1616; --chip:#f1ede5;
+    color-scheme:light dark;
   }
   @media (prefers-color-scheme: dark){
     :root{ --bg:#14130f; --fg:#eae6de; --muted:#a49d90; --rule:#302c25;
            --accent:#e0685f; --card:#1c1a15; --link:#f0918a; --chip:#242019; }
   }
+
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
+  html,body{min-height:100%}
   body{
     margin:0; background:var(--bg); color:var(--fg);
     font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     overflow-wrap:break-word;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:safe center;
+    min-height:100svh;
   }
-  .wrap{max-width:48rem;margin:0 auto;padding:1.4rem 1.15rem 4rem}
-  h1{font:700 1.55rem/1.2 Georgia,"Iowan Old Style",serif;margin:0 0 .35rem;letter-spacing:-.01em}
-  h2{font:700 1.2rem/1.25 Georgia,"Iowan Old Style",serif;margin:2.4rem 0 .2rem;
-     padding-top:1.1rem;border-top:1px solid var(--rule)}
-  h3{font:600 .82rem/1.3 system-ui,sans-serif;text-transform:uppercase;letter-spacing:.09em;
-     color:var(--muted);margin:1.5rem 0 .5rem}
-  p{margin:.6rem 0}
-  .kicker{font-size:.8rem;text-transform:uppercase;letter-spacing:.11em;color:var(--muted);margin:0 0 .5rem}
-  .meta{color:var(--muted);font-size:.9rem;margin:.15rem 0 0}
-  .lede{color:var(--muted);font-size:.97rem}
+  .wrap{max-width:48rem;margin:0 auto;width:100%;padding:.85rem 1rem 1.6rem}
 
-  /* disclaimer */
-  .warn{
-    margin:1.5rem 0 .5rem;padding:1rem 1.1rem;background:var(--card);
-    border:2px solid var(--accent);border-left-width:9px;border-radius:3px;
+  /* header: title and attribution, nothing else */
+  .kicker{margin:0 0 .3rem;font-size:.74rem;line-height:1.35;text-transform:uppercase;
+          letter-spacing:.06em;color:var(--muted)}
+  h1{margin:0 0 .3rem;font:700 1.4rem/1.2 Georgia,"Iowan Old Style",serif;
+     letter-spacing:-.01em;text-wrap:balance}
+  .meta{margin:0;color:var(--muted);font-size:.9rem;line-height:1.45}
+  .meta .sep{display:none}
+
+  /* the four boxes */
+  .hub{display:grid;gap:.8rem;margin:.95rem 0 0}
+  .hub a{
+    display:grid;
+    grid-template-columns:1.15rem 1fr auto;
+    column-gap:.55rem; row-gap:.18rem;
+    align-items:baseline;
+    min-height:3.4rem;
+    padding:.85rem 1rem;
+    background:var(--card);
+    border:2px solid var(--rule);
+    border-left:5px solid var(--accent);
+    border-radius:4px;
+    text-decoration:none; color:var(--fg);
+    touch-action:manipulation;
+    -webkit-tap-highlight-color:transparent;
   }
-  .warn p:first-child{margin-top:0;font-weight:700;color:var(--accent);font-size:1.02rem}
-  .warn p:last-child{margin-bottom:0}
-  .warn p{font-size:.93rem;line-height:1.5}
+  .hub .n{grid-column:1;font:700 .8rem/1.3 system-ui,sans-serif;color:var(--muted);
+          font-variant-numeric:tabular-nums}
+  .hub .label{grid-column:2;color:var(--link);
+              font:700 1.05rem/1.25 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .hub .go{grid-column:3;color:var(--muted);font-size:1rem;line-height:1.25}
+  .hub .note{grid-column:2 / -1;color:var(--muted);font-size:.85rem;line-height:1.35}
+  .hub .note strong{color:var(--fg);font-weight:700}
 
-  /* link rows: big tap targets */
-  ul.links{list-style:none;margin:.5rem 0 0;padding:0}
-  ul.links li{border-bottom:1px solid var(--rule)}
-  ul.links li:last-child{border-bottom:0}
-  ul.links a{
-    display:block;padding:.72rem .2rem;color:var(--link);text-decoration:none;font-weight:600;
+  .tag{display:inline-block;margin-right:.35rem;padding:.06rem .38rem;
+       background:var(--chip);border:1px solid var(--rule);border-radius:999px;
+       color:var(--muted);font:700 .68rem/1.25 system-ui,sans-serif;
+       text-transform:uppercase;letter-spacing:.08em;vertical-align:.04em}
+
+  /* press feedback: the network takes seconds, the finger must not wait */
+  .hub a:active{background:var(--chip);border-color:var(--accent)}
+  .hub a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+  @media (hover:hover){
+    .hub a:hover{border-color:var(--accent)}
+    .hub a:hover .label{text-decoration:underline;text-underline-offset:2px}
   }
-  ul.links a:hover,ul.links a:focus{text-decoration:underline}
-  ul.links .note{display:block;font-weight:400;color:var(--muted);font-size:.87rem;margin-top:.12rem}
+  @media (prefers-contrast:more){
+    .hub a{border-width:3px;border-left-width:7px}
+    .hub .note{color:var(--fg)}
+  }
 
-  /* primary buttons */
-  .cta{display:block;margin:.6rem 0;padding:.95rem 1.1rem;background:var(--accent);color:#fff;
-       text-decoration:none;border-radius:4px;font-weight:700;font-size:1.02rem}
-  .cta .note{display:block;font-weight:400;font-size:.86rem;opacity:.9;margin-top:.15rem}
-  .cta.ghost{background:transparent;color:var(--link);border:2px solid var(--rule)}
+  /* short viewports: iPhone SE, landscape, small laptops */
+  @media (max-height:40rem){
+    .wrap{padding-top:.6rem;padding-bottom:.9rem}
+    .kicker{font-size:.7rem;margin-bottom:.22rem}
+    h1{font-size:1.22rem;margin-bottom:.25rem}
+    .meta{font-size:.84rem}
+    .hub{gap:.6rem;margin-top:.75rem}
+    .hub a{padding-top:.7rem;padding-bottom:.7rem}
+    .hub .note{font-size:.82rem}
+  }
 
-  table{border-collapse:collapse;width:100%;margin:.7rem 0;font-size:.9rem;display:block;overflow-x:auto}
-  th,td{text-align:left;padding:.45rem .6rem .45rem 0;border-bottom:1px solid var(--rule);vertical-align:top}
-  th{font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600}
-  code{background:var(--chip);padding:.12rem .34rem;border-radius:3px;font-size:.85em}
-  a{color:var(--link)}
-  footer{margin-top:3rem;padding-top:1.1rem;border-top:1px solid var(--rule);
-         color:var(--muted);font-size:.86rem}
+  /* very narrow phones */
+  @media (max-width:22.5rem){
+    .wrap{padding-left:.7rem;padding-right:.7rem}
+    .kicker{font-size:.7rem;letter-spacing:.04em}
+    .hub a{padding-left:.75rem;padding-right:.75rem;
+           grid-template-columns:1rem 1fr;column-gap:.45rem}
+    .hub .label{font-size:.97rem}
+    .hub .go{display:none}
+  }
 
-  /* takeaways — the four closing rules, given the weight they had on the slide */
-  ol.rules{counter-reset:r;list-style:none;margin:.7rem 0 0;padding:0}
-  ol.rules li{counter-increment:r;position:relative;padding:.62rem 0 .62rem 2.4rem;
-              border-bottom:1px solid var(--rule);font-size:1.01rem}
-  ol.rules li:last-child{border-bottom:0}
-  ol.rules li::before{content:counter(r);position:absolute;left:0;top:.62rem;
-    width:1.6rem;height:1.6rem;border-radius:50%;background:var(--accent);color:#fff;
-    font:700 .85rem/1.6rem system-ui,sans-serif;text-align:center}
-
-  /* red line tiers */
-  .tiers{margin:.8rem 0 0}
-  .tier{display:flex;gap:.75rem;padding:.7rem 0;border-bottom:1px solid var(--rule)}
-  .tier:last-child{border-bottom:0}
-  .dot{flex:0 0 auto;width:.85rem;height:.85rem;border-radius:50%;margin-top:.34rem}
-  .dot.red{background:#c0392b}.dot.amber{background:#c98a12}.dot.green{background:#2e7d4f}
-  .tier b{display:block;font-size:.95rem}
-  .tier span{color:var(--muted);font-size:.9rem}
-  .pull{margin:1.1rem 0 0;padding-left:.9rem;border-left:3px solid var(--accent);
-        font:italic 1.02rem/1.45 Georgia,serif}
-  .cite{color:var(--muted);font-size:.82rem;margin-top:.9rem}
-
-  /* jump row — gets a phone to the list in one tap, above the disclaimer */
-  nav.jump{display:flex;flex-wrap:wrap;gap:.4rem;margin:1.1rem 0 .2rem}
-  nav.jump a{padding:.5rem .75rem;background:var(--chip);color:var(--link);
-             text-decoration:none;border-radius:999px;font-size:.87rem;font-weight:600;
-             border:1px solid var(--rule)}
-  nav.jump a:hover,nav.jump a:focus{border-color:var(--accent)}
-  h2{scroll-margin-top:.6rem}
+  /* tablet and desktop: two by two */
+  @media (min-width:38rem){
+    .wrap{padding:2rem 1.5rem 2.5rem}
+    .kicker{font-size:.8rem;letter-spacing:.11em;margin-bottom:.5rem}
+    h1{font-size:1.95rem;margin-bottom:.4rem}
+    .meta{font-size:1rem}
+    .meta .sep{display:inline}
+    .meta br{display:none}
+    .hub{grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.6rem}
+    .hub a{padding:1.15rem 1.25rem;border-radius:5px;
+           grid-template-columns:1.3rem 1fr auto;column-gap:.7rem}
+    .hub .label{font-size:1.15rem}
+    .hub .note{font-size:.9rem}
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
+<main class="wrap">
 
   <p class="kicker">MRSi 2026 &middot; Drake Hotel, Chicago &middot; 28 July 2026</p>
   <h1>Removing the Thorn From the Rose: How Best to Use LLMs</h1>
-  <p class="meta">Aleksandar Stanic-Kostic, MD, PhD &middot; University of Wisconsin&ndash;Madison</p>
-  <p class="lede">Everything from the talk: what to install, which models are worth knowing, where to
-  learn this properly &mdash; and the full audit trail of the agent run you just watched.</p>
+  <p class="meta">Aleksandar Stanic-Kostic, MD, PhD<span class="sep"> &middot; </span><br>University of Wisconsin&ndash;Madison</p>
 
-  <nav class="jump">
-    <a href="#takeaways">The 4 rules</a><a href="#clinic">In clinic</a><a href="#agents">Agents</a><a href="#models">Models</a>
-    <a href="#run">Run locally</a><a href="#learn">Learn</a><a href="#context">Context</a>
-    <a href="#security">Security</a><a href="#prompting">Prompting</a>
-    <a href="#sysprompt">System prompt</a><a href="#demo">The demo</a>
+  <nav class="hub" aria-label="Talk resources">
+
+    <a href="presentation.html">
+      <span class="n">1</span>
+      <span class="label">Presentation (follow along)</span>
+      <span class="go" aria-hidden="true">&rarr;</span>
+      <span class="note"><span class="tag">Soon</span>The slides go up here after the talk.</span>
+    </a>
+
+    <a href="read.html">
+      <span class="n">2</span>
+      <span class="label">READ THIS (Resources)</span>
+      <span class="go" aria-hidden="true">&rarr;</span>
+      <span class="note">The four rules, the red line on patient data, the tools you will meet in
+      clinic, and where to learn this properly.</span>
+    </a>
+
+    <a href="explainer.html">
+      <span class="n">3</span>
+      <span class="label">Agent Demo &mdash; Fresh-v-Frozen</span>
+      <span class="go" aria-hidden="true">&rarr;</span>
+      <span class="note"><strong>Unreviewed agent output</strong> &mdash; a demonstration of method,
+      not a clinical document. Not medical advice.</span>
+    </a>
+
+    <a href="citations.html">
+      <span class="n">4</span>
+      <span class="label">Citations</span>
+      <span class="go" aria-hidden="true">&rarr;</span>
+      <span class="note">Every study behind the talk, with a link to the paper.</span>
+    </a>
+
   </nav>
 
-  <div class="warn">
-    <p>About the demo: this is a demonstration of method, not a clinical document.</p>
-    <p>The evidence explainer linked below was produced by a <strong>single unedited run of an AI
-    agent</strong> on 22 July 2026 and is published exactly as the run wrote it. It has
-    <strong>not been reviewed for accuracy by a human expert</strong>, and nothing was corrected,
-    re-worded or re-styled after the run finished. The checks it describes are checks the run ran on
-    itself. They are not peer review.</p>
-    <p><strong>It is not medical advice</strong>, not a guideline and not a systematic review. Do not
-    use it for patient care.</p>
-  </div>
-
-  <a class="cta ghost" href="https://github.com/alexs42/MRSi-Resources">Everything on GitHub
-    <span class="note">Full repository &mdash; resources, prompts, claims, verdicts, figures</span></a>
-
-  <h2 id="takeaways">The four rules, if you remember nothing else</h2>
-  <ol class="rules">
-    <li>Match the tool to the risk, and the data to the tool.</li>
-    <li>Ground every factual claim in a source, and verify the citation and the number before you
-        reuse it.</li>
-    <li>Keep PHI inside approved, BAA-covered or on-prem systems.</li>
-    <li>Preserve skill through unaided practice and audit.</li>
-  </ol>
-
-  <h3>The red line &mdash; decide what never gets pasted</h3>
-  <div class="tiers">
-    <div class="tier"><span class="dot red"></span><div>
-      <b>Consumer &mdash; never PHI</b>
-      <span>Free or personal web apps carry no business-associate agreement, so de-identified
-      questions and drafting only.</span></div></div>
-    <div class="tier"><span class="dot amber"></span><div>
-      <b>Enterprise no-train &mdash; still not cleared for PHI</b>
-      <span>Paid endpoints that contractually do not train on inputs lower the leak risk, but
-      without a signed BAA they are not cleared for identifiable data.</span></div></div>
-    <div class="tier"><span class="dot green"></span><div>
-      <b>BAA-covered or on-prem &mdash; the only tier for identifiable data</b>
-      <span>And only for the approved use.</span></div></div>
-  </div>
-
-  <p class="pull">The prompt box is a disclosure.</p>
-
-  <p>Under HIPAA, any vendor that handles ePHI needs a BAA even in &ldquo;no-view&rdquo; encrypted
-  setups, and the &ldquo;don&rsquo;t train on my data&rdquo; toggle stops training reuse &mdash; it
-  does not create a BAA. IVF data resists de-identification: PGT genetics and partner linkage are
-  inherently identifying, so the genome is the identifier.</p>
-
-  <p class="cite">Khanna S. Responsible use of large language models in gastroenterology and
-  hepatology. <em>Therap Adv Gastroenterol</em> 2026;19:17562848261441693.
-  <a href="https://doi.org/10.1177/17562848261441693">doi:10.1177/17562848261441693</a></p>
-
-  <h2 id="clinic">1 &middot; The tools you will meet in clinic</h2>
-  <p class="lede">Most of what follows this section is developer tooling. This is the part that
-  reaches a consulting room. It is an inventory of what exists and what is known about it, not advice
-  on what to buy, and nothing here is endorsed by me or by my institution. Study findings carry a
-  citation; adoption figures are labelled as the vendor's own. Availability was checked on
-  28 July 2026 and this field moves quickly.</p>
-
-  <h3>Evidence at the point of care</h3>
-  <ul class="links">
-    <li><a href="https://www.openevidence.com">OpenEvidence<span class="note">Free to healthcare professionals and carries advertising; professional status may be verified &middot; the company reports content agreements with NEJM, JAMA, NCCN, Wiley and Cochrane, and announced a collaboration with ACOG in May 2026</span></a></li>
-    <li><a href="https://www.wolterskluwer.com/en/solutions/uptodate/uptodate-expert-ai">UpToDate Expert AI<span class="note">Reached through an enterprise subscription or included in select personal ones, with availability varying by region &middot; Wolters Kluwer states that answers are drawn only from UpToDate content and linked back to the topic</span></a></li>
-  </ul>
-  <p>The vendors describe different source boundaries, and the difference is the whole point of
-  choosing between them: OpenEvidence licenses primary journal content, so an answer can carry the
-  trial itself, while UpToDate Expert AI is confined to text that a named editorial process has
-  already reviewed. Neither description is evidence about the quality of any particular answer, and
-  neither route is automatic — Expert AI arrives through an institutional agreement or a qualifying
-  personal subscription, not with every UpToDate login.</p>
-
-  <p>Ask what funds the tool you are using. OpenEvidence states that it provides the service free to
-  healthcare professionals and shows a limited number of advertisements from vetted advertisers, and
-  that this is what allows the service to be free. Its privacy policy describes disclosing a
-  clinician's National Provider Identifier and the timestamp of an advertisement interaction to
-  confirm that a verified professional saw that advertisement. A separate programme, described as
-  United States only, may share hashed email addresses, cookie and device identifiers, IP addresses
-  and a professional identifier with advertising partners to deliver and measure advertising on
-  other sites. The same policy states that user questions and conversations are not shared, that
-  models are not trained on protected health information, and that processed data are secured in
-  compliance with HIPAA.</p>
-
-  <p class="pull">No system earned a safety margin.</p>
-
-  <p>An independent comparison published this year put both tools against general-purpose models on
-  real clinical questions, and the result is the part worth carrying out of the room. On 500 MedQA
-  items the frontier models led, Gemini 3.1 Pro at 97.4% and GPT-5.2 at 94.2%, against 89.6% for
-  OpenEvidence and 88.4% for UpToDate. On 100 real physician queries scored by 12 blinded
-  clinicians, the two specialised tools and a free Google AI Overview formed a single tier with no
-  significant differences between them, at 3.24, 3.17 and 3.27 out of 4. Safety outcomes did not
-  differ across models: none produced more harmful content or more hallucinations than any other.
-  UpToDate Expert AI declined to answer 19% of the questions, against 1% to 3% for most of the
-  others, which is either the most honest behaviour in the study or the least useful depending on
-  the question you brought it.</p>
-  <p class="cite">Vishwanath K, Alyakin A, Ghosh M, et al. General-purpose large language models
-  outperform specialized clinical AI tools on medical benchmarks. <em>Nat Med</em> 2026.
-  <a href="https://doi.org/10.1038/s41591-026-04431-5">doi:10.1038/s41591-026-04431-5</a></p>
-
-  <h3>Inside the EHR &mdash; what Epic ships</h3>
-  <p class="lede">Epic groups its clinician-facing AI under the name <strong>Art</strong>, with
-  <strong>Emmie</strong> facing patients in MyChart and <strong>Penny</strong> working the revenue
-  cycle.</p>
-  <ul class="links">
-    <li><a href="https://www.epic.com/software/ai-clinicians/">Art &mdash; the clinician-facing set<span class="note">Chart summarization ("Art's Insights") and drafted replies to patient messages in the In Basket are generally available</span></a></li>
-    <li><a href="https://www.epic.com/epic/post/epic-ai-charting-rolls-out-alongside-an-expanding-set-of-built-in-ai-capabilities/">AI Charting, or "Chart with Art"<span class="note">Epic's own ambient documentation &middot; released to all Epic EHR customers during the week of 4 February 2026, with a nursing version in March</span></a></li>
-    <li><a href="https://www.epic.com/epic/post/curiosity-a-new-medical-intelligence-for-clinical-and-operational-insights/">Curiosity<span class="note">Foundation models trained on the de-identified Cosmos record set &middot; a research preview, not in clinical use</span></a></li>
-  </ul>
-  <p>Epic now sits on both sides of the scribe question, which is the thing most likely to surprise a
-  clinician who has been following the vendor market. Epic says AI Charting listens during the visit,
-  drafts the note and queues orders from the conversation, and Epic also continues to carry
-  third-party scribes through its Toolbox programme, so the ambient tool running in your clinic may
-  be Epic's own or a vendor's product working inside Epic. Chart summarization is the one already
-  operating at scale: Epic said on 4 February 2026 that Art's Insights was being used more than
-  16 million times a month, a figure the company reports rather than one an independent study
-  measured. Curiosity is worth naming only so that it is not mistaken for something a clinician can
-  use today, because the trade coverage reads as though it were.</p>
-
-  <h3>Ambient scribes</h3>
-  <p class="lede">Ambient documentation is the tool class most likely to arrive in your clinic next,
-  and the one that captures the most, since the microphone is open for the length of the visit. That
-  places it inside the red-line question at the top of this page.</p>
-
-  <p>Two studies frame what these drafts are worth, and neither evaluated any of the products listed
-  below — both tested model-generated clinical text in a research setting, so read them as evidence
-  about the technique rather than about a vendor. In a ten-physician blinded reader study, the best
-  adapted model summaries were judged equivalent to physician-written ones 45% of the time and
-  superior in a further 36%, the expert preferred in only 19%, and the same study found
-  hallucinations in 5% of model samples against 12% of the human ones. A fine-tuned model drafted
-  discharge summaries in about 83 seconds against 30 to 50 minutes by hand, with 94% rated acceptable
-  for the record after minor verification. Around 6% still carried a minor factual inconsistency,
-  that timing excludes the reading and the signature, and the responsibility for what is signed stays
-  with the clinician who signs it.</p>
-  <p class="cite">Van Veen D, Van Uden C, Blankemeier L, et al. Adapted large language models can
-  outperform medical experts in clinical text summarization. <em>Nat Med</em> 2024;30:1134-1142.
-  <a href="https://doi.org/10.1038/s41591-024-02855-5">doi:10.1038/s41591-024-02855-5</a> &middot;
-  Li W, Feng H, Hu C, Xu M, Cheng L. Accurate discharge summary generation using fine tuned large
-  language models with self evaluation. <em>Sci Rep</em> 2026;16:5607.
-  <a href="https://doi.org/10.1038/s41598-026-35552-z">doi:10.1038/s41598-026-35552-z</a></p>
-
-  <p>Five platforms verified as live for this list, alphabetically. Inclusion is not a comparison of
-  performance, security, contract terms or institutional approval:</p>
-  <ul class="links">
-    <li><a href="https://www.abridge.com/">Abridge<span class="note">abridge.com &middot; lists an Epic integration</span></a></li>
-    <li><a href="https://www.ambiencehealthcare.com/">Ambience<span class="note">ambiencehealthcare.com &middot; lists an Epic integration</span></a></li>
-    <li><a href="https://www.microsoft.com/en-us/health-solutions/clinical-workflow/dragon-copilot">Microsoft Dragon Copilot<span class="note">The successor brand to Nuance DAX Copilot &middot; lists an Epic integration; Microsoft reported more than 100,000 clinicians in March 2026</span></a></li>
-    <li><a href="https://www.nabla.com/">Nabla<span class="note">nabla.com &middot; lists an Epic integration</span></a></li>
-    <li><a href="https://www.suki.ai/">Suki<span class="note">suki.ai &middot; lists an Epic integration, and also supplies the ambient notes feature sold under athenahealth's own name</span></a></li>
-  </ul>
-  <p class="lede">Freed describes its product as "not made for massive healthcare systems," which is
-  worth knowing if you are a small practice rather than a health system. Augmedix is absent because
-  it stopped being an independent company when Commure acquired it in October 2024.</p>
-
-  <p>Whether any of these may process a real encounter at your institution is not something a
-  vendor's website can tell you, because it depends on the agreement your organisation has executed
-  and on local privacy review. That is a question for your compliance office, and it is worth asking
-  before the microphone is switched on rather than after.</p>
-
-  <div class="warn">
-    <p>How this section was compiled, and what it is not.</p>
-    <p>This inventory was assembled by an <strong>AI agent surveying vendor and primary sources</strong>,
-    then checked against them. It has not been exhaustively verified by hand, <strong>accuracy is not
-    guaranteed</strong>, and a field that renames and reorganises itself this quickly will date faster
-    than the page can be corrected.</p>
-    <p><strong>I do not endorse or recommend any individual product named here.</strong> Appearing on
-    this list is not a recommendation to purchase, adopt or use anything, and an absence from it is
-    not a judgement either. <strong>Do your own due diligence</strong> — confirm anything that matters
-    with the vendor directly, and with your own institution, before you act on it.</p>
-  </div>
-
-  <h2 id="agents">2 &middot; Coding agents</h2>
-  <p class="lede">An agent differs from a chat window in one respect that matters: it runs commands,
-  reads and writes files, and loops on the result. That is also why section&nbsp;6 is not optional.</p>
-
-  <h3>Commercial</h3>
-  <ul class="links">
-    <li><a href="https://code.claude.com/docs/en/setup">Claude Code<span class="note">code.claude.com &mdash; setup guide</span></a></li>
-    <li><a href="https://developers.openai.com/codex/cli/">Codex CLI &middot; OpenAI<span class="note">developers.openai.com/codex/cli</span></a></li>
-    <li><a href="https://antigravity.google/product/antigravity-cli">Antigravity CLI &middot; Google<span class="note">antigravity.google</span></a></li>
-    <li><a href="https://cursor.com/">Cursor<span class="note">cursor.com</span></a></li>
-    <li><a href="https://github.com/features/copilot">GitHub Copilot<span class="note">github.com/features/copilot</span></a></li>
-    <li><a href="https://code.visualstudio.com/">VS Code<span class="note">code.visualstudio.com</span></a></li>
-  </ul>
-
-  <h3>Open source</h3>
-  <ul class="links">
-    <li><a href="https://opencode.ai/">OpenCode<span class="note">opencode.ai</span></a></li>
-    <li><a href="https://kilo.ai/">Kilo Code<span class="note">kilo.ai</span></a></li>
-    <li><a href="https://pi.dev/">Pi<span class="note">pi.dev</span></a></li>
-  </ul>
-
-  <h3>Broader than code</h3>
-  <ul class="links">
-    <li><a href="https://github.com/NousResearch/hermes-agent">Hermes Agent &middot; Nous Research<span class="note">github.com/NousResearch/hermes-agent</span></a></li>
-    <li><a href="https://github.com/openclaw/openclaw">OpenClaw<span class="note">github.com/openclaw/openclaw</span></a></li>
-    <li><a href="https://github.com/NVIDIA/NemoClaw">NemoClaw &middot; NVIDIA<span class="note">github.com/NVIDIA/NemoClaw</span></a></li>
-  </ul>
-
-  <h2 id="models">3 &middot; Models behind them</h2>
-  <p class="lede">Versions move fast. The vendor and the family are the durable part; the flagship
-  column is a snapshot taken 26 July 2026.</p>
-
-  <h3>Closed weights, API only</h3>
-  <table>
-    <tr><th>Vendor</th><th>Family</th><th>Flagship</th></tr>
-    <tr><td><a href="https://openai.com">OpenAI</a></td><td>GPT-5.6</td><td>Sol, Terra, Luna</td></tr>
-    <tr><td><a href="https://www.anthropic.com">Anthropic</a></td><td>Claude 5</td><td>Opus 5, Fable 5</td></tr>
-    <tr><td><a href="https://deepmind.google/models/gemini/">Google</a></td><td>Gemini 3</td><td>3.1 Pro, 3.6 Flash</td></tr>
-  </table>
-
-  <h3>Open weights or open source</h3>
-  <p class="lede">You can download these, inspect them and run them on your own hardware. That
-  matters for anything touching patient data, and it is why &ldquo;can I even use this at work&rdquo;
-  has an answer other than no. The right-hand column is what you can actually download as of
-  26 July 2026, checked against the Hugging Face registry rather than quoted from memory. Kimi K3 and
-  GLM-5.3 are announced with weights not yet published, so the last released version of each is given
-  alongside.</p>
-  <table>
-    <tr><th>Vendor</th><th>Model</th><th>Weights on Hugging Face</th></tr>
-    <tr><td><a href="https://thinkingmachines.ai">Thinking Machines</a></td><td>Inkling</td><td><code>thinkingmachines/Inkling</code></td></tr>
-    <tr><td>NVIDIA</td><td>Nemotron 3 Ultra</td><td><code>nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16</code></td></tr>
-    <tr><td>OpenAI</td><td>GPT-OSS 120B</td><td><code>openai/gpt-oss-120b</code></td></tr>
-    <tr><td><a href="https://developer.meta.com/ai/models/llama-4/">Meta</a></td><td>Llama 4</td><td><code>meta-llama/Llama-4-Maverick-17B-128E-Instruct</code></td></tr>
-    <tr><td><a href="https://mistral.ai">Mistral</a> (France)</td><td>Mistral Large 3</td><td><code>mistralai/Mistral-Large-3-675B-Instruct-2512</code></td></tr>
-    <tr><td><a href="https://moonshot.ai">Moonshot AI</a> (China)</td><td><strong>Kimi K3</strong></td><td>publication pending &middot; <code>moonshotai/Kimi-K2.7-Code</code> available now</td></tr>
-    <tr><td><a href="https://www.deepseek.com">DeepSeek</a> (China)</td><td>DeepSeek V4 Flash</td><td><code>deepseek-ai/DeepSeek-V4-Flash</code></td></tr>
-    <tr><td><a href="https://z.ai">Z.ai</a> (China)</td><td><strong>GLM-5.3</strong></td><td>publication pending &middot; <code>zai-org/GLM-5.2</code> available now</td></tr>
-    <tr><td>Alibaba (China)</td><td>Qwen 3.5</td><td><code>Qwen/Qwen3.5-35B-A3B</code></td></tr>
-  </table>
-
-  <h2 id="run">4 &middot; Getting and running open models</h2>
-  <ul class="links">
-    <li><a href="https://huggingface.co">Hugging Face<span class="note">Roughly 2.9 million models, plus datasets and demos</span></a></li>
-    <li><a href="https://lmstudio.ai">LM Studio<span class="note">Desktop app, no terminal &mdash; easiest first try</span></a></li>
-    <li><a href="https://anythingllm.com">AnythingLLM<span class="note">Desktop app with document chat built in</span></a></li>
-    <li><a href="https://ollama.com">Ollama<span class="note">One command per model &mdash; good default for a laptop</span></a></li>
-    <li><a href="https://docs.vllm.ai">vLLM<span class="note">Serving several users at once, GPU</span></a></li>
-    <li><a href="https://github.com/ggml-org/llama.cpp">llama.cpp<span class="note">The engine underneath much of the above</span></a></li>
-  </ul>
-
-  <h2 id="learn">5 &middot; Learning how these actually work</h2>
-  <p class="lede">Grant Sanderson makes the best visual explanations of this material anywhere, and is
-  the reason a lot of people finally understood attention.</p>
-  <ul class="links">
-    <li><a href="https://youtu.be/wjZofJX0v4M">How transformers work<span class="note">3Blue1Brown &mdash; start here</span></a></li>
-    <li><a href="https://youtu.be/aircAruvnKk?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi">Neural networks, videos 1&ndash;10<span class="note">3Blue1Brown &mdash; the full series</span></a></li>
-    <li><a href="https://www.3blue1brown.com">3blue1brown.com<span class="note">Everything else he has made</span></a></li>
-  </ul>
-
-  <h2 id="context">6 &middot; Context engineering</h2>
-  <p class="lede">Getting the right material in front of the model, in the right order, at the right
-  moment. This is most of the difference between a useful answer and a plausible one.</p>
-  <ul class="links">
-    <li><a href="https://simonwillison.net/tags/context-engineering/">Simon Willison on context engineering<span class="note">simonwillison.net</span></a></li>
-    <li><a href="https://www.philschmid.de/context-engineering">Phil Schmid (Google DeepMind)<span class="note">philschmid.de</span></a></li>
-  </ul>
-
-  <h2 id="security">7 &middot; Read this before you point an agent at anything that matters</h2>
-  <ul class="links">
-    <li><a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">The Lethal Trifecta &middot; Simon Willison<span class="note">A must read</span></a></li>
-    <li><a href="https://simonwillison.net">simonwillison.net<span class="note">Worth following generally</span></a></li>
-  </ul>
-  <p>Access to private data, exposure to untrusted content, and the ability to communicate outward.
-  Any two are usually fine. All three together, and a document you did not write can instruct your
-  agent to send your data somewhere you did not choose. Everything in this repository was built by an
-  agent holding all three &mdash; which is exactly why it ran in a scratch directory with no patient
-  data anywhere near it.</p>
-
-  <h2 id="prompting">8 &middot; Prompting guides from the people who built the models</h2>
-  <ul class="links">
-    <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices">Anthropic &middot; prompting best practices<span class="note">platform.claude.com</span></a></li>
-    <li><a href="https://github.com/anthropics/claude-cookbooks">Anthropic cookbooks<span class="note">github.com/anthropics/claude-cookbooks</span></a></li>
-    <li><a href="https://developers.openai.com/cookbook/examples/chatgpt/chatgpt_prompt_guide/chatgpt_prompt_guide">OpenAI &middot; prompting guide<span class="note">developers.openai.com/cookbook</span></a></li>
-    <li><a href="https://github.com/google-gemini/cookbook">Google &middot; Gemini cookbook<span class="note">github.com/google-gemini/cookbook</span></a></li>
-    <li><a href="https://platform.openai.com/chat/edit">OpenAI prompt optimiser<span class="note">Needs an account before it will load</span></a></li>
-    <li><a href="https://platform.claude.com/dashboard">Anthropic dashboard<span class="note">Needs an account before it will load</span></a></li>
-  </ul>
-
-  <h2 id="sysprompt">9 &middot; A system prompt worth stealing</h2>
-  <p>The standing instruction I give a model before anything else. The lines that earn their place
-  are the ones giving the model permission to say no: <em>tell me if the request is illogical, wrong,
-  or there is no data after tool calls</em>, and <em>if there is no answer or the resource is not
-  available, say so, do not invent plausible answers.</em></p>
-  <p>A model with no licence to fail will produce something rather than nothing, and something rather
-  than nothing is how a fabricated citation ends up in your manuscript.</p>
-  <a class="cta ghost" href="system-prompt.html">Read the system prompt
-    <span class="note">Copy it, then cut whatever does not match how you work</span></a>
-
-  <h2 id="demo">10 &middot; The demonstration</h2>
-  <p>An agent answering a real clinical question &mdash; fresh versus elective frozen embryo transfer
-  &mdash; under a method built so a clinician can check it rather than trust it. A plan committed
-  before any searching. A named primary source behind every number. Two frontier models from two
-  different vendors retrieving those sources separately and instructed to refute rather than agree.
-  An arithmetic rule, applied in code, deciding what survives.</p>
-
-  <a class="cta" href="explainer.html">Open the evidence explainer
-    <span class="note">The page the run produced &mdash; see the disclaimer above</span></a>
-  <a class="cta ghost" href="media/demo_screencast.mp4">Watch the short cut
-    <span class="note">1 min 35 s, sped up &middot; 15 MB &mdash; the one played during the talk</span></a>
-  <a class="cta ghost" href="media/demo_full.mp4">Watch the whole run
-    <span class="note">4 min 17 s, sped up &middot; 26 MB &mdash; maybe wait for wifi</span></a>
-
-  <table>
-    <tr><th>Result</th><th></th></tr>
-    <tr><td>Claims extracted and adjudicated</td><td>57</td></tr>
-    <tr><td>Both verifiers returned the identical verdict</td><td>44 of 57 (77%)</td></tr>
-    <tr><td><code>[verified x2]</code></td><td>42</td></tr>
-    <tr><td><code>[disputed]</code> &mdash; disagreement quoted inline</td><td>12</td></tr>
-    <tr><td><code>[refuted x2]</code> &mdash; both rejected it, excluded</td><td>2</td></tr>
-    <tr><td><code>[unverified]</code> &mdash; source not retrieved, excluded</td><td>1</td></tr>
-    <tr><td>Wall clock</td><td>2 h 13 min</td></tr>
-  </table>
-
-  <p>The two models did not agree on everything. They returned different verdicts on <strong>13 of
-  57</strong> claims. Every disagreement is quoted in full rather than resolved silently, because the
-  disagreements are the part that carries information. Nothing was staged: no disagreement was
-  manufactured and no convergence suppressed. Four things went wrong during the run, including two
-  figures abandoned as AI images after both judges rejected them; all four are on the record in the
-  repository rather than tidied away.</p>
-
-  <a class="cta ghost" href="https://github.com/alexs42/MRSi-Resources">The full audit trail
-    <span class="note">Plan, claims, both verifiers&rsquo; raw verdicts, every prompt, the figure log</span></a>
-
-  <footer>
-    <p>Code <a href="https://github.com/alexs42/MRSi-Resources/blob/main/LICENSE">MIT</a>.
-    Prose and figures <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
-    Quoted material from published papers, and the one thing changed after the run finished, are
-    addressed in <a href="https://github.com/alexs42/MRSi-Resources/blob/main/NOTICE.md">NOTICE.md</a>.</p>
-    <p>All links checked 28 July 2026. Several sites here &mdash; the two OpenAI consoles,
-    OpenEvidence and the Wolters Kluwer pages among them &mdash; sit behind a bot check and may ask
-    you to confirm you are human before they load.</p>
-  </footer>
-
-</div>
+</main>
 </body>
 </html>

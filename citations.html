@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Citations &mdash; MRSi 2026, Removing the Thorn From the Rose</title>
+<meta name="description" content="Every work cited in 'Removing the Thorn From the Rose: How Best to Use LLMs' (MRSi 2026), plus the twenty-one references produced by the recorded agent run, with their adjudication tags.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbfaf7">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#14130f">
+<style>
+  :root{
+    --bg:#fbfaf7; --fg:#1c1a17; --muted:#5c574f; --rule:#ddd8cf;
+    --accent:#8B1A1A; --card:#fff; --link:#7a1616; --chip:#f1ede5;
+    --ok:#2e7d4f; --warn:#c98a12; --bad:#c0392b; --none:#8c8579;
+    color-scheme:light dark;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#14130f; --fg:#eae6de; --muted:#a49d90; --rule:#302c25;
+           --accent:#e0685f; --card:#1c1a15; --link:#f0918a; --chip:#242019;
+           --ok:#4f9e70; --warn:#d9a63a; --bad:#e0685f; --none:#6f6a60; }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    overflow-wrap:break-word;
+  }
+  .wrap{max-width:48rem;margin:0 auto;padding:1.4rem 1.15rem 4rem}
+  a{color:var(--link)}
+  h1{font:700 1.55rem/1.2 Georgia,"Iowan Old Style",serif;margin:0 0 .35rem;letter-spacing:-.01em}
+  h2{font:700 1.2rem/1.25 Georgia,"Iowan Old Style",serif;margin:2.6rem 0 .2rem;
+     padding-top:1.1rem;border-top:1px solid var(--rule);scroll-margin-top:.6rem}
+  p{margin:.6rem 0}
+  .kicker{font-size:.8rem;text-transform:uppercase;letter-spacing:.11em;color:var(--muted);margin:0 0 .5rem}
+  .meta{color:var(--muted);font-size:.9rem;margin:.15rem 0 0}
+  .lede{color:var(--muted);font-size:.97rem}
+  code{background:var(--chip);padding:.12rem .34rem;border-radius:3px;font-size:.85em}
+
+  .back{display:inline-block;margin:0 0 1rem;padding:.5rem .85rem .5rem .65rem;
+        background:var(--chip);border:1px solid var(--rule);border-radius:999px;
+        color:var(--link);text-decoration:none;font-size:.88rem;font-weight:600}
+  .back:hover,.back:focus{border-color:var(--accent)}
+
+  nav.jump{display:flex;flex-wrap:wrap;gap:.4rem;margin:1rem 0 .2rem;align-items:center}
+  nav.jump b{font:600 .78rem/1 system-ui,sans-serif;text-transform:uppercase;
+             letter-spacing:.09em;color:var(--muted);margin-right:.15rem}
+  nav.jump a{padding:.5rem .8rem;background:var(--chip);color:var(--link);
+             text-decoration:none;border-radius:999px;font-size:.88rem;font-weight:600;
+             border:1px solid var(--rule);font-variant-numeric:tabular-nums}
+  nav.jump a:hover,nav.jump a:focus{border-color:var(--accent)}
+
+  .note{margin:1.5rem 0 .5rem;padding:1rem 1.1rem;background:var(--card);
+        border:1px solid var(--rule);border-left:5px solid var(--accent);border-radius:3px}
+  .note p:first-child{margin-top:0;font-weight:700;color:var(--accent);font-size:1rem}
+  .note p:last-child{margin-bottom:0}
+  .note p{font-size:.93rem;line-height:1.5}
+
+  ol.refs{list-style:none;margin:1.2rem 0 0;padding:0;counter-reset:r}
+  ol.refs.cont{counter-reset:r 20}
+  ol.refs li{counter-increment:r;position:relative;padding:1rem 0 1rem 2.7rem;
+             border-bottom:1px solid var(--rule);scroll-margin-top:.6rem}
+  ol.refs li:last-child{border-bottom:0}
+  ol.refs li::before{content:counter(r) ".";position:absolute;left:0;top:1.05rem;
+    width:2.1rem;text-align:right;color:var(--muted);
+    font:600 .86rem/1.4 system-ui,sans-serif;font-variant-numeric:tabular-nums}
+
+  .where{display:inline-block;margin:0 0 .4rem;padding:.16rem .55rem;
+         background:var(--chip);border:1px solid var(--rule);border-radius:999px;
+         color:var(--accent);font:700 .72rem/1.5 system-ui,sans-serif;
+         text-transform:uppercase;letter-spacing:.07em}
+  .where.added{color:var(--fg);border-style:dashed;border-color:var(--accent)}
+  .authors{color:var(--muted);font-size:.88rem;margin:0}
+  .title{display:block;font-size:1.02rem;font-weight:600;margin:.18rem 0 .18rem;line-height:1.35}
+  .src{font-size:.9rem;margin:0;color:var(--fg)}
+  .src em{color:var(--muted)}
+  .ids{font-size:.86rem;margin:.25rem 0 0}
+  .ids a{font-variant-numeric:tabular-nums}
+  .slidetext{margin:.45rem 0 0;padding-left:.7rem;border-left:2px solid var(--rule);
+             color:var(--muted);font-size:.86rem;line-height:1.45}
+  .also{color:var(--muted);font-size:.84rem;margin:.3rem 0 0}
+  .why{margin:.45rem 0 0;padding-left:.7rem;border-left:2px dashed var(--accent);
+       color:var(--muted);font-size:.86rem;line-height:1.45}
+
+  ol.refs li.demo{background:var(--chip);border-left:4px solid var(--accent);
+                  padding-left:2.9rem;margin:0 0 1px;border-bottom-color:transparent}
+  ol.refs li.demo::before{left:.5rem}
+  .tags{display:flex;flex-wrap:wrap;gap:.35rem;margin:.45rem 0 0}
+  .tag{display:inline-block;padding:.16rem .5rem;background:var(--bg);
+       border:1px solid var(--rule);border-left-width:4px;border-radius:3px;
+       color:var(--fg);font:600 .78rem/1.5 system-ui,sans-serif}
+  .tag.ok{border-left-color:var(--ok)}
+  .tag.dis{border-left-color:var(--warn)}
+  .tag.ref{border-left-color:var(--bad)}
+  .tag.un{border-left-color:var(--none);color:var(--muted)}
+  dl.legend{margin:.8rem 0 0;padding:0}
+  dl.legend dt{margin:.7rem 0 .15rem}
+  dl.legend dd{margin:0;color:var(--muted);font-size:.9rem;line-height:1.5}
+
+  footer{margin-top:3rem;padding-top:1.1rem;border-top:1px solid var(--rule);
+         color:var(--muted);font-size:.86rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="index.html">&larr; Back</a>
+
+  <p class="kicker">MRSi 2026 &middot; Removing the Thorn From the Rose</p>
+  <h1>Citations</h1>
+  <p class="meta">Aleksandar Stanic-Kostic, MD, PhD &middot; University of Wisconsin&ndash;Madison
+  &middot; 28 July 2026</p>
+  <p class="lede">Forty-one works. The twenty behind the talk, in the order the slides came,
+  followed by the twenty-one the recorded agent run assembled on its own.</p>
+
+  <nav class="jump">
+    <b>Jump to slide</b>
+    <a href="#s13">13&ndash;14</a><a href="#s15">15</a><a href="#s16">16</a><a href="#s17">17</a>
+    <a href="#s18">18&ndash;19</a><a href="#s20">20&ndash;21</a><a href="#s22">22</a>
+    <a href="#s28">28&ndash;29</a><a href="#s36">36</a><a href="#s40">40</a><a href="#s44">44</a>
+    <a href="#demo">The demo</a>
+  </nav>
+
+  <div class="note">
+    <p>The line at the bottom of a slide was not the article's title.</p>
+    <p>Each footnote carried a short descriptive label I wrote so it would read at the back of a
+    ballroom. On all but one slide that label is <strong>not</strong> what the paper is called. The
+    titles below are the published titles, taken from the primary source and cross-checked against
+    the publisher's registered metadata, and the label I put on the slide is shown underneath each
+    one so you can match what you saw to what was published. If you searched for one of those labels
+    and found nothing, that is why.</p>
+    <p>Two works below carry a dashed <strong>cited here, not on a slide</strong> chip. Each supports
+    something I said from the podium whose citation never made it onto the slide. They are marked
+    rather than blended in, so the page shows both what the talk cited and what it should have.</p>
+  </div>
+
+  <div class="note">
+    <p>What is here, and what is not.</p>
+    <p>Every work cited in a footnote on a slide is here, together with the four also cited on the
+    <a href="read.html">resources page</a>, the two noted above, and the twenty-one references the
+    demonstration produced. Nothing else is.</p>
+    <p>The resources page also carries figures the companies publish about themselves &mdash; how
+    often Epic says its chart summarization is used, how many clinicians Microsoft reports for Dragon
+    Copilot, which journals OpenEvidence says it has licensed. Those are vendor statements, they are
+    labelled as vendor statements where they appear, and they are not references, so they are not
+    here. Neither are the videos, essays and prompting guides on that page, which are worth your time
+    and have no DOI. Papers I read while building the talk but did not draw on are not here either,
+    because this page is a record of what the talk actually rested on.</p>
+  </div>
+
+  <h2 id="talk">Cited in the talk</h2>
+  <p class="lede">In slide order. A work cited on two consecutive slides is listed once, under the
+  first.</p>
+
+  <ol class="refs">
+
+    <li id="s13">
+      <span class="where">Slides 13&ndash;14</span>
+      <p class="authors">Van Veen D, Van Uden C, Blankemeier L, Delbrouck JB, Aali A, Bluethgen C,
+      Pareek A, Polacin M, Reis EP, Seehofnerov&aacute; A, Rohatgi N, Hosamani P, Collins W, Ahuja N,
+      Langlotz CP, Hom J, Gatidis S, Pauly J, Chaudhari AS.</p>
+      <span class="title">Adapted large language models can outperform medical experts in clinical
+      text summarization.</span>
+      <p class="src"><em>Nat Med.</em> 2024;30(4):1134-1142.</p>
+      <p class="ids"><a href="https://doi.org/10.1038/s41591-024-02855-5">doi:10.1038/s41591-024-02855-5</a></p>
+      <p class="slidetext">On the slide: &ldquo;Adapted LLMs can outperform experts at clinical
+      summarization.&rdquo;</p>
+      <p class="also">Also cited on the <a href="read.html#clinic">resources page</a>, under ambient
+      scribes.</p>
+    </li>
+
+    <li>
+      <span class="where">Slides 13&ndash;14</span>
+      <p class="authors">Li W, Feng H, Hu C, Xu M, Cheng L.</p>
+      <span class="title">Accurate discharge summary generation using fine tuned large language
+      models with self evaluation.</span>
+      <p class="src"><em>Sci Rep.</em> 2026;16:5607.</p>
+      <p class="ids"><a href="https://doi.org/10.1038/s41598-026-35552-z">doi:10.1038/s41598-026-35552-z</a></p>
+      <p class="slidetext">On the slide: &ldquo;Fine-tuned LLM discharge summaries.&rdquo;</p>
+      <p class="also">Also cited on the <a href="read.html#clinic">resources page</a>, under ambient
+      scribes.</p>
+    </li>
+
+    <li id="s15">
+      <span class="where">Slide 15</span>
+      <p class="authors">Devranoglu B, Gurbuz T, Gokmen O.</p>
+      <span class="title">ChatGPT&rsquo;s efficacy in queries regarding polycystic ovary syndrome and
+      treatment strategies for women experiencing infertility.</span>
+      <p class="src"><em>Diagnostics (Basel).</em> 2024;14:1082.</p>
+      <p class="ids"><a href="https://doi.org/10.3390/diagnostics14111082">doi:10.3390/diagnostics14111082</a></p>
+      <p class="slidetext">On the slide: &ldquo;ChatGPT for PCOS-infertility queries.&rdquo;</p>
+    </li>
+
+    <li>
+      <span class="where added">Slide 15 &middot; cited here, not on the slide</span>
+      <p class="authors">Bah&ccedil;eci T, Elmaa&#287;a&ccedil; B, Ceyhan E.</p>
+      <span class="title">Comparative analysis of the effectiveness of Microsoft Copilot artificial
+      intelligence chatbot and Google Search in answering patient inquiries about infertility:
+      evaluating readability, understandability, and actionability.</span>
+      <p class="src"><em>Int J Impot Res.</em> 2025;37:1002-1007.</p>
+      <p class="ids"><a href="https://doi.org/10.1038/s41443-025-01056-z">doi:10.1038/s41443-025-01056-z</a></p>
+      <p class="why">Slide 15 also reported that both Copilot and Google answered patient infertility
+      questions above an eighth-grade reading level, exceeding the health-literacy ceiling for
+      patient material. That finding is not in the Devranoglu paper above; it is this one, whose
+      citation was cut off the slide &mdash; the footnote ends after Devranoglu with a separator and
+      nothing following it.</p>
+    </li>
+
+    <li id="s16">
+      <span class="where">Slide 16</span>
+      <p class="authors">Bean AM, Payne RE, Parsons G, Kirk HR, Ciro J, Mosquera-G&oacute;mez R,
+      Hincapi&eacute; MS, Ekanayaka AS, Tarassenko L, Rocher L, Mahdi A.</p>
+      <span class="title">Reliability of LLMs as medical assistants for the general public: a
+      randomized preregistered study.</span>
+      <p class="src"><em>Nat Med.</em> 2026;32(2):609-615.</p>
+      <p class="ids"><a href="https://doi.org/10.1038/s41591-025-04074-y">doi:10.1038/s41591-025-04074-y</a></p>
+      <p class="slidetext">On the slide: &ldquo;Reliability of LLMs as medical assistants for the
+      public.&rdquo;</p>
+    </li>
+
+    <li>
+      <span class="where">Slide 16</span>
+      <p class="authors">Draelos RL, Afreen S, Blasko B, Brazile TL, Chase N, Desai DP, Evert J,
+      Gardner HL, Herrmann L, House AV, Kass S, Kavan M, Khemani K, Koire A, McDonald LM, Rabeeah Z,
+      Shah A.</p>
+      <span class="title">Large language models provide unsafe answers to patient-posed medical
+      questions.</span>
+      <p class="src"><em>npj Digit Med.</em> 2026;9:241.</p>
+      <p class="ids"><a href="https://doi.org/10.1038/s41746-026-02428-5">doi:10.1038/s41746-026-02428-5</a></p>
+      <p class="slidetext">On the slide: &ldquo;LLMs give unsafe answers to patient-posed
+      questions.&rdquo;</p>
+    </li>
+
+    <li id="s17">
+      <span class="where">Slide 17</span>
+      <p class="authors">Chen S, Gao M, Sasse K, Hartvigsen T, Anthony B, Fan L, Aerts H,
+      Gallifant J, Bitterman DS.</p>
+      <span class="title">When helpfulness backfires: LLMs and the risk of false medical information
+      due to sycophantic behavior.</span>
+      <p class="src"><em>npj Digit Med.</em> 2025;8:605.</p>
+      <p class="ids"><a href="https://doi.org/10.1038/s41746-025-02008-z">doi:10.1038/s41746-025-02008-z</a></p>
+      <p class="slidetext">On the slide: &ldquo;When helpfulness backfires: medical
+      sycophancy.&rdquo;</p>
+    </li>
+
+    <li id="s18">
+      <span class="where">Slides 18&ndash;19</span>
+      <p class="authors">Topaz M, Peltonen LM, Zhang Z, Backonja U.</p>
+      <span class="title">The deskilling effect: is artificial intelligence eroding clinical
+      competence?</span>
+      <p class="src"><em>Ann Intern Med.</em> 2026.</p>
+      <p class="ids"><a href="https://doi.org/10.7326/ANNALS-26-00613">doi:10.7326/ANNALS-26-00613</a></p>
+      <p class="slidetext">On the slide: &ldquo;The deskilling effect.&rdquo;</p>
+    </li>
+
+    <li>
+      <span class="where">Slides 18&ndash;19</span>
+      <p class="authors">Gong EJ, Bang CS, Lee JJ, Shin YS.</p>
+      <span class="title">The human factor in clinical AI: why technology alone is not enough.</span>
+      <p class="src"><em>Ann Intern Med.</em> 2026.</p>
+      <p class="ids"><a href="https://doi.org/10.7326/ANNALS-26-00405">doi:10.7326/ANNALS-26-00405</a></p>
+      <p class="slidetext">On the slide: &ldquo;The human factor in clinical AI.&rdquo;</p>
+    </li>
+
+    <li>
+      <span class="where added">Slide 19 &middot; cited here, not on the slide</span>
+      <p class="authors">Ke Y, Jin L, Ong JCL, Thirunavukarasu AJ, Car J, Cheung CY, Tham YC,
+      Ting DSW, Ong MEH, Compton S, Narayan A, Keane PA.</p>
+      <span class="title">AI-induced never-skilling in medical education.</span>
+      <p class="src"><em>Nat Med.</em> 2026;32:1997-2006.</p>
+      <p class="ids"><a href="https://doi.org/10.1038/s41591-026-04438-y">doi:10.1038/s41591-026-04438-y</a></p>
+      <p class="why">The two papers above are about deskilling: the erosion of a competence a
+      clinician had already built. Slide 19 went further and named <em>never-skilling</em> &mdash;
+      the trainee who reasons only alongside a model and never builds the unaided framework in the
+      first place. That is a distinct published construct with its own paper, and this is it. It was
+      not footnoted on the slide.</p>
+    </li>
+
+    <li id="s20">
+      <span class="where">Slides 20&ndash;21</span>
+      <p class="authors">Khanna S.</p>
+      <span class="title">Responsible use of large language models in gastroenterology and
+      hepatology.</span>
+      <p class="src"><em>Therap Adv Gastroenterol.</em> 2026;19:17562848261441693.</p>
+      <p class="ids"><a href="https://doi.org/10.1177/17562848261441693">doi:10.1177/17562848261441693</a></p>
+      <p class="slidetext">On the slide: &ldquo;Responsible use of LLMs: privacy &amp;
+      governance.&rdquo; This is the label that was mistaken for the title once already, on the
+      resources page, and had to be corrected.</p>
+      <p class="also">Also cited on the <a href="read.html#takeaways">resources page</a>, under the
+      red line.</p>
+    </li>
+
+    <li id="s22">
+      <span class="where">Slide 22</span>
+      <p class="authors">Alwakeel A.</p>
+      <span class="title">AIDx: a locally deployable AI system for physician clinical decision
+      support.</span>
+      <p class="src"><em>Sci Rep.</em> 2026;16:18172.</p>
+      <p class="ids"><a href="https://doi.org/10.1038/s41598-026-47470-1">doi:10.1038/s41598-026-47470-1</a></p>
+      <p class="slidetext">On the slide: &ldquo;AIDx: a locally deployable clinical AI.&rdquo;</p>
+    </li>
+
+    <li id="s28">
+      <span class="where">Slides 28&ndash;29</span>
+      <p class="authors">Liu Y, Carrero ZI, Jiang X, Ferber D, W&ouml;lflein G, Zhang L, Jayabalan S,
+      Lenz T, Hui Z, Kather JN.</p>
+      <span class="title">Benchmarking large language model-based agent systems for clinical decision
+      tasks.</span>
+      <p class="src"><em>npj Digit Med.</em> 2026;9:259.</p>
+      <p class="ids"><a href="https://doi.org/10.1038/s41746-026-02443-6">doi:10.1038/s41746-026-02443-6</a></p>
+      <p class="slidetext">On the slides: &ldquo;Benchmarking LLM agent systems for clinical
+      tasks&rdquo; on 28, shortened to &ldquo;Benchmarking LLM agent systems&rdquo; on 29. Same
+      paper.</p>
+    </li>
+
+    <li>
+      <span class="where">Slide 29</span>
+      <p class="authors">Liu NF, Lin K, Hewitt J, Paranjape A, Bevilacqua M, Petroni F, Liang P.</p>
+      <span class="title">Lost in the middle: how language models use long contexts.</span>
+      <p class="src"><em>Trans Assoc Comput Linguist.</em> 2024;12:157-173.</p>
+      <p class="ids"><a href="https://doi.org/10.1162/tacl_a_00638">doi:10.1162/tacl_a_00638</a></p>
+      <p class="slidetext">On the slide: &ldquo;Lost in the middle.&rdquo;</p>
+    </li>
+
+    <li id="s36">
+      <span class="where">Slide 36</span>
+      <p class="authors">Salih M, Austin C, Warty RR, Tiktin C, Rolnik DL, Momeni M, Rezatofighi H,
+      Reddy S, Smith V, Vollenhoven B, Horta F.</p>
+      <span class="title">Embryo selection through artificial intelligence versus embryologists: a
+      systematic review.</span>
+      <p class="src"><em>Hum Reprod Open.</em> 2023;2023(3):hoad031.</p>
+      <p class="ids"><a href="https://doi.org/10.1093/hropen/hoad031">doi:10.1093/hropen/hoad031</a></p>
+      <p class="slidetext">On the slide: &ldquo;AI vs embryologists (SR).&rdquo;</p>
+    </li>
+
+    <li>
+      <span class="where">Slide 36</span>
+      <p class="authors">Illingworth PJ, Venetis C, Gardner DK, Nelson SM, Berntsen J, Larman MG,
+      et al.</p>
+      <span class="title">Deep learning versus manual morphology-based embryo selection in IVF: a
+      randomized, double-blind noninferiority trial.</span>
+      <p class="src"><em>Nat Med.</em> 2024;30:3114-3120.</p>
+      <p class="ids"><a href="https://doi.org/10.1038/s41591-024-03166-5">doi:10.1038/s41591-024-03166-5</a></p>
+      <p class="slidetext">On the slide: &ldquo;Embryo selection RCT.&rdquo;</p>
+    </li>
+
+    <li>
+      <span class="where">Slide 36</span>
+      <p class="authors">Maekawa R, Kiritani T, Abe T, Nakatsui M, Asai Y, Sugino N.</p>
+      <span class="title">AI prediction models based on time-lapse imaging for good embryos with
+      implantation potential and euploidy.</span>
+      <p class="src"><em>Sci Rep.</em> 2026;16:9864.</p>
+      <p class="ids"><a href="https://doi.org/10.1038/s41598-026-40917-5">doi:10.1038/s41598-026-40917-5</a></p>
+      <p class="slidetext">On the slide: &ldquo;Time-lapse AI.&rdquo;</p>
+    </li>
+
+    <li id="s40">
+      <span class="where">Slide 40</span>
+      <p class="authors">Dai T, McDonald KM, Baumgart DC.</p>
+      <span class="title">Global advances in health artificial intelligence: a workforce
+      imperative.</span>
+      <p class="src"><em>Lancet.</em> 2026.</p>
+      <p class="ids"><a href="https://doi.org/10.1016/S0140-6736(26)00693-8">doi:10.1016/S0140-6736(26)00693-8</a></p>
+      <p class="slidetext">On the slide: &ldquo;Global advances in health AI: a workforce
+      imperative.&rdquo;</p>
+    </li>
+
+    <li>
+      <span class="where">Slide 40</span>
+      <p class="authors">Topol EJ.</p>
+      <span class="title">The future of AI-facilitated medicine.</span>
+      <p class="src"><em>Daedalus.</em> 2026;155(1-2):266-276.</p>
+      <p class="ids"><a href="https://doi.org/10.1162/DAED.a.986">doi:10.1162/DAED.a.986</a></p>
+      <p class="slidetext">On the slide: &ldquo;The future of AI-facilitated medicine.&rdquo; This
+      is the one slide on which the label and the title are the same.</p>
+    </li>
+
+    <li id="s44">
+      <span class="where">Slide 44</span>
+      <p class="authors">Vishwanath K, Alyakin A, Ghosh M, Hage A, Neifert SN, Orillac C,
+      Mandelberg NJ, Khan HA, Lee JV, Yao JJ, Small WR, Varma A, Hewitt DB, Aphinyanaphongs Y,
+      Alber DA, Oermann EK.</p>
+      <span class="title">General-purpose large language models outperform specialized clinical AI
+      tools on medical benchmarks.</span>
+      <p class="src"><em>Nat Med.</em> 2026.</p>
+      <p class="ids"><a href="https://doi.org/10.1038/s41591-026-04431-5">doi:10.1038/s41591-026-04431-5</a></p>
+      <p class="slidetext">On the slide: &ldquo;General-purpose LLMs outperform specialized clinical
+      AI tools.&rdquo;</p>
+      <p class="also">Also cited on the <a href="read.html#clinic">resources page</a>, under
+      evidence at the point of care.</p>
+    </li>
+
+  </ol>
+
+  <h2 id="demo">Assembled by the agent, not by me</h2>
+
+  <p>The twenty-one references that follow came out of the recorded demonstration rather than out of
+  the talk. An agent was given one clinical question &mdash; fresh versus elective frozen single
+  embryo transfer &mdash; and built its own reference list from it. I did not choose a single paper
+  on it, and I have not removed one.</p>
+
+  <p>Every number the run asserted was then sent to two frontier models from two different vendors.
+  Each was instructed to retrieve the source itself rather than trust an excerpt, and to try to
+  refute the claim rather than confirm it. The tag on each reference is the arithmetic result of
+  those two verdicts, applied in code rather than decided by a model. A paper can carry more than one
+  tag because more than one claim was drawn from it.</p>
+
+  <dl class="legend">
+    <dt><span class="tag ok">verified x2</span></dt>
+    <dd>Both verifiers retrieved the source independently and confirmed the number.</dd>
+    <dt><span class="tag dis">disputed</span></dt>
+    <dd>The verifiers disagreed. The disagreement is quoted in full in the run's adjudication file
+    rather than resolved silently.</dd>
+    <dt><span class="tag ref">refuted x2</span></dt>
+    <dd>Both verifiers rejected the claim. It was dropped from the run's conclusions.</dd>
+    <dt><span class="tag un">unverified</span></dt>
+    <dd>Full text could not be obtained, so the claim was excluded.</dd>
+  </dl>
+
+  <div class="note">
+    <p>A tag describes what happened to a claim during one run. It is not a verdict on the paper.</p>
+    <p><code>disputed</code> against a Cochrane review means two models read one figure out of it
+    differently on one afternoon. It does not mean the review is unsound, and nothing here should be
+    read as my assessment of any of these studies. The run has not been reviewed for accuracy by a
+    human expert. It is a demonstration of a method for checking work, published exactly as the run
+    produced it, and it is not medical advice. The <a href="explainer.html">explainer</a> it wrote and
+    the <a href="https://github.com/alexs42/MRSi-Resources/blob/main/run-output/adjudication.md">full
+    adjudication table</a> carry every verdict and every disagreement.</p>
+    <p>The demonstration ran at slides 30 to 35. Its references are listed last rather than in that
+    position, because twenty-one entries wedged into the middle would bury the six that follow. The
+    numbering continues from the list above; the run's own reference number is on each entry, so a
+    number you saw in the explainer will find its way here.</p>
+  </div>
+
+  <ol class="refs cont" start="21">
+
+    <li class="demo">
+      <span class="where">Run ref 1</span>
+      <p class="authors">Zaat T, Zagers M, Mol F, Goddijn M, van Wely M, Mastenbroek S.</p>
+      <span class="title">Fresh versus frozen embryo transfers in assisted reproduction.</span>
+      <p class="src"><em>Cochrane Database Syst Rev.</em> 2021;2:CD011184.</p>
+      <p class="ids"><a href="https://pubmed.ncbi.nlm.nih.gov/33539543/">PMID 33539543</a> &middot;
+      <a href="https://doi.org/10.1002/14651858.cd011184.pub3">doi:10.1002/14651858.cd011184.pub3</a></p>
+      <div class="tags"><span class="tag dis">disputed</span><span class="tag ok">verified x2</span></div>
+    </li>
+
+    <li class="demo">
+      <span class="where">Run ref 2</span>
+      <p class="authors">Chen ZJ, Shi Y, Sun Y, Zhang B, Liang X, Cao Y, et al.</p>
+      <span class="title">Fresh versus Frozen Embryos for Infertility in the Polycystic Ovary
+      Syndrome.</span>
+      <p class="src"><em>N Engl J Med.</em> 2016;375(6):523-533.</p>
+      <p class="ids"><a href="https://pubmed.ncbi.nlm.nih.gov/27509101/">PMID 27509101</a> &middot;
+      <a href="https://doi.org/10.1056/nejmoa1513873">doi:10.1056/nejmoa1513873</a></p>
+      <div class="tags"><span class="tag dis">disputed</span><span class="tag ok">verified x2</span></div>
+    </li>
+
+    <li class="demo">
+      <span class="where">Run ref 3</span>
+      <p class="authors">Shi Y, Sun Y, Hao C, Zhang H, Wei D, Zhang Y, et al.</p>
+      <span class="title">Transfer of Fresh versus Frozen Embryos in Ovulatory Women.</span>
+      <p class="src"><em>N Engl J Med.</em> 2018;378(2):126-136.</p>
+      <p class="ids"><a href="https://pubmed.ncbi.nlm.nih.gov/29320646/">PMID 29320646</a> &middot;
+      <a href="https://doi.org/10.1056/nejmoa1705334">doi:10.1056/nejmoa1705334</a></p>
+      <div class="tags"><span class="tag ok">verified x2</span></div>
+    </li>
+
+    <li class="demo">
+      <span class="where">Run ref 4</span>
+      <p class="authors">Vuong LN, Dang VQ, Ho TM, Huynh BG, Ha DT, Pham TD, et al.</p>
+      <span class="title">IVF Transfer of Fresh or Frozen Embryos in Women without Polycystic
+      Ovaries.</span>
+      <p class="src"><em>N Engl J Med.</em> 2018;378(2):137-147.</p>
+      <p class="ids"><a href="https://pubmed.ncbi.nlm.nih.gov/29320655/">PMID 29320655</a> &middot;
+      <a href="https://doi.org/10.1056/nejmoa1703768">doi:10.1056/nejmoa1703768</a></p>
+      <div class="tags"><span class="tag ok">verified x2</span></div>
+    </li>
+
+    <li class="demo">
+      <span class="where">Run ref 5</span>
+      <p class="authors">Wei D, Liu JY, Sun Y, Shi Y, Zhang B, Liu JQ, et al.</p>
+      <span class="title">Frozen versus fresh single blastocyst transfer in ovulatory women: a
+      multicentre, randomised controlled trial.</span>
+      <p class="src"><em>Lancet.</em> 2019;393(10178):1310-1318.</p>
+      <p class="ids"><a href="https://pubmed.ncbi.nlm.nih.gov/30827784/">PMID 30827784</a> &middot;
+      <a href="https://doi.org/10.1016/s0140-6736(18)32843-5">doi:10.1016/s0140-6736(18)32843-5</a></p>
+      <div class="tags"><span class="tag ok">verified x2</span></div>
+    </li>
+
+    <li class="demo">
+      <span class="where">Run ref 6</span>
+      <p class="authors">Stormlund S, Sopa N, Zedeler A, Bogstad J, Pr&aelig;torius L, Nielsen HS,
+      et al.</p>
+      <span class="title">Freeze-all versus fresh blastocyst transfer strategy during in vitro
+      fertilisation in women with regular menstrual cycles: multicentre randomised controlled
+      trial.</span>
+      <p class="src"><em>BMJ.</em> 2020;370:m2519.</p>
+      <p class="ids"><a href="https://pubmed.ncbi.nlm.nih.gov/32759285/">PMID 32759285</a> &middot;
+      <a href="https://doi.org/10.1136/bmj.m2519">doi:10.1136/bmj.m2519</a></p>
+      <div class="tags"><span class="tag dis">disputed</span><span class="tag ok">verified x2</span></div>
+    </li>
+
+    <li class="demo">
+      <span class="where">Run ref 7</span>
+      <p class="authors">Stormlund S, Sopa N, Zedeler A, Bogstad J, Pr&aelig;torius L, Nielsen HS,
+      et al.</p>
+      <span class="title">Cumulative live birth rates in a freeze-all or fresh transfer strategy
+      after one ART cycle in ovulatory women.</span>
+      <p class="src"><em>Reprod Biomed Online.</em> 2025;50(6):104449.</p>
+      <p class="ids"><a href="https://pubmed.ncbi.nlm.nih.gov/40350355/">PMID 40350355</a> &middot;
+      <a href="https://doi.org/10.1016/j.rbmo.2024.104449">doi:10.1016/j.rbmo.2024.104449</a></p>
+      <div class="tags"><span class="tag ok">verified x2</span></div>
+    </li>
+
+    <li class="demo">
+      <span class="where">Run ref 8</span>
+      <p class="authors">Maheshwari A, Bell JL, Bhide P, Brison D, Child T, Chong HY, et al.</p>
+      <span class="title">Elective freezing of embryos versus fresh embryo transfer in IVF: a
+      multicentre randomized controlled trial in the UK (E-Freeze).</span>
+      <p class="src"><em>Hum Reprod.</em> 2022;37(3):476-487.</p>
+      <p class="ids"><a href="https://pubmed.ncbi.nlm.nih.gov/34999830/">PMID 34999830</a> &middot;
+      <a href="https://doi.org/10.1093/humrep/deab279">doi:10.1093/humrep/deab279</a></p>
+      <div class="tags"><span class="tag dis">disputed</span></div>
+    </li>
+
+    <li class="demo">
+      <span class="where">Run ref 9</span>
+      <p class="authors">Wang R, McLernon DJ, Lai S, Showell MG, Chen ZJ, Wei D, et al.</p>
+      <span class="title"><em>In</em>dividual participant data meta-analysis of trials comparing
+      <em>f</em>r<em>o</em>zen versus f<em>r</em>esh e<em>m</em>bryo transfer strategy (INFORM): a
+      protocol.</span>
+      <p class="src"><em>BMJ Open.</em> 2022;12(7):e062578.</p>
+      <p class="ids"><a href="https://pubmed.ncbi.nlm.nih.gov/35851030/">PMID 35851030</a> &middot;
+      <a href="https://doi.org/10.1136/bmjopen-2022-062578">doi:10.1136/bmjopen-2022-062578</a></p>
+      <div class="tags"><span class="tag dis">disputed</span><span class="tag ref">refuted x2</span></div>
+    </li>
+
+    <li class="demo">
+      <span class="where">Run ref 10</span>
+      <p class="authors">Santos-Ribeiro S, Mackens S, Popovic-Todorovic B, Racca A, Polyzos NP,
+      Van Landuyt L, et al.</p>
+      <span class="title">The freeze-all strategy versus agonist triggering with low-dose hCG for
+      luteal phase support in IVF/ICSI for high responders: a randomized controlled trial.</span>
+      <p class="src"><em>Hum Reprod.</em> 2020;35(12):2808-2818.</p>
+      <p class="ids"><a href="https://pubmed.ncbi.nlm.nih.gov/32964939/">PMID 32964939</a> &middot;
+      <a href="https://doi.org/10.1093/humrep/deaa226">doi:10.1093/humrep/deaa226</a></p>
+      <div class="tags"><span class="tag dis">disputed</span><span class="tag ok">verified x2</span></div>
+    </li>
+
+    <li class="demo">
+      <span class="where">Run ref 11</span>
+      <p class="authors">H Petersen S, Westvik-Johari K, Spangmose AL, Pinborg A, Romundstad LB,
+      Bergh C, et al.</p>
+      <span class="title">Risk of Hypertensive Disorders in Pregnancy After Fresh and Frozen Embryo
+      Transfer in Assisted Reproduction: A Population-Based Cohort Study With Within-Sibship
+      Analysis.</span>
+      <p class="src"><em>Hypertension.</em> 2023;80(2):e6-e16.</p>
+      <p class="ids"><a href="https://pubmed.ncbi.nlm.nih.gov/36154568/">PMID 36154568</a> &middot;
+      <a href="https://doi.org/10.1161/hypertensionaha.122.19689">doi:10.1161/hypertensionaha.122.19689</a></p>
+      <div class="tags"><span class="tag ok">verified x2</span></div>
+    </li>
+
+    <li class="demo">
+      <span class="where">Run ref 12</span>
+      <p class="authors">Wei D, Yu Y, Sun M, Shi Y, Sun Y, Deng X, et al.</p>
+      <span class="title">The Effect of Supraphysiological Estradiol on Pregnancy Outcomes Differs
+      Between Women With PCOS and Ovulatory Women.</span>
+      <p class="src"><em>J Clin Endocrinol Metab.</em> 2018;103(7):2735-2742.</p>
+      <p class="ids"><a href="https://pubmed.ncbi.nlm.nih.gov/29718297/">PMID 29718297</a> &middot;
+      <a href="https://doi.org/10.1210/jc.2018-00613">doi:10.1210/jc.2018-00613</a></p>
+      <div class="tags"><span class="tag dis">disputed</span></div>
+    </li>
+
+    <li class="demo">
+      <span class="where">Run ref 13</span>
+      <p class="authors">Bosdou JK, Venetis CA, Tarlatzis BC, Grimbizis GF, Kolibianakis EM.</p>
+      <span class="title">Higher probability of live-birth in high, but not normal, responders after
+      first frozen-embryo transfer in a freeze-only cycle strategy compared to fresh-embryo transfer:
+      a meta-analysis.</span>
+      <p class="src"><em>Hum Reprod.</em> 2019;34(3):491-505.</p>
+      <p class="ids"><a href="https://pubmed.ncbi.nlm.nih.gov/30689865/">PMID 30689865</a> &middot;
+      <a href="https://doi.org/10.1093/humrep/dey388">doi:10.1093/humrep/dey388</a></p>
+      <div class="tags"><span class="tag dis">disputed</span><span class="tag ref">refuted x2</span></div>
+    </li>
+
+    <li class="demo">
+      <span class="where">Run ref 14</span>
+      <p class="authors">Jin X, Liu G, Jiao Z, Sun J, Yan M, Lv X, et al.</p>
+      <span class="title">Pregnancy Outcome Difference between Fresh and Frozen Embryos in Women
+      without Polycystic Ovary Syndrome: a Systematic Review and Meta-Analysis.</span>
+      <p class="src"><em>Reprod Sci.</em> 2021;28(5):1267-1276.</p>
+      <p class="ids"><a href="https://pubmed.ncbi.nlm.nih.gov/33006114/">PMID 33006114</a> &middot;
+      <a href="https://doi.org/10.1007/s43032-020-00323-2">doi:10.1007/s43032-020-00323-2</a></p>
+      <div class="tags"><span class="tag ok">verified x2</span></div>
+    </li>
+
+    <li class="demo">
+      <span class="where">Run ref 15</span>
+      <p class="authors">Munn&eacute; S, Kaplan B, Frattarelli JL, Child T, Nakhuda G, Shamma FN,
+      et al.</p>
+      <span class="title">Preimplantation genetic testing for aneuploidy versus morphology as
+      selection criteria for single frozen-thawed embryo transfer in good-prognosis patients: a
+      multicenter randomized clinical trial.</span>
+      <p class="src"><em>Fertil Steril.</em> 2019;112(6):1071-1079.e7.</p>
+      <p class="ids"><a href="https://pubmed.ncbi.nlm.nih.gov/31551155/">PMID 31551155</a> &middot;
+      <a href="https://doi.org/10.1016/j.fertnstert.2019.07.1346">doi:10.1016/j.fertnstert.2019.07.1346</a></p>
+      <div class="tags"><span class="tag ok">verified x2</span></div>
+    </li>
+
+    <li class="demo">
+      <span class="where">Run ref 16</span>
+      <p class="authors">Yan J, Qin Y, Zhao H, Sun Y, Gong F, Li R, et al.</p>
+      <span class="title">Live Birth with or without Preimplantation Genetic Testing for
+      Aneuploidy.</span>
+      <p class="src"><em>N Engl J Med.</em> 2021;385(22):2047-2058.</p>
+      <p class="ids"><a href="https://pubmed.ncbi.nlm.nih.gov/34818479/">PMID 34818479</a> &middot;
+      <a href="https://doi.org/10.1056/nejmoa2103613">doi:10.1056/nejmoa2103613</a></p>
+      <div class="tags"><span class="tag ok">verified x2</span></div>
+    </li>
+
+    <li class="demo">
+      <span class="where">Run ref 17</span>
+      <p class="authors">Cornelisse S, Zagers M, Kostova E, Fleischer K, van Wely M,
+      Mastenbroek S.</p>
+      <span class="title">Preimplantation genetic testing for aneuploidies (abnormal number of
+      chromosomes) in in vitro fertilisation.</span>
+      <p class="src"><em>Cochrane Database Syst Rev.</em> 2020;9:CD005291.</p>
+      <p class="ids"><a href="https://pubmed.ncbi.nlm.nih.gov/32898291/">PMID 32898291</a> &middot;
+      <a href="https://doi.org/10.1002/14651858.cd005291.pub3">doi:10.1002/14651858.cd005291.pub3</a></p>
+      <div class="tags"><span class="tag ok">verified x2</span></div>
+    </li>
+
+    <li class="demo">
+      <span class="where">Run ref 18</span>
+      <p class="authors">Cheng X, Zhang Y, Deng H, Feng Y, Chong W, Hai Y, et al.</p>
+      <span class="title">Preimplantation Genetic Testing for Aneuploidy With Comprehensive
+      Chromosome Screening in Patients Undergoing In Vitro Fertilization: A Systematic Review and
+      Meta-analysis.</span>
+      <p class="src"><em>Obstet Gynecol.</em> 2022;140(5):769-777.</p>
+      <p class="ids"><a href="https://pubmed.ncbi.nlm.nih.gov/36201787/">PMID 36201787</a> &middot;
+      <a href="https://doi.org/10.1097/aog.0000000000004962">doi:10.1097/aog.0000000000004962</a></p>
+      <div class="tags"><span class="tag un">unverified</span></div>
+    </li>
+
+    <li class="demo">
+      <span class="where">Run ref 19</span>
+      <p class="authors">Coates A, Kung A, Mounts E, Hesla J, Bankowski B, Barbieri E, et al.</p>
+      <span class="title">Optimal euploid embryo transfer strategy, fresh versus frozen, after
+      preimplantation genetic screening with next generation sequencing: a randomized controlled
+      trial.</span>
+      <p class="src"><em>Fertil Steril.</em> 2017;107(3):723-730.e3.</p>
+      <p class="ids"><a href="https://pubmed.ncbi.nlm.nih.gov/28139240/">PMID 28139240</a> &middot;
+      <a href="https://doi.org/10.1016/j.fertnstert.2016.12.022">doi:10.1016/j.fertnstert.2016.12.022</a></p>
+      <div class="tags"><span class="tag ok">verified x2</span></div>
+    </li>
+
+    <li class="demo">
+      <span class="where">Run ref 20</span>
+      <p class="authors">Practice Committees of the American Society for Reproductive Medicine and
+      the Society for Assisted Reproductive Technology.</p>
+      <span class="title">The use of preimplantation genetic testing for aneuploidy: a committee
+      opinion.</span>
+      <p class="src"><em>Fertil Steril.</em> 2024;122(3):421-434.</p>
+      <p class="ids"><a href="https://pubmed.ncbi.nlm.nih.gov/38762806/">PMID 38762806</a> &middot;
+      <a href="https://doi.org/10.1016/j.fertnstert.2024.04.013">doi:10.1016/j.fertnstert.2024.04.013</a></p>
+      <div class="tags"><span class="tag ok">verified x2</span></div>
+    </li>
+
+    <li class="demo">
+      <span class="where">Run ref 21</span>
+      <p class="authors">ESHRE Add-ons working group, Lundin K, Bentzen JG, Bozdag G, Ebner T,
+      Harper J, et al.</p>
+      <span class="title">Good practice recommendations on add-ons in reproductive medicine.</span>
+      <p class="src"><em>Hum Reprod.</em> 2023;38(11):2062-2104.</p>
+      <p class="ids"><a href="https://pubmed.ncbi.nlm.nih.gov/37747409/">PMID 37747409</a> &middot;
+      <a href="https://doi.org/10.1093/humrep/dead184">doi:10.1093/humrep/dead184</a></p>
+      <div class="tags"><span class="tag dis">disputed</span><span class="tag ok">verified x2</span></div>
+    </li>
+
+  </ol>
+
+  <footer>
+    <p>Titles and author lists in the first list were taken from the primary source and cross-checked
+    against the publisher's registered metadata; they were not read off the slides. The second list is
+    reproduced from the run's own output, including its author truncations, and its citation metadata
+    was retrieved from Europe PMC rather than typed. Every DOI on this page was checked on
+    28 July 2026.</p>
+    <p>If anything here is wrong &mdash; a DOI that does not resolve, a title that does not match the
+    paper, a slide I have attributed to the wrong study &mdash; please
+    <a href="https://github.com/alexs42/MRSi-Resources/issues">open an issue</a> and I will correct it.
+    Prose <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
+    <a class="back" href="index.html">&larr; Back</a>
+  </footer>
+
+</div>
+</body>
+</html>

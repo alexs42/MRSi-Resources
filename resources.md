@@ -3,6 +3,11 @@
 Companion list for **"Removing the Thorn From the Rose: How Best to Use LLMs"** — MRSi 2026,
 Drake Hotel, Chicago, 28 July 2026.
 
+> **This is the plain-markdown version.** The web page at
+> [alexs42.github.io/MRSi-Resources/read.html](https://alexs42.github.io/MRSi-Resources/read.html)
+> carries everything below plus the four rules, the red line on patient data, and the tools you will
+> meet in clinic. Start there if you are on a phone.
+
 Every link here was rechecked on 2026-07-28. Model versions move fast; the vendor and the family are
 the durable part of each row, so those are what to remember. The flagship column is a snapshot, not
 a recommendation.

@@ -4,7 +4,14 @@ Companion repository for **"Removing the Thorn From the Rose: How Best to Use LL
 Aleksandar Stanic-Kostic, MD, PhD · MRSi 2026 · Drake Hotel, Chicago · 28 July 2026
 
 **→ [alexs42.github.io/MRSi-Resources](https://alexs42.github.io/MRSi-Resources/)** — reads better on
-a phone.
+a phone, and opens on these four:
+
+| | Go to | What it is |
+|---|---|---|
+| **1** | [Presentation (follow along)](https://alexs42.github.io/MRSi-Resources/presentation.html) | The slides go up here after the talk |
+| **2** | [READ THIS (Resources)](https://alexs42.github.io/MRSi-Resources/read.html) | The four rules, the red line on patient data, the tools you will meet in clinic, the models worth knowing |
+| **3** | [Agent Demo — Fresh-v-Frozen](https://alexs42.github.io/MRSi-Resources/explainer.html) | Unreviewed agent output — read the warning below first |
+| **4** | [Citations](https://alexs42.github.io/MRSi-Resources/citations.html) | Every study behind the talk, with a link to the paper |
 
 ---
 
@@ -45,14 +52,19 @@ inherently identifying, so the genome is the identifier.
 
 ## Start here
 
-**[The tools you will meet in clinic](https://alexs42.github.io/MRSi-Resources/#clinic)** — evidence
-tools at the point of care, what Epic actually ships today, and the ambient-scribe platforms, with
-the independent evidence on what each is worth. Read that one on the web page; it carries its own
-disclaimer about how it was compiled.
+**[The tools you will meet in clinic](https://alexs42.github.io/MRSi-Resources/read.html#clinic)** —
+evidence tools at the point of care, what Epic actually ships today, and the ambient-scribe
+platforms, with the independent evidence on what each is worth. Read that one on the web page; it
+carries its own disclaimer about how it was compiled.
 
-**[`resources.md`](resources.md)** — the agents, the models, where to download open weights and run
-them on your own hardware, the two people worth reading, the prompting guides, and the one security
-article to read before you point an agent at anything that matters.
+**[Citations](https://alexs42.github.io/MRSi-Resources/citations.html)** — all forty-one, with DOIs:
+the twenty behind the talk in slide order, then the twenty-one the agent run assembled on its own,
+each carrying the verdict two independent verifiers returned on it. The footnote lines on my slides
+were short descriptive labels rather than article titles, so that page pairs each published title
+with the label you actually saw.
+
+**[`resources.md`](resources.md)** — the same agents, models and links as sections 2 to 9 of the web
+page, in plain markdown for reading here in the repository. The web version is fuller.
 
 **[`system-prompt.md`](system-prompt.md)** — the standing instruction I give a model before anything
 else, and why each line is in it.
@@ -92,6 +104,10 @@ staged: no disagreement was manufactured and no convergence was suppressed.
 
 | Path | What it is |
 |---|---|
+| [`index.html`](index.html) | The landing page — the four destinations above, and nothing else |
+| [`read.html`](read.html) | The resources page. The four rules, the red line, clinician tools, agents, models, running locally, security, prompting |
+| [`citations.html`](citations.html) | All forty-one references, with DOIs and the slide each came from |
+| [`presentation.html`](presentation.html) | Where the web version of the slides will be published |
 | [`explainer.html`](explainer.html) | The deliverable. One self-contained scrolling page, no external requests, fonts and figures inlined. Opens in any browser including a phone. Carries a disclaimer banner — see [`NOTICE.md`](NOTICE.md) |
 | [`run-output/explainer.html`](run-output/explainer.html) | The same page, **byte-identical** to what the run wrote, banner and all changes absent |
 | [`run-output/plan.md`](run-output/plan.md) | The plan the model wrote **before** it was allowed to search |
