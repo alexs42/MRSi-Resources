@@ -21,6 +21,28 @@ a phone.
 
 ---
 
+## The four rules, if you remember nothing else
+
+1. Match the tool to the risk, and the data to the tool.
+2. Ground every factual claim in a source, and verify the citation and the number before you reuse it.
+3. Keep PHI inside approved, BAA-covered or on-prem systems.
+4. Preserve skill through unaided practice and audit.
+
+### The red line — decide what never gets pasted
+
+| Tier | What it means |
+|---|---|
+| 🔴 **Consumer** | Free or personal web apps carry no business-associate agreement, so de-identified questions and drafting only. **Never PHI.** |
+| 🟠 **Enterprise no-train** | Paid endpoints that contractually do not train on inputs lower the leak risk, but without a signed BAA they are not cleared for identifiable data. |
+| 🟢 **BAA-covered or on-prem** | The only tier identifiable data may enter, and only for the approved use. |
+
+**The prompt box is a disclosure.** Under HIPAA, any vendor that handles ePHI needs a BAA even in
+"no-view" encrypted setups, and the "don't train on my data" toggle stops training reuse — it does
+not create a BAA. IVF data resists de-identification: PGT genetics and partner linkage are
+inherently identifying, so the genome is the identifier.
+
+<sub>Khanna S. Responsible use of large language models: privacy and governance. <i>Therap Adv Gastroenterol</i> 2026;19:17562848261441693.</sub>
+
 ## Start here
 
 **[`resources.md`](resources.md)** — the agents, the models, where to download open weights and run

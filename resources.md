@@ -3,7 +3,7 @@
 Companion list for **"Removing the Thorn From the Rose: How Best to Use LLMs"** — MRSi 2026,
 Drake Hotel, Chicago, 28 July 2026.
 
-Every link here was checked on 2026-07-26. Model versions move fast; the vendor and the family are
+Every link here was rechecked on 2026-07-28. Model versions move fast; the vendor and the family are
 the durable part of each row, so those are what to remember. The flagship column is a snapshot, not
 a recommendation.
 
@@ -65,7 +65,7 @@ answer other than no.
 | US | Thinking Machines Lab · https://thinkingmachines.ai | Inkling | `thinkingmachines/Inkling` |
 | US | NVIDIA | Nemotron 3 Ultra | `nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16` |
 | US | OpenAI | GPT-OSS 120B | `openai/gpt-oss-120b` |
-| US | Meta · https://www.llama.com | Llama 4 | `meta-llama/Llama-4-Maverick-17B-128E-Instruct` |
+| US | Meta · https://developer.meta.com/ai/models/llama-4/ | Llama 4 | `meta-llama/Llama-4-Maverick-17B-128E-Instruct` |
 | France | Mistral · https://mistral.ai | Mistral Large 3 | `mistralai/Mistral-Large-3-675B-Instruct-2512` |
 | China | Moonshot AI · https://moonshot.ai | **Kimi K3** | publication pending · `moonshotai/Kimi-K2.7-Code` available now |
 | China | DeepSeek · https://www.deepseek.com | DeepSeek V4 Flash | `deepseek-ai/DeepSeek-V4-Flash` |

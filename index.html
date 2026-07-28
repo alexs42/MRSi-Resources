@@ -65,6 +65,27 @@
   footer{margin-top:3rem;padding-top:1.1rem;border-top:1px solid var(--rule);
          color:var(--muted);font-size:.86rem}
 
+  /* takeaways — the four closing rules, given the weight they had on the slide */
+  ol.rules{counter-reset:r;list-style:none;margin:.7rem 0 0;padding:0}
+  ol.rules li{counter-increment:r;position:relative;padding:.62rem 0 .62rem 2.4rem;
+              border-bottom:1px solid var(--rule);font-size:1.01rem}
+  ol.rules li:last-child{border-bottom:0}
+  ol.rules li::before{content:counter(r);position:absolute;left:0;top:.62rem;
+    width:1.6rem;height:1.6rem;border-radius:50%;background:var(--accent);color:#fff;
+    font:700 .85rem/1.6rem system-ui,sans-serif;text-align:center}
+
+  /* red line tiers */
+  .tiers{margin:.8rem 0 0}
+  .tier{display:flex;gap:.75rem;padding:.7rem 0;border-bottom:1px solid var(--rule)}
+  .tier:last-child{border-bottom:0}
+  .dot{flex:0 0 auto;width:.85rem;height:.85rem;border-radius:50%;margin-top:.34rem}
+  .dot.red{background:#c0392b}.dot.amber{background:#c98a12}.dot.green{background:#2e7d4f}
+  .tier b{display:block;font-size:.95rem}
+  .tier span{color:var(--muted);font-size:.9rem}
+  .pull{margin:1.1rem 0 0;padding-left:.9rem;border-left:3px solid var(--accent);
+        font:italic 1.02rem/1.45 Georgia,serif}
+  .cite{color:var(--muted);font-size:.82rem;margin-top:.9rem}
+
   /* jump row — gets a phone to the list in one tap, above the disclaimer */
   nav.jump{display:flex;flex-wrap:wrap;gap:.4rem;margin:1.1rem 0 .2rem}
   nav.jump a{padding:.5rem .75rem;background:var(--chip);color:var(--link);
@@ -84,9 +105,10 @@
   learn this properly &mdash; and the full audit trail of the agent run you just watched.</p>
 
   <nav class="jump">
-    <a href="#agents">Agents</a><a href="#models">Models</a><a href="#run">Run locally</a>
-    <a href="#learn">Learn</a><a href="#security">Security</a><a href="#prompting">Prompting</a>
-    <a href="#demo">The demo</a>
+    <a href="#takeaways">Take away</a><a href="#agents">Agents</a><a href="#models">Models</a>
+    <a href="#run">Run locally</a><a href="#learn">Learn</a><a href="#context">Context</a>
+    <a href="#security">Security</a><a href="#prompting">Prompting</a>
+    <a href="#sysprompt">System prompt</a><a href="#demo">The demo</a>
   </nav>
 
   <div class="warn">
@@ -102,6 +124,40 @@
 
   <a class="cta ghost" href="https://github.com/alexs42/MRSi-Resources">Everything on GitHub
     <span class="note">Full repository &mdash; resources, prompts, claims, verdicts, figures</span></a>
+
+  <h2 id="takeaways">The four rules, if you remember nothing else</h2>
+  <ol class="rules">
+    <li>Match the tool to the risk, and the data to the tool.</li>
+    <li>Ground every factual claim in a source, and verify the citation and the number before you
+        reuse it.</li>
+    <li>Keep PHI inside approved, BAA-covered or on-prem systems.</li>
+    <li>Preserve skill through unaided practice and audit.</li>
+  </ol>
+
+  <h3>The red line &mdash; decide what never gets pasted</h3>
+  <div class="tiers">
+    <div class="tier"><span class="dot red"></span><div>
+      <b>Consumer &mdash; never PHI</b>
+      <span>Free or personal web apps carry no business-associate agreement, so de-identified
+      questions and drafting only.</span></div></div>
+    <div class="tier"><span class="dot amber"></span><div>
+      <b>Enterprise no-train &mdash; still not cleared for PHI</b>
+      <span>Paid endpoints that contractually do not train on inputs lower the leak risk, but
+      without a signed BAA they are not cleared for identifiable data.</span></div></div>
+    <div class="tier"><span class="dot green"></span><div>
+      <b>BAA-covered or on-prem &mdash; the only tier for identifiable data</b>
+      <span>And only for the approved use.</span></div></div>
+  </div>
+
+  <p class="pull">The prompt box is a disclosure.</p>
+
+  <p>Under HIPAA, any vendor that handles ePHI needs a BAA even in &ldquo;no-view&rdquo; encrypted
+  setups, and the &ldquo;don&rsquo;t train on my data&rdquo; toggle stops training reuse &mdash; it
+  does not create a BAA. IVF data resists de-identification: PGT genetics and partner linkage are
+  inherently identifying, so the genome is the identifier.</p>
+
+  <p class="cite">Khanna S. Responsible use of large language models: privacy and governance.
+  <em>Therap Adv Gastroenterol</em> 2026;19:17562848261441693.</p>
 
   <h2 id="agents">1 &middot; Coding agents</h2>
   <p class="lede">An agent differs from a chat window in one respect that matters: it runs commands,
@@ -155,7 +211,7 @@
     <tr><td><a href="https://thinkingmachines.ai">Thinking Machines</a></td><td>Inkling</td><td><code>thinkingmachines/Inkling</code></td></tr>
     <tr><td>NVIDIA</td><td>Nemotron 3 Ultra</td><td><code>nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16</code></td></tr>
     <tr><td>OpenAI</td><td>GPT-OSS 120B</td><td><code>openai/gpt-oss-120b</code></td></tr>
-    <tr><td><a href="https://www.llama.com">Meta</a></td><td>Llama 4</td><td><code>meta-llama/Llama-4-Maverick-17B-128E-Instruct</code></td></tr>
+    <tr><td><a href="https://developer.meta.com/ai/models/llama-4/">Meta</a></td><td>Llama 4</td><td><code>meta-llama/Llama-4-Maverick-17B-128E-Instruct</code></td></tr>
     <tr><td><a href="https://mistral.ai">Mistral</a> (France)</td><td>Mistral Large 3</td><td><code>mistralai/Mistral-Large-3-675B-Instruct-2512</code></td></tr>
     <tr><td><a href="https://moonshot.ai">Moonshot AI</a> (China)</td><td><strong>Kimi K3</strong></td><td>publication pending &middot; <code>moonshotai/Kimi-K2.7-Code</code> available now</td></tr>
     <tr><td><a href="https://www.deepseek.com">DeepSeek</a> (China)</td><td>DeepSeek V4 Flash</td><td><code>deepseek-ai/DeepSeek-V4-Flash</code></td></tr>
@@ -261,7 +317,8 @@
     Prose and figures <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
     Quoted material from published papers, and the one thing changed after the run finished, are
     addressed in <a href="https://github.com/alexs42/MRSi-Resources/blob/main/NOTICE.md">NOTICE.md</a>.</p>
-    <p>All links checked 26 July 2026.</p>
+    <p>All links checked 28 July 2026. The two OpenAI consoles sit behind a bot check and may ask
+    you to confirm you are human before they load.</p>
   </footer>
 
 </div>
