@@ -105,7 +105,7 @@
   learn this properly &mdash; and the full audit trail of the agent run you just watched.</p>
 
   <nav class="jump">
-    <a href="#takeaways">Take away</a><a href="#agents">Agents</a><a href="#models">Models</a>
+    <a href="#takeaways">The 4 rules</a><a href="#clinic">In clinic</a><a href="#agents">Agents</a><a href="#models">Models</a>
     <a href="#run">Run locally</a><a href="#learn">Learn</a><a href="#context">Context</a>
     <a href="#security">Security</a><a href="#prompting">Prompting</a>
     <a href="#sysprompt">System prompt</a><a href="#demo">The demo</a>
@@ -160,7 +160,124 @@
   hepatology. <em>Therap Adv Gastroenterol</em> 2026;19:17562848261441693.
   <a href="https://doi.org/10.1177/17562848261441693">doi:10.1177/17562848261441693</a></p>
 
-  <h2 id="agents">1 &middot; Coding agents</h2>
+  <h2 id="clinic">1 &middot; The tools you will meet in clinic</h2>
+  <p class="lede">Most of what follows this section is developer tooling. This is the part that
+  reaches a consulting room. It is an inventory of what exists and what is known about it, not advice
+  on what to buy, and nothing here is endorsed by me or by my institution. Study findings carry a
+  citation; adoption figures are labelled as the vendor's own. Availability was checked on
+  28 July 2026 and this field moves quickly.</p>
+
+  <h3>Evidence at the point of care</h3>
+  <ul class="links">
+    <li><a href="https://www.openevidence.com">OpenEvidence<span class="note">Free to healthcare professionals and carries advertising; professional status may be verified &middot; the company reports content agreements with NEJM, JAMA, NCCN, Wiley and Cochrane, and announced a collaboration with ACOG in May 2026</span></a></li>
+    <li><a href="https://www.wolterskluwer.com/en/solutions/uptodate/uptodate-expert-ai">UpToDate Expert AI<span class="note">Reached through an enterprise subscription or included in select personal ones, with availability varying by region &middot; Wolters Kluwer states that answers are drawn only from UpToDate content and linked back to the topic</span></a></li>
+  </ul>
+  <p>The vendors describe different source boundaries, and the difference is the whole point of
+  choosing between them: OpenEvidence licenses primary journal content, so an answer can carry the
+  trial itself, while UpToDate Expert AI is confined to text that a named editorial process has
+  already reviewed. Neither description is evidence about the quality of any particular answer, and
+  neither route is automatic — Expert AI arrives through an institutional agreement or a qualifying
+  personal subscription, not with every UpToDate login.</p>
+
+  <p>Ask what funds the tool you are using. OpenEvidence states that it provides the service free to
+  healthcare professionals and shows a limited number of advertisements from vetted advertisers, and
+  that this is what allows the service to be free. Its privacy policy describes disclosing a
+  clinician's National Provider Identifier and the timestamp of an advertisement interaction to
+  confirm that a verified professional saw that advertisement. A separate programme, described as
+  United States only, may share hashed email addresses, cookie and device identifiers, IP addresses
+  and a professional identifier with advertising partners to deliver and measure advertising on
+  other sites. The same policy states that user questions and conversations are not shared, that
+  models are not trained on protected health information, and that processed data are secured in
+  compliance with HIPAA.</p>
+
+  <p class="pull">No system earned a safety margin.</p>
+
+  <p>An independent comparison published this year put both tools against general-purpose models on
+  real clinical questions, and the result is the part worth carrying out of the room. On 500 MedQA
+  items the frontier models led, Gemini 3.1 Pro at 97.4% and GPT-5.2 at 94.2%, against 89.6% for
+  OpenEvidence and 88.4% for UpToDate. On 100 real physician queries scored by 12 blinded
+  clinicians, the two specialised tools and a free Google AI Overview formed a single tier with no
+  significant differences between them, at 3.24, 3.17 and 3.27 out of 4. Safety outcomes did not
+  differ across models: none produced more harmful content or more hallucinations than any other.
+  UpToDate Expert AI declined to answer 19% of the questions, against 1% to 3% for most of the
+  others, which is either the most honest behaviour in the study or the least useful depending on
+  the question you brought it.</p>
+  <p class="cite">Vishwanath K, Alyakin A, Ghosh M, et al. General-purpose large language models
+  outperform specialized clinical AI tools on medical benchmarks. <em>Nat Med</em> 2026.
+  <a href="https://doi.org/10.1038/s41591-026-04431-5">doi:10.1038/s41591-026-04431-5</a></p>
+
+  <h3>Inside the EHR &mdash; what Epic ships</h3>
+  <p class="lede">Epic groups its clinician-facing AI under the name <strong>Art</strong>, with
+  <strong>Emmie</strong> facing patients in MyChart and <strong>Penny</strong> working the revenue
+  cycle.</p>
+  <ul class="links">
+    <li><a href="https://www.epic.com/software/ai-clinicians/">Art &mdash; the clinician-facing set<span class="note">Chart summarization ("Art's Insights") and drafted replies to patient messages in the In Basket are generally available</span></a></li>
+    <li><a href="https://www.epic.com/epic/post/epic-ai-charting-rolls-out-alongside-an-expanding-set-of-built-in-ai-capabilities/">AI Charting, or "Chart with Art"<span class="note">Epic's own ambient documentation &middot; released to all Epic EHR customers during the week of 4 February 2026, with a nursing version in March</span></a></li>
+    <li><a href="https://www.epic.com/epic/post/curiosity-a-new-medical-intelligence-for-clinical-and-operational-insights/">Curiosity<span class="note">Foundation models trained on the de-identified Cosmos record set &middot; a research preview, not in clinical use</span></a></li>
+  </ul>
+  <p>Epic now sits on both sides of the scribe question, which is the thing most likely to surprise a
+  clinician who has been following the vendor market. Epic says AI Charting listens during the visit,
+  drafts the note and queues orders from the conversation, and Epic also continues to carry
+  third-party scribes through its Toolbox programme, so the ambient tool running in your clinic may
+  be Epic's own or a vendor's product working inside Epic. Chart summarization is the one already
+  operating at scale: Epic said on 4 February 2026 that Art's Insights was being used more than
+  16 million times a month, a figure the company reports rather than one an independent study
+  measured. Curiosity is worth naming only so that it is not mistaken for something a clinician can
+  use today, because the trade coverage reads as though it were.</p>
+
+  <h3>Ambient scribes</h3>
+  <p class="lede">Ambient documentation is the tool class most likely to arrive in your clinic next,
+  and the one that captures the most, since the microphone is open for the length of the visit. That
+  places it inside the red-line question at the top of this page.</p>
+
+  <p>Two studies frame what these drafts are worth, and neither evaluated any of the products listed
+  below — both tested model-generated clinical text in a research setting, so read them as evidence
+  about the technique rather than about a vendor. In a ten-physician blinded reader study, the best
+  adapted model summaries were judged equivalent to physician-written ones 45% of the time and
+  superior in a further 36%, the expert preferred in only 19%, and the same study found
+  hallucinations in 5% of model samples against 12% of the human ones. A fine-tuned model drafted
+  discharge summaries in about 83 seconds against 30 to 50 minutes by hand, with 94% rated acceptable
+  for the record after minor verification. Around 6% still carried a minor factual inconsistency,
+  that timing excludes the reading and the signature, and the responsibility for what is signed stays
+  with the clinician who signs it.</p>
+  <p class="cite">Van Veen D, Van Uden C, Blankemeier L, et al. Adapted large language models can
+  outperform medical experts in clinical text summarization. <em>Nat Med</em> 2024;30:1134-1142.
+  <a href="https://doi.org/10.1038/s41591-024-02855-5">doi:10.1038/s41591-024-02855-5</a> &middot;
+  Li W, Feng H, Hu C, Xu M, Cheng L. Accurate discharge summary generation using fine tuned large
+  language models with self evaluation. <em>Sci Rep</em> 2026;16:5607.
+  <a href="https://doi.org/10.1038/s41598-026-35552-z">doi:10.1038/s41598-026-35552-z</a></p>
+
+  <p>Five platforms verified as live for this list, alphabetically. Inclusion is not a comparison of
+  performance, security, contract terms or institutional approval:</p>
+  <ul class="links">
+    <li><a href="https://www.abridge.com/">Abridge<span class="note">abridge.com &middot; lists an Epic integration</span></a></li>
+    <li><a href="https://www.ambiencehealthcare.com/">Ambience<span class="note">ambiencehealthcare.com &middot; lists an Epic integration</span></a></li>
+    <li><a href="https://www.microsoft.com/en-us/health-solutions/clinical-workflow/dragon-copilot">Microsoft Dragon Copilot<span class="note">The successor brand to Nuance DAX Copilot &middot; lists an Epic integration; Microsoft reported more than 100,000 clinicians in March 2026</span></a></li>
+    <li><a href="https://www.nabla.com/">Nabla<span class="note">nabla.com &middot; lists an Epic integration</span></a></li>
+    <li><a href="https://www.suki.ai/">Suki<span class="note">suki.ai &middot; lists an Epic integration, and also supplies the ambient notes feature sold under athenahealth's own name</span></a></li>
+  </ul>
+  <p class="lede">Freed describes its product as "not made for massive healthcare systems," which is
+  worth knowing if you are a small practice rather than a health system. Augmedix is absent because
+  it stopped being an independent company when Commure acquired it in October 2024.</p>
+
+  <p>Whether any of these may process a real encounter at your institution is not something a
+  vendor's website can tell you, because it depends on the agreement your organisation has executed
+  and on local privacy review. That is a question for your compliance office, and it is worth asking
+  before the microphone is switched on rather than after.</p>
+
+  <div class="warn">
+    <p>How this section was compiled, and what it is not.</p>
+    <p>This inventory was assembled by an <strong>AI agent surveying vendor and primary sources</strong>,
+    then checked against them. It has not been exhaustively verified by hand, <strong>accuracy is not
+    guaranteed</strong>, and a field that renames and reorganises itself this quickly will date faster
+    than the page can be corrected.</p>
+    <p><strong>I do not endorse or recommend any individual product named here.</strong> Appearing on
+    this list is not a recommendation to purchase, adopt or use anything, and an absence from it is
+    not a judgement either. <strong>Do your own due diligence</strong> — confirm anything that matters
+    with the vendor directly, and with your own institution, before you act on it.</p>
+  </div>
+
+  <h2 id="agents">2 &middot; Coding agents</h2>
   <p class="lede">An agent differs from a chat window in one respect that matters: it runs commands,
   reads and writes files, and loops on the result. That is also why section&nbsp;6 is not optional.</p>
 
@@ -188,7 +305,7 @@
     <li><a href="https://github.com/NVIDIA/NemoClaw">NemoClaw &middot; NVIDIA<span class="note">github.com/NVIDIA/NemoClaw</span></a></li>
   </ul>
 
-  <h2 id="models">2 &middot; Models behind them</h2>
+  <h2 id="models">3 &middot; Models behind them</h2>
   <p class="lede">Versions move fast. The vendor and the family are the durable part; the flagship
   column is a snapshot taken 26 July 2026.</p>
 
@@ -220,7 +337,7 @@
     <tr><td>Alibaba (China)</td><td>Qwen 3.5</td><td><code>Qwen/Qwen3.5-35B-A3B</code></td></tr>
   </table>
 
-  <h2 id="run">3 &middot; Getting and running open models</h2>
+  <h2 id="run">4 &middot; Getting and running open models</h2>
   <ul class="links">
     <li><a href="https://huggingface.co">Hugging Face<span class="note">Roughly 2.9 million models, plus datasets and demos</span></a></li>
     <li><a href="https://lmstudio.ai">LM Studio<span class="note">Desktop app, no terminal &mdash; easiest first try</span></a></li>
@@ -230,7 +347,7 @@
     <li><a href="https://github.com/ggml-org/llama.cpp">llama.cpp<span class="note">The engine underneath much of the above</span></a></li>
   </ul>
 
-  <h2 id="learn">4 &middot; Learning how these actually work</h2>
+  <h2 id="learn">5 &middot; Learning how these actually work</h2>
   <p class="lede">Grant Sanderson makes the best visual explanations of this material anywhere, and is
   the reason a lot of people finally understood attention.</p>
   <ul class="links">
@@ -239,7 +356,7 @@
     <li><a href="https://www.3blue1brown.com">3blue1brown.com<span class="note">Everything else he has made</span></a></li>
   </ul>
 
-  <h2 id="context">5 &middot; Context engineering</h2>
+  <h2 id="context">6 &middot; Context engineering</h2>
   <p class="lede">Getting the right material in front of the model, in the right order, at the right
   moment. This is most of the difference between a useful answer and a plausible one.</p>
   <ul class="links">
@@ -247,7 +364,7 @@
     <li><a href="https://www.philschmid.de/context-engineering">Phil Schmid (Google DeepMind)<span class="note">philschmid.de</span></a></li>
   </ul>
 
-  <h2 id="security">6 &middot; Read this before you point an agent at anything that matters</h2>
+  <h2 id="security">7 &middot; Read this before you point an agent at anything that matters</h2>
   <ul class="links">
     <li><a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">The Lethal Trifecta &middot; Simon Willison<span class="note">A must read</span></a></li>
     <li><a href="https://simonwillison.net">simonwillison.net<span class="note">Worth following generally</span></a></li>
@@ -258,7 +375,7 @@
   agent holding all three &mdash; which is exactly why it ran in a scratch directory with no patient
   data anywhere near it.</p>
 
-  <h2 id="prompting">7 &middot; Prompting guides from the people who built the models</h2>
+  <h2 id="prompting">8 &middot; Prompting guides from the people who built the models</h2>
   <ul class="links">
     <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices">Anthropic &middot; prompting best practices<span class="note">platform.claude.com</span></a></li>
     <li><a href="https://github.com/anthropics/claude-cookbooks">Anthropic cookbooks<span class="note">github.com/anthropics/claude-cookbooks</span></a></li>
@@ -268,7 +385,7 @@
     <li><a href="https://platform.claude.com/dashboard">Anthropic dashboard<span class="note">Needs an account before it will load</span></a></li>
   </ul>
 
-  <h2 id="sysprompt">8 &middot; A system prompt worth stealing</h2>
+  <h2 id="sysprompt">9 &middot; A system prompt worth stealing</h2>
   <p>The standing instruction I give a model before anything else. The lines that earn their place
   are the ones giving the model permission to say no: <em>tell me if the request is illogical, wrong,
   or there is no data after tool calls</em>, and <em>if there is no answer or the resource is not
@@ -278,7 +395,7 @@
   <a class="cta ghost" href="system-prompt.html">Read the system prompt
     <span class="note">Copy it, then cut whatever does not match how you work</span></a>
 
-  <h2 id="demo">9 &middot; The demonstration</h2>
+  <h2 id="demo">10 &middot; The demonstration</h2>
   <p>An agent answering a real clinical question &mdash; fresh versus elective frozen embryo transfer
   &mdash; under a method built so a clinician can check it rather than trust it. A plan committed
   before any searching. A named primary source behind every number. Two frontier models from two
@@ -318,7 +435,8 @@
     Prose and figures <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
     Quoted material from published papers, and the one thing changed after the run finished, are
     addressed in <a href="https://github.com/alexs42/MRSi-Resources/blob/main/NOTICE.md">NOTICE.md</a>.</p>
-    <p>All links checked 28 July 2026. The two OpenAI consoles sit behind a bot check and may ask
+    <p>All links checked 28 July 2026. Several sites here &mdash; the two OpenAI consoles,
+    OpenEvidence and the Wolters Kluwer pages among them &mdash; sit behind a bot check and may ask
     you to confirm you are human before they load.</p>
   </footer>
 

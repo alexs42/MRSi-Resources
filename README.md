@@ -45,6 +45,11 @@ inherently identifying, so the genome is the identifier.
 
 ## Start here
 
+**[The tools you will meet in clinic](https://alexs42.github.io/MRSi-Resources/#clinic)** — evidence
+tools at the point of care, what Epic actually ships today, and the ambient-scribe platforms, with
+the independent evidence on what each is worth. Read that one on the web page; it carries its own
+disclaimer about how it was compiled.
+
 **[`resources.md`](resources.md)** — the agents, the models, where to download open weights and run
 them on your own hardware, the two people worth reading, the prompting guides, and the one security
 article to read before you point an agent at anything that matters.
