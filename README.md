@@ -41,7 +41,7 @@ a phone.
 not create a BAA. IVF data resists de-identification: PGT genetics and partner linkage are
 inherently identifying, so the genome is the identifier.
 
-<sub>Khanna S. Responsible use of large language models: privacy and governance. <i>Therap Adv Gastroenterol</i> 2026;19:17562848261441693.</sub>
+<sub>Khanna S. Responsible use of large language models in gastroenterology and hepatology. <i>Therap Adv Gastroenterol</i> 2026;19:17562848261441693. <a href="https://doi.org/10.1177/17562848261441693">doi:10.1177/17562848261441693</a></sub>
 
 ## Start here
 
