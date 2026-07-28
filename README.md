@@ -4,14 +4,7 @@ Companion repository for **"Removing the Thorn From the Rose: How Best to Use LL
 Aleksandar Stanic-Kostic, MD, PhD · MRSi 2026 · Drake Hotel, Chicago · 28 July 2026
 
 **→ [alexs42.github.io/MRSi-Resources](https://alexs42.github.io/MRSi-Resources/)** — reads better on
-a phone, and opens on these four:
-
-| | Go to | What it is |
-|---|---|---|
-| **1** | [Presentation (follow along)](https://alexs42.github.io/MRSi-Resources/presentation.html) | The slides go up here after the talk |
-| **2** | [READ THIS (Resources)](https://alexs42.github.io/MRSi-Resources/read.html) | The four rules, the red line on patient data, the tools you will meet in clinic, the models worth knowing |
-| **3** | [Agent Demo — Fresh-v-Frozen](https://alexs42.github.io/MRSi-Resources/explainer.html) | Unreviewed agent output — read the warning below first |
-| **4** | [Citations](https://alexs42.github.io/MRSi-Resources/citations.html) | Every study behind the talk, with a link to the paper |
+a phone.
 
 ---
 
@@ -25,6 +18,17 @@ a phone, and opens on these four:
 >
 > **This is not medical advice**, not a guideline and not a systematic review. Do not use it for
 > patient care.
+
+---
+
+## The four destinations
+
+| | Go to | What it is |
+|---|---|---|
+| **1** | [Presentation (follow along)](https://alexs42.github.io/MRSi-Resources/presentation.html) | The slides go up here after the talk |
+| **2** | [READ THIS (Resources)](https://alexs42.github.io/MRSi-Resources/read.html) | The four rules, the red line on patient data, the tools you will meet in clinic, the models worth knowing |
+| **3** | [Agent Demo — Fresh-v-Frozen](https://alexs42.github.io/MRSi-Resources/explainer.html) | **Unreviewed agent output** — the warning above applies to this one |
+| **4** | [Citations](https://alexs42.github.io/MRSi-Resources/citations.html) | Every study behind the talk, with a link to the paper |
 
 ---
 
