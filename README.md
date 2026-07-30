@@ -1,4 +1,4 @@
-# MRSi 2026 — resources, and one agent run with its work shown
+# MRSi 2026 — resources, and Agent Demo run
 
 Companion repository for **"Removing the Thorn From the Rose: How Best to Use LLMs"**
 Aleksandar Stanic-Kostic, MD, PhD · MRSi 2026 · Drake Hotel, Chicago · 28 July 2026
